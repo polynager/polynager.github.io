@@ -12,16 +12,29 @@ document.getElementById("alphaSlider").addEventListener("input", function() {
 
     let z = x.map(xi => y.map(yi => Math.pow(xi, alpha) * Math.pow(yi, 1 - alpha)));
 
-    Plotly.newPlot("cobbDouglasPlot", [{
-        z: z,
-        x: x,
-        y: y,
-        type: "contour"
-    }], {
-        title: `Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`,
-        xaxis: { title: "Good X" },
-        yaxis: { title: "Good Y" }
-    });
+Plotly.newPlot('cobbDouglasPlot', [trace], {
+    title: `Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`,
+    xaxis: {
+        title: 'Good X',
+        gridcolor: 'black',
+        zeroline: false,
+        linecolor: 'black',
+        tickfont: { color: 'black' },
+        titlefont: { color: 'black' }
+    },
+    yaxis: {
+        title: 'Good Y',
+        gridcolor: 'black',
+        zeroline: false,
+        linecolor: 'black',
+        tickfont: { color: 'black' },
+        titlefont: { color: 'black' }
+    },
+    paper_bgcolor: 'white',
+    plot_bgcolor: 'white',
+    font: {
+        color: 'black'
+    }
 });
 
 document.getElementById("alphaSlider").dispatchEvent(new Event("input"));
