@@ -1,47 +1,65 @@
-const layout = (title, xTitle, yTitle) => ({
-    title: title,
-    xaxis: {
-        title: xTitle,
-        gridcolor: 'black',
-        zeroline: false,
-        linecolor: 'black',
-        tickfont: { color: 'black' },
-        titlefont: { color: 'black' }
-    },
-    yaxis: {
-        title: yTitle,
-        gridcolor: 'black',
-        zeroline: false,
-        linecolor: 'black',
-        tickfont: { color: 'black' },
-        titlefont: { color: 'black' }
-    },
-    paper_bgcolor: 'white',
-    plot_bgcolor: 'white',
-    font: { color: 'black' }
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.getElementById("alphaSliderLeontief");
+    const alphaVal = document.getElementById("alphaValLeontief");
+
+    const layout = (title, xTitle, yTitle) => ({
+        title: title,
+        xaxis: {
+            title: xTitle,
+            gridcolor: 'black',
+            zeroline: false,
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
+        },
+        yaxis: {
+            title: yTitle,
+            gridcolor: 'black',
+            zeroline: false,
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
+        },
+        paper_bgcolor: 'white',
+        plot_bgcolor: 'white',
+        font: { color: 'black' }
+    });
+
+    function plotLeontief(alpha) {
+        alphaVal.textContent = alpha.toFixed(2);
+        const x = numeric.linspace(0.1, 10, 100);
+        const y = numeric.linspace(0.1, 10, 100);
+        const z = y.map(yVal =>
+            x.map(xVal => Math.min(xVal / alpha, yVal / (1 - alpha)))
+        );
+
+        const data = [{
+            z: z,
+            x: x,
+            y: y,
+            type: 'contour',
+            colorscale: 'Jet',
+            contours: {
+                coloring: 'lines',
+                showlabels: true,
+                labelfont: {
+                    family: 'Arial',
+                    size: 12,
+                    color: 'black'
+                }
+            },
+            line: { width: 2 },
+            colorbar: { show: false }
+        }];
+
+        Plotly.newPlot(
+            'leontiefPlot',
+            data,
+            layout(`Leontief Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'),
+            { responsive: true }
+        );
+    }
+
+    plotLeontief(parseFloat(slider.value));
+    slider.addEventListener("input", () => plotLeontief(parseFloat(slider.value)));
 });
-
-function plotLeontief(a, b) {
-    const x = [...Array(100).keys()].map(i => 0.1 + i * 0.1);
-    const y = x;
-    const z = x.map(xVal => y.map(yVal => Math.min(xVal / a, yVal / b)));
-
-    Plotly.newPlot('leontiefPlot', [{
-        z: z,
-        x: x,
-        y: y,
-        type: 'contour',
-        colorscale: 'Viridis'
-    }], layout(`Leontief Utility (a=${a}, b=${b})`, 'Good X', 'Good Y'));
-}
-
-function updateLeontief() {
-    const a = parseFloat(document.getElementById('aSlider').value);
-    const b = parseFloat(document.getElementById('bSlider').value);
-    plotLeontief(a, b);
-}
-
-document.getElementById('aSlider').addEventListener('input', updateLeontief);
-document.getElementById('bSlider').addEventListener('input', updateLeontief);
-
-plotLeontief(1, 1);
