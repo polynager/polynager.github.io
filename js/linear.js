@@ -1,38 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.getElementById("alphaSliderLinear");
-    const alphaVal = document.getElementById("alphaValLinear");
+window.addEventListener("load", function () {
+    const laSlider = document.getElementById("laSlider");
+    const lbSlider = document.getElementById("lbSlider");
 
-    const layout = {
-        title: 'Linear Utility',
-        xaxis: {
-            title: 'Good X',
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        yaxis: {
-            title: 'Good Y',
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        paper_bgcolor: 'white',
-        plot_bgcolor: 'white',
-        font: { color: 'black' }
-    };
-
-    function plotLinear(alpha) {
-        alphaVal.textContent = alpha.toFixed(2);
+    function plotLinear(a, b) {
         const x = numeric.linspace(0.1, 10, 100);
         const y = numeric.linspace(0.1, 10, 100);
-
-        const z = y.map(yVal =>
-            x.map(xVal => alpha * xVal + (1 - alpha) * yVal)
-        );
+        const z = y.map(yVal => x.map(xVal => a * xVal + b * yVal));
 
         const data = [{
             z: z,
@@ -42,20 +15,35 @@ document.addEventListener("DOMContentLoaded", function () {
             colorscale: 'Jet',
             contours: {
                 coloring: 'lines',
-                showlabels: true,
-                labelfont: {
-                    family: 'Arial',
-                    size: 12,
-                    color: 'black'
-                }
+                showlabels: true
             },
             line: { width: 2 },
             colorbar: { show: false }
         }];
 
-        Plotly.newPlot('linearPlot', data, layout, { responsive: true });
+        const layout = {
+            title: `Linear Utility (a = ${a.toFixed(1)}, b = ${b.toFixed(1)})`,
+            xaxis: {
+                title: 'Good X',
+                gridcolor: 'black',
+                linecolor: 'black',
+                zeroline: false
+            },
+            yaxis: {
+                title: 'Good Y',
+                gridcolor: 'black',
+                linecolor: 'black',
+                zeroline: false
+            },
+            plot_bgcolor: 'white',
+            paper_bgcolor: 'white'
+        };
+
+        Plotly.newPlot('linearPlot', data, layout);
     }
 
-    plotLinear(parseFloat(slider.value));
-    slider.addEventListener("input", () => plotLinear(parseFloat(slider.value)));
+    const plot = () => plotLinear(parseFloat(laSlider.value), parseFloat(lbSlider.value));
+    plot();
+    laSlider.addEventListener("input", plot);
+    lbSlider.addEventListener("input", plot);
 });
