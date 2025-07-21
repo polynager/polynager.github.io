@@ -1,8 +1,12 @@
-
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    font-family: sans-serif;
+    background-color: #fff;
+    color: #000;
+    margin: 2rem;
 }
-section {
-    margin-bottom: 60px;
+h1, h2 {
+    color: #111;
+}
+input[type=range] {
+    width: 200px;
 }
