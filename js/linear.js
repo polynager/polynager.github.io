@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const slider = document.getElementById("alphaSliderLinear");
     const alphaVal = document.getElementById("alphaValLinear");
 
-    const layout = (title, xTitle, yTitle) => ({
-        title: title,
+    const layout = {
+        title: 'Linear Utility',
         xaxis: {
-            title: xTitle,
+            title: 'Good X',
             gridcolor: 'black',
             zeroline: false,
             linecolor: 'black',
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
             titlefont: { color: 'black' }
         },
         yaxis: {
-            title: yTitle,
+            title: 'Good Y',
             gridcolor: 'black',
             zeroline: false,
             linecolor: 'black',
@@ -23,12 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
         paper_bgcolor: 'white',
         plot_bgcolor: 'white',
         font: { color: 'black' }
-    });
+    };
 
     function plotLinear(alpha) {
         alphaVal.textContent = alpha.toFixed(2);
         const x = numeric.linspace(0.1, 10, 100);
         const y = numeric.linspace(0.1, 10, 100);
+
         const z = y.map(yVal =>
             x.map(xVal => alpha * xVal + (1 - alpha) * yVal)
         );
@@ -52,12 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             colorbar: { show: false }
         }];
 
-        Plotly.newPlot(
-            'linearPlot',
-            data,
-            layout(`Linear Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'),
-            { responsive: true }
-        );
+        Plotly.newPlot('linearPlot', data, layout, { responsive: true });
     }
 
     plotLinear(parseFloat(slider.value));
