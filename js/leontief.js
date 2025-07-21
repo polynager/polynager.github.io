@@ -50,13 +50,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     family: 'Arial',
                     size: 12,
                     color: 'black'
-                }
+                },
+                start: 0,
+                end: 70,
+                size: 10  // ← show utility levels like 5, 10, 15...
             },
             line: {
                 width: 2,
                 color: 'black'
             },
-            colorscale: null,
             colorbar: { show: false }
         }];
 
@@ -68,10 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    // Initial plot
     plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value));
-
-    // Update plot on slider input
     aSlider.addEventListener("input", () =>
         plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value))
     );
