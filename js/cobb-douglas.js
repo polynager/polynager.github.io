@@ -1,21 +1,7 @@
-
-document.getElementById("alphaSlider").addEventListener("input", function() {
-    let alpha = parseFloat(this.value);
-    document.getElementById("alphaVal").innerText = alpha.toFixed(2);
-
-    let x = [];
-    let y = [];
-    for (let i = 1; i <= 100; i++) {
-        x.push(i / 10);
-        y.push(i / 10);
-    }
-
-    let z = x.map(xi => y.map(yi => Math.pow(xi, alpha) * Math.pow(yi, 1 - alpha)));
-
-Plotly.newPlot('cobbDouglasPlot', [trace], {
-    title: `Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`,
+const layout = (title, xTitle, yTitle) => ({
+    title: title,
     xaxis: {
-        title: 'Good X',
+        title: xTitle,
         gridcolor: 'black',
         zeroline: false,
         linecolor: 'black',
@@ -23,7 +9,7 @@ Plotly.newPlot('cobbDouglasPlot', [trace], {
         titlefont: { color: 'black' }
     },
     yaxis: {
-        title: 'Good Y',
+        title: yTitle,
         gridcolor: 'black',
         zeroline: false,
         linecolor: 'black',
@@ -32,9 +18,27 @@ Plotly.newPlot('cobbDouglasPlot', [trace], {
     },
     paper_bgcolor: 'white',
     plot_bgcolor: 'white',
-    font: {
-        color: 'black'
-    }
+    font: { color: 'black' }
 });
 
-document.getElementById("alphaSlider").dispatchEvent(new Event("input"));
+function plotCobbDouglas(alpha) {
+    const x = [...Array(100).keys()].map(i => 0.1 + i * 0.1);
+    const y = x;
+    const z = x.map(xVal => y.map(yVal => Math.pow(xVal, alpha) * Math.pow(yVal, 1 - alpha)));
+
+    Plotly.newPlot('cobbDouglasPlot', [{
+        z: z,
+        x: x,
+        y: y,
+        type: 'contour',
+        colorscale: 'Rainbow'
+    }], layout(`Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'));
+}
+
+document.getElementById('alphaSlider').addEventListener('input', (e) => {
+    const alpha = parseFloat(e.target.value);
+    document.getElementById('alphaVal').innerText = alpha.toFixed(2);
+    plotCobbDouglas(alpha);
+});
+
+plotCobbDouglas(0.5);
