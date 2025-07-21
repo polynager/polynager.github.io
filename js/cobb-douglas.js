@@ -31,7 +31,7 @@ function plotCobbDouglas(alpha) {
         x: x,
         y: y,
         type: 'contour',
-        colorscale: 'Rainbow'
+        colorscale: 'Viridis'
     }], layout(`Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'));
 }
 
