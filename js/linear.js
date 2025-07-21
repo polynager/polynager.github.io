@@ -1,28 +1,47 @@
+const layout = (title, xTitle, yTitle) => ({
+    title: title,
+    xaxis: {
+        title: xTitle,
+        gridcolor: 'black',
+        zeroline: false,
+        linecolor: 'black',
+        tickfont: { color: 'black' },
+        titlefont: { color: 'black' }
+    },
+    yaxis: {
+        title: yTitle,
+        gridcolor: 'black',
+        zeroline: false,
+        linecolor: 'black',
+        tickfont: { color: 'black' },
+        titlefont: { color: 'black' }
+    },
+    paper_bgcolor: 'white',
+    plot_bgcolor: 'white',
+    font: { color: 'black' }
+});
 
-function plotLinear() {
-    let a = parseFloat(document.getElementById("laSlider").value);
-    let b = parseFloat(document.getElementById("lbSlider").value);
+function plotLinear(a, b) {
+    const x = [...Array(100).keys()].map(i => 0.1 + i * 0.1);
+    const y = x;
+    const z = x.map(xVal => y.map(yVal => a * xVal + b * yVal));
 
-    let x = [], y = [];
-    for (let i = 1; i <= 100; i++) {
-        x.push(i / 10);
-        y.push(i / 10);
-    }
-
-    let z = x.map(xi => y.map(yi => a * xi + b * yi));
-
-    Plotly.newPlot("linearPlot", [{
+    Plotly.newPlot('linearPlot', [{
         z: z,
         x: x,
         y: y,
-        type: "contour"
-    }], {
-        title: `Linear Utility (a = ${a}, b = ${b})`,
-        xaxis: { title: "Good X" },
-        yaxis: { title: "Good Y" }
-    });
+        type: 'contour',
+        colorscale: 'Jet'
+    }], layout(`Linear Utility (a=${a}, b=${b})`, 'Good X', 'Good Y'));
 }
 
-document.getElementById("laSlider").addEventListener("input", plotLinear);
-document.getElementById("lbSlider").addEventListener("input", plotLinear);
-plotLinear();
+function updateLinear() {
+    const a = parseFloat(document.getElementById('laSlider').value);
+    const b = parseFloat(document.getElementById('lbSlider').value);
+    plotLinear(a, b);
+}
+
+document.getElementById('laSlider').addEventListener('input', updateLinear);
+document.getElementById('lbSlider').addEventListener('input', updateLinear);
+
+plotLinear(1, 1);
