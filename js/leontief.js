@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.getElementById("alphaSliderLeontief");
-    const alphaVal = document.getElementById("alphaValLeontief");
+    const aSlider = document.getElementById("aSlider");
+    const bSlider = document.getElementById("bSlider");
 
     const layout = {
         title: 'Leontief Utility',
@@ -25,13 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
         font: { color: 'black' }
     };
 
-    function plotLeontief(alpha) {
-        alphaVal.textContent = alpha.toFixed(2);
+    function plotLeontief(a, b) {
         const x = numeric.linspace(0.1, 10, 100);
         const y = numeric.linspace(0.1, 10, 100);
 
         const z = y.map(yVal =>
-            x.map(xVal => Math.min(xVal / alpha, yVal / (1 - alpha)))
+            x.map(xVal => Math.min(xVal / a, yVal / b))
         );
 
         const data = [{
@@ -56,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Plotly.newPlot('leontiefPlot', data, layout, { responsive: true });
     }
 
-    plotLeontief(parseFloat(slider.value));
-    slider.addEventListener("input", () => plotLeontief(parseFloat(slider.value)));
+    plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value));
+    aSlider.addEventListener("input", () => plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value)));
+    bSlider.addEventListener("input", () => plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value)));
 });
