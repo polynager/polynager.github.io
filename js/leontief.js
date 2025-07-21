@@ -1,49 +1,81 @@
-window.addEventListener("load", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const aSlider = document.getElementById("aSlider");
     const bSlider = document.getElementById("bSlider");
+
+    const layout = (title, xTitle, yTitle) => ({
+        title: title,
+        xaxis: {
+            title: xTitle,
+            gridcolor: 'black',
+            zeroline: false,
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
+        },
+        yaxis: {
+            title: yTitle,
+            gridcolor: 'black',
+            zeroline: false,
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
+        },
+        paper_bgcolor: 'white',
+        plot_bgcolor: 'white',
+        font: { color: 'black' }
+    });
 
     function plotLeontief(a, b) {
         const x = numeric.linspace(0.1, 10, 100);
         const y = numeric.linspace(0.1, 10, 100);
-        const z = y.map(yVal => x.map(xVal => Math.min(xVal / a, yVal / b)));
+        const z = [];
+
+        for (let i = 0; i < y.length; i++) {
+            const row = [];
+            for (let j = 0; j < x.length; j++) {
+                row.push(Math.min(a * x[j], b * y[i]));
+            }
+            z.push(row);
+        }
 
         const data = [{
             z: z,
             x: x,
             y: y,
             type: 'contour',
-            colorscale: 'Jet',
             contours: {
                 coloring: 'lines',
-                showlabels: true
+                showlabels: true,
+                labelfont: {
+                    family: 'Arial',
+                    size: 12,
+                    color: 'black'
+                }
             },
-            line: { width: 2 },
+            line: {
+                width: 2,
+                color: 'black'
+            },
+            colorscale: null,
             colorbar: { show: false }
         }];
 
-        const layout = {
-            title: `Leontief Utility (a = ${a.toFixed(1)}, b = ${b.toFixed(1)})`,
-            xaxis: {
-                title: 'Good X',
-                gridcolor: 'black',
-                linecolor: 'black',
-                zeroline: false
-            },
-            yaxis: {
-                title: 'Good Y',
-                gridcolor: 'black',
-                linecolor: 'black',
-                zeroline: false
-            },
-            plot_bgcolor: 'white',
-            paper_bgcolor: 'white'
-        };
-
-        Plotly.newPlot('leontiefPlot', data, layout);
+        Plotly.newPlot(
+            'leontiefPlot',
+            data,
+            layout(`Leontief Utility (a = ${a.toFixed(2)}, b = ${b.toFixed(2)})`, 'Good X', 'Good Y'),
+            { responsive: true }
+        );
     }
 
-    const plot = () => plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value));
-    plot();
-    aSlider.addEventListener("input", plot);
-    bSlider.addEventListener("input", plot);
+    // Initial plot
+    plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value));
+
+    // Update plot on slider input
+    aSlider.addEventListener("input", () =>
+        plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value))
+    );
+    bSlider.addEventListener("input", () =>
+        plotLeontief(parseFloat(aSlider.value), parseFloat(bSlider.value))
+    );
 });
