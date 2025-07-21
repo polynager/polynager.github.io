@@ -1,47 +1,65 @@
-const layout = (title, xTitle, yTitle) => ({
-    title: title,
-    xaxis: {
-        title: xTitle,
-        gridcolor: 'black',
-        zeroline: false,
-        linecolor: 'black',
-        tickfont: { color: 'black' },
-        titlefont: { color: 'black' }
-    },
-    yaxis: {
-        title: yTitle,
-        gridcolor: 'black',
-        zeroline: false,
-        linecolor: 'black',
-        tickfont: { color: 'black' },
-        titlefont: { color: 'black' }
-    },
-    paper_bgcolor: 'white',
-    plot_bgcolor: 'white',
-    font: { color: 'black' }
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.getElementById("alphaSliderLinear");
+    const alphaVal = document.getElementById("alphaValLinear");
+
+    const layout = (title, xTitle, yTitle) => ({
+        title: title,
+        xaxis: {
+            title: xTitle,
+            gridcolor: 'black',
+            zeroline: false,
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
+        },
+        yaxis: {
+            title: yTitle,
+            gridcolor: 'black',
+            zeroline: false,
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
+        },
+        paper_bgcolor: 'white',
+        plot_bgcolor: 'white',
+        font: { color: 'black' }
+    });
+
+    function plotLinear(alpha) {
+        alphaVal.textContent = alpha.toFixed(2);
+        const x = numeric.linspace(0.1, 10, 100);
+        const y = numeric.linspace(0.1, 10, 100);
+        const z = y.map(yVal =>
+            x.map(xVal => alpha * xVal + (1 - alpha) * yVal)
+        );
+
+        const data = [{
+            z: z,
+            x: x,
+            y: y,
+            type: 'contour',
+            colorscale: 'Jet',
+            contours: {
+                coloring: 'lines',
+                showlabels: true,
+                labelfont: {
+                    family: 'Arial',
+                    size: 12,
+                    color: 'black'
+                }
+            },
+            line: { width: 2 },
+            colorbar: { show: false }
+        }];
+
+        Plotly.newPlot(
+            'linearPlot',
+            data,
+            layout(`Linear Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'),
+            { responsive: true }
+        );
+    }
+
+    plotLinear(parseFloat(slider.value));
+    slider.addEventListener("input", () => plotLinear(parseFloat(slider.value)));
 });
-
-function plotLinear(a, b) {
-    const x = [...Array(100).keys()].map(i => 0.1 + i * 0.1);
-    const y = x;
-    const z = x.map(xVal => y.map(yVal => a * xVal + b * yVal));
-
-    Plotly.newPlot('linearPlot', [{
-        z: z,
-        x: x,
-        y: y,
-        type: 'contour',
-        colorscale: 'Jet'
-    }], layout(`Linear Utility (a=${a}, b=${b})`, 'Good X', 'Good Y'));
-}
-
-function updateLinear() {
-    const a = parseFloat(document.getElementById('laSlider').value);
-    const b = parseFloat(document.getElementById('lbSlider').value);
-    plotLinear(a, b);
-}
-
-document.getElementById('laSlider').addEventListener('input', updateLinear);
-document.getElementById('lbSlider').addEventListener('input', updateLinear);
-
-plotLinear(1, 1);
