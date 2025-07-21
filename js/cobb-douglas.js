@@ -35,10 +35,66 @@ function plotCobbDouglas(alpha) {
     }], layout(`Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'));
 }
 
-document.getElementById('alphaSlider').addEventListener('input', (e) => {
-    const alpha = parseFloat(e.target.value);
-    document.getElementById('alphaVal').innerText = alpha.toFixed(2);
-    plotCobbDouglas(alpha);
-});
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.getElementById("alphaSlider");
+    const alphaVal = document.getElementById("alphaVal");
 
-plotCobbDouglas(0.5);
+    function plotCobbDouglas(alpha) {
+        alphaVal.textContent = alpha.toFixed(2);
+        const x = numeric.linspace(0.1, 10, 100);
+        const y = numeric.linspace(0.1, 10, 100);
+        const z = [];
+
+        for (let i = 0; i < y.length; i++) {
+            const row = [];
+            for (let j = 0; j < x.length; j++) {
+                row.push(Math.pow(x[j], alpha) * Math.pow(y[i], 1 - alpha));
+            }
+            z.push(row);
+        }
+
+        const data = [{
+            z: z,
+            x: x,
+            y: y,
+            type: 'contour',
+            colorscale: 'Jet',
+            contours: {
+                coloring: 'lines',  // ← Just draw lines (no fill)
+                showlabels: true,
+                labelfont: {
+                    family: 'Arial',
+                    size: 12,
+                    color: 'black'
+                }
+            },
+            line: {
+                width: 2
+            },
+            colorbar: {
+                show: false  // ← Hide color legend
+            }
+        }];
+
+        const layout = {
+            title: `Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`,
+            xaxis: {
+                title: 'Good X',
+                gridcolor: 'black',
+                zeroline: false
+            },
+            yaxis: {
+                title: 'Good Y',
+                gridcolor: 'black',
+                zeroline: false
+            },
+            plot_bgcolor: 'white',
+            paper_bgcolor: 'white'
+        };
+
+        Plotly.newPlot('cobbDouglasPlot', data, layout, {responsive: true});
+    }
+
+    plotCobbDouglas(parseFloat(slider.value));
+    slider.addEventListener("input", () => plotCobbDouglas(parseFloat(slider.value)));
+});
