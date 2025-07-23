@@ -61,9 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 y: y,
                 type: 'contour',
                 showscale: false,
-                contours: { coloring: 'heatmap', start: 0.5, end: 1.5, size: 1 },
-                colorscale: [[0, 'rgba(0,255,255,0.2)'], [1, 'rgba(0,255,255,0.2)']],
-                hoverinfo: 'skip'
+                // Adjusting contours and colorscale to match Python's red shading
+                contours: {
+                    coloring: 'heatmap', // Use 'heatmap' for solid color fill
+                    start: 0.5,
+                    end: 1.5,
+                    size: 1
+                },
+                colorscale: [[0, 'rgba(178,34,34,0)'], [1, 'rgba(178,34,34,0.7)']], // Red color with transparency
+                hoverinfo: 'skip',
+                name: 'Budget Set' // Add a name for clarity
             },
             // Budget line
             {
