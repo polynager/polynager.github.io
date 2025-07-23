@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
             zeroline: false,
             linecolor: 'black',
             tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
+            titlefont: { color: 'black' },
+            scaleanchor: 'y'
         },
         yaxis: {
             title: 'Good Y',
