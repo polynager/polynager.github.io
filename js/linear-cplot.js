@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
         ];
 
-        Plotly.newPlot('linearPlot', data, layout, { responsive: true });
+        Plotly.newPlot('linearBundlePlot', data, layout, { responsive: true });
     }
 
     function update() {
