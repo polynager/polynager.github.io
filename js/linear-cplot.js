@@ -55,22 +55,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = [
             // Budget shading
-            {
+             {
                 z: budgetMask,
                 x: x,
                 y: y,
                 type: 'contour',
                 showscale: false,
-                // Adjusting contours and colorscale to match Python's red shading
                 contours: {
-                    coloring: 'heatmap', // Use 'heatmap' for solid color fill
-                    start: 0.5,
+                    coloring: 'heatmap', // Use 'heatmap' for solid color fill between levels
+                    start: 0.5,         // Values >= 0.5 will be colored by the second color in colorscale
                     end: 1.5,
                     size: 1
                 },
-                colorscale: [[0, 'rgba(178,34,34,0)'], [1, 'rgba(178,34,34,0.7)']], // Red color with transparency
+                // Define a colorscale where values <= 0.5 are transparent, and values > 0.5 are red
+                colorscale: [
+                    [0, 'rgba(0,0,0,0)'],           // Transparent for values below 0.5 (infeasible)
+                    [0.5, 'rgba(0,0,0,0)'],         // Still transparent at 0.5
+                    [0.500001, 'rgba(178, 34, 34, 0.7)'], // Start red just above 0.5 (feasible)
+                    [1, 'rgba(178, 34, 34, 0.7)']   // Red for values up to 1 (feasible)
+                ],
                 hoverinfo: 'skip',
-                name: 'Budget Set' // Add a name for clarity
+                name: 'Budget Set'
             },
             // Budget line
             {
