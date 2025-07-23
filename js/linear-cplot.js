@@ -44,43 +44,87 @@ document.addEventListener("DOMContentLoaded", function () {
             req_I = pY * y_optimal;
         }
 
-        // Budget region
-        const budgetMask = y.map(yi => x.map(xi => (pX * xi + pY * yi <= req_I ? 1 : 0)));
-
-        // Budget line
-        const budgetLineY = x.map(xi => {
+        // Budget line for plotting and filling
+        const budgetLineX_plot = numeric.linspace(0, 10, 200); // More points for smoother line and fill
+        const budgetLineY_plot = budgetLineX_plot.map(xi => {
             const yi = (req_I - pX * xi) / pY;
-            return yi >= 0 ? yi : null;
+            return yi >= 0 ? yi : null; // Keep null for values below x-axis
         });
 
+        // Filter out nulls for the budget line trace, but keep for fill if needed
+        const budgetLineX_filtered = [];
+        const budgetLineY_filtered = [];
+        for (let i = 0; i < budgetLineX_plot.length; i++) {
+            if (budgetLineY_plot[i] !== null) {
+                budgetLineX_filtered.push(budgetLineX_plot[i]);
+                budgetLineY_filtered.push(budgetLineY_plot[i]);
+            }
+        }
+        
+        // Prepare points for the shaded budget region (polygon)
+        const fillX = [0, ...budgetLineX_filtered, budgetLineX_filtered[budgetLineX_filtered.length - 1], 0];
+        const fillY = [0, ...budgetLineY_filtered, 0, 0];
+        // Ensure the polygon is correctly formed: (0,0) -> (x-intercept,0) -> (along budget line) -> (0,y-intercept) -> (0,0)
+
+        // Adjusting fill points for potential x/y intercepts
+        let budgetAreaX = [0];
+        let budgetAreaY = [0];
+
+        // Add points along the budget line from X-intercept to Y-intercept
+        for (let i = 0; i < budgetLineX_plot.length; i++) {
+            if (budgetLineY_plot[i] !== null) {
+                budgetAreaX.push(budgetLineX_plot[i]);
+                budgetAreaY.push(budgetLineY_plot[i]);
+            }
+        }
+
+        // Add the y-intercept
+        budgetAreaX.push(0);
+        budgetAreaY.push(req_I / pY);
+
+        // Add the x-intercept if it's not the first point and close the polygon
+        if (req_I / pX > 0 && (budgetAreaX[1] !== req_I / pX || budgetAreaY[1] !== 0)) {
+             // This condition prevents adding 0,0 again if it's already the start,
+             // and ensures x-intercept is added if budget line doesn't start from there
+             // Also add the point on the x-axis to close the shape
+             budgetAreaX.push(req_I / pX);
+             budgetAreaY.push(0);
+        }
+
+        // Close the polygon by adding the first point again
+        budgetAreaX.push(budgetAreaX[0]);
+        budgetAreaY.push(budgetAreaY[0]);
+        
+        // Remove duplicates if any (e.g., origin added multiple times)
+        const uniqueBudgetAreaPoints = {};
+        const finalBudgetAreaX = [];
+        const finalBudgetAreaY = [];
+        for (let i = 0; i < budgetAreaX.length; i++) {
+            const key = `${budgetAreaX[i]},${budgetAreaY[i]}`;
+            if (!uniqueBudgetAreaPoints[key]) {
+                uniqueBudgetAreaPoints[key] = true;
+                finalBudgetAreaX.push(budgetAreaX[i]);
+                finalBudgetAreaY.push(budgetAreaY[i]);
+            }
+        }
+
+
         const data = [
-            // Budget shading
-             {
-                z: budgetMask,
-                x: x,
-                y: y,
-                type: 'contour',
-                showscale: false,
-                contours: {
-                    coloring: 'heatmap', // Use 'heatmap' for solid color fill between levels
-                    start: 0.5,         // Values >= 0.5 will be colored by the second color in colorscale
-                    end: 1.5,
-                    size: 1
-                },
-                // Define a colorscale where values <= 0.5 are transparent, and values > 0.5 are red
-                colorscale: [
-                    [0, 'rgba(0,0,0,0)'],           // Transparent for values below 0.5 (infeasible)
-                    [0.5, 'rgba(0,0,0,0)'],         // Still transparent at 0.5
-                    [0.500001, 'rgba(178, 34, 34, 0.7)'], // Start red just above 0.5 (feasible)
-                    [1, 'rgba(178, 34, 34, 0.7)']   // Red for values up to 1 (feasible)
-                ],
-                hoverinfo: 'skip',
-                name: 'Budget Set'
-            },
-            // Budget line
+            // Budget shading using a scatter trace with fill
             {
-                x: x,
-                y: budgetLineY,
+                x: finalBudgetAreaX,
+                y: finalBudgetAreaY,
+                mode: 'lines', // We just need to define the boundary for filling
+                fill: 'toself', // Fill the area defined by the points
+                fillcolor: 'rgba(178, 34, 34, 0.5)', // Red color with transparency
+                line: { width: 0 }, // No line for the fill itself, as budget line is separate
+                showlegend: false, // Don't show this in the legend
+                name: 'Budget Set (Shaded)'
+            },
+            // Budget line (your existing budget line trace)
+            {
+                x: budgetLineX_plot, // Use the full range of x for the line plot
+                y: budgetLineY_plot,
                 mode: 'lines',
                 line: { color: 'black', width: 2 },
                 name: 'Budget Line'
