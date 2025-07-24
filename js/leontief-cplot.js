@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const pXSlider = document.getElementById('pXLeontiefSlider');
   const pYSlider = document.getElementById('pYLeontiefSlider');
   const aSlider = document.getElementById('aLeontiefSlider');
@@ -35,61 +35,35 @@
     // We'll plot isoquants for some utility levels c
     const cLevels = [1, 2, 3, 4, 5];
 
-    // For each c, plot the kink-shaped isoquant made of two lines:
-    // 1) ax = c => x = c/a (vertical line for y>= c/b)
-    // 2) by = c => y = c/b (horizontal line for x >= c/a)
-
     // Prepare traces for isoquants
-    const isoTraces = cLevels.map(c => {
-      return {
+    const isoquantTraces = [];
+    for (let i = 0; i < cLevels.length; i++) {
+      const c = cLevels[i];
+      const uVal = `U = ${c.toFixed(1)}`;
+
+      // Horizontal part
+      isoquantTraces.push({
         x: [c/a, 10],
         y: [c/b, c/b],
+        mode: 'lines+text',
+        line: {color: 'blue', width: 2, dash: 'dot'},
+        name: uVal,
+        text: [uVal, ''],
+        textposition: 'top right',
+        showlegend: i === 0,
+        hoverinfo: 'skip'
+      });
+
+      // Vertical part
+      isoquantTraces.push({
+        x: [c/a, c/a],
+        y: [c/b, 10],
         mode: 'lines',
         line: {color: 'blue', width: 2, dash: 'dot'},
-        name: U = ${c.toFixed(1)},
-        showlegend: true,
-      };
-    });
-
-    // We'll add vertical parts of isoquants as separate traces (or combine)
-
-    // Vertical parts
-    const verticalTraces = cLevels.map(c => ({
-      x: [c/a, c/a],
-      y: [c/b, 10],
-      mode: 'lines',
-      line: {color: 'blue', width: 2, dash: 'dot'},
-      showlegend: false,
-      hoverinfo: 'skip'
-    }));
-
-const isoquantTraces = [];
-for (let i = 0; i < cLevels.length; i++) {
-  const uVal = U = ${cLevels[i].toFixed(1)};
-
-  // Horizontal part
-  isoquantTraces.push({
-    x: [cLevels[i]/a, 10],
-    y: [cLevels[i]/b, cLevels[i]/b],
-    mode: 'lines+text',
-    line: {color: 'blue', width: 2, dash: 'dot'},
-    name: uVal,
-    text: [uVal, ''],
-    textposition: 'top right',
-    showlegend: i === 0,
-    hoverinfo: 'skip'
-  });
-
-  // Vertical part
-  isoquantTraces.push({
-    x: [cLevels[i]/a, cLevels[i]/a],
-    y: [cLevels[i]/b, 10],
-    mode: 'lines',
-    line: {color: 'blue', width: 2, dash: 'dot'},
-    showlegend: false,
-    hoverinfo: 'skip'
-  });
-}
+        showlegend: false,
+        hoverinfo: 'skip'
+      });
+    }
 
     // Budget set polygon
     const budgetArea = {
@@ -124,7 +98,7 @@ for (let i = 0; i < cLevels.length; i++) {
     const data = [budgetArea, budgetLine, optimalBundle, ...isoquantTraces];
 
     const layout = {
-      title: Leontief Utility with Budget Constraint (a=${a.toFixed(2)}, b=${b.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)}),
+      title: `Leontief Utility with Budget Constraint (a=${a.toFixed(2)}, b=${b.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)})`,
       xaxis: {title: 'Good X', range: [0, 10]},
       yaxis: {title: 'Good Y', range: [0, 10]},
       showlegend: true,
