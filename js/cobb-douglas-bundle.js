@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             zeroline: false,
             linecolor: 'black',
             tickfont: { color: 'black' },
-            titlefont: { color: 'black' },
-            scaleanchor: 'y'
+            titlefont: { color: 'black' }
         },
         yaxis: {
             title: 'Good Y',
@@ -42,44 +41,49 @@ document.addEventListener("DOMContentLoaded", function () {
             for (let j = 0; j < x.length; j++) {
                 const u = Math.pow(x[j], alpha) * Math.pow(y[i], 1 - alpha);
                 rowU.push(u);
-                rowMask.push(0); // temp, fill later
+                rowMask.push(0); // fill later
             }
             Z.push(rowU);
             budgetMask.push(rowMask);
         }
 
-        // Optimal bundle
+        // Optimal bundle and required income
         const xOpt = minU / Math.pow((pX / pY) * ((1 - alpha) / alpha), 1 - alpha);
         const yOpt = (pX / pY) * ((1 - alpha) / alpha) * xOpt;
         const reqI = pX * xOpt + pY * yOpt;
 
-        // Update budget mask
+        // Fill budget mask
         for (let i = 0; i < y.length; i++) {
             for (let j = 0; j < x.length; j++) {
-                const isInBudget = pX * x[j] + pY * y[i] <= reqI;
-                budgetMask[i][j] = isInBudget ? 1 : 0;
+                budgetMask[i][j] = pX * x[j] + pY * y[i] <= reqI ? 1 : 0;
             }
         }
 
         // Budget line
         const budgetY = x.map(xVal => {
-            const val = (reqI - pX * xVal) / pY;
-            return val >= 0 ? val : null;
+            const yVal = (reqI - pX * xVal) / pY;
+            return yVal >= 0 ? yVal : null;
         });
 
         const data = [
-            // Budget Set Shading
+            // Blue budget region shading
             {
                 z: budgetMask,
                 x: x,
                 y: y,
                 type: 'contour',
                 showscale: false,
-                contours: { start: 0.5, end: 1.5, size: 1, coloring: 'heatmap' },
-                colorscale: [[0, 'rgba(0,255,255,0.2)'], [1, 'rgba(0,255,255,0.2)']],
-                hoverinfo: 'skip'
+                contours: {
+                    coloring: 'heatmap',
+                    start: 0.5,
+                    end: 1.5,
+                    size: 1
+                },
+                colorscale: [[0, 'rgba(0,0,255,0.15)'], [1, 'rgba(0,0,255,0.15)']],
+                hoverinfo: 'skip',
+                name: 'Budget Set'
             },
-            // Utility Contours
+            // Utility contour lines
             {
                 z: Z,
                 x: x,
@@ -96,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 line: { width: 1.5, color: 'black' },
                 name: 'Utility Contours'
             },
-            // Budget Line
+            // Budget line
             {
                 x: x,
                 y: budgetY,
@@ -105,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 line: { color: 'black', width: 2 },
                 name: 'Budget Line'
             },
-            // Optimal Point
+            // Optimal bundle point
             {
                 x: [xOpt],
                 y: [yOpt],
@@ -128,8 +132,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     alphaSlider.addEventListener("input", update);
-    pXSlider.addEventListener("input", update);
-    pYSlider.addEventListener("input", update);
-
-    update();
-});
+    pXSlider.addEventList
