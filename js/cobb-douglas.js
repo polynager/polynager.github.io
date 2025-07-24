@@ -1,69 +1,104 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.getElementById("alphaSlider");
-    const alphaVal = document.getElementById("alphaVal");
+document.addEventListener('DOMContentLoaded', () => {
+  const alphaSlider = document.getElementById('alphaBundleSlider');
+  const pXSlider = document.getElementById('pXBundleSlider');
+  const pYSlider = document.getElementById('pYBundleSlider');
+  const plotDiv = document.getElementById('cobbDouglasBundlePlot');
 
-    const layout = (title, xTitle, yTitle) => ({
-        title: title,
-        xaxis: {
-            title: xTitle,
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        yaxis: {
-            title: yTitle,
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        paper_bgcolor: 'white',
-        plot_bgcolor: 'white',
-        font: { color: 'black' }
-    });
+  function plot() {
+    const alpha = parseFloat(alphaSlider.value);
+    const pX = parseFloat(pXSlider.value);
+    const pY = parseFloat(pYSlider.value);
 
-    function plotCobbDouglas(alpha) {
-        alphaVal.textContent = alpha.toFixed(2);
-        const x = numeric.linspace(0.1, 10, 100);
-        const y = numeric.linspace(0.1, 10, 100);
-        const z = y.map(yVal =>
-            x.map(xVal => Math.pow(xVal, alpha) * Math.pow(yVal, 1 - alpha))
-        );
+    const minU = 10;
+    const ratio = (pX / pY) * ((1 - alpha) / alpha);
 
-        const data = [{
-            z: z,
-            x: x,
-            y: y,
-            type: 'contour',
-            colorscale: 'Jet',
-            contours: {
-                coloring: 'lines',
-                showlabels: true,
-                labelfont: {
-                    family: 'Arial',
-                    size: 12,
-                    color: 'black'
-                }
-            },
-            line: {
-                width: 2
-            },
-            colorbar: {
-                show: false
-            }
-        }];
+    const xStar = minU / Math.pow(ratio, 1 - alpha);
+    const yStar = ratio * xStar;
 
-        Plotly.newPlot(
-            'cobbDouglasPlot',
-            data,
-            layout(`Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'),
-            { responsive: true }
-        );
+    const income = pX * xStar + pY * yStar;
+
+    const xBudget = [];
+    const yBudget = [];
+    for (let i = 0; i <= 100; i++) {
+      const x = i * (income / pX) / 100;
+      xBudget.push(x);
+      yBudget.push((income - pX * x) / pY);
     }
 
-    plotCobbDouglas(parseFloat(slider.value));
-    slider.addEventListener("input", () => plotCobbDouglas(parseFloat(slider.value)));
+    // Create grid for utility contours, matching Python's scale
+    const x = numeric.linspace(0.1, 20, 100);
+    const y = numeric.linspace(0.1, 20, 100);
+    const z = [];
+    for (let i = 0; i < y.length; i++) {
+      const row = [];
+      for (let j = 0; j < x.length; j++) {
+        row.push(Math.pow(x[j], alpha) * Math.pow(y[i], 1 - alpha));
+      }
+      z.push(row);
+    }
+
+    const budgetArea = {
+      type: 'scatter',
+      x: [...xBudget, 0],
+      y: [...yBudget, 0],
+      fill: 'toself',
+      fillcolor: 'rgba(0, 123, 255, 0.2)',
+      line: { color: 'rgba(0, 123, 255, 0)' },
+      name: 'Budget Set',
+      hoverinfo: 'skip',
+      showlegend: true,
+    };
+
+    const budgetLine = {
+      x: xBudget,
+      y: yBudget,
+      mode: 'lines',
+      line: { color: 'black', width: 2 },
+      name: 'Budget Line'
+    };
+
+    const utilityContour = {
+      x: x,
+      y: y,
+      z: z,
+      type: 'contour',
+      contours: {
+        coloring: 'lines',
+        showlabels: true,
+        labelfont: { size: 12, color: 'blue' },
+        start: 5,
+        end: 15,
+        size: 5
+      },
+      line: { width: 2, color: 'red' },
+      showlegend: false,
+      showscale: false
+    };
+
+    const optimalBundle = {
+      x: [xStar],
+      y: [yStar],
+      mode: 'markers',
+      marker: { color: 'red', size: 10 },
+      name: 'Optimal Bundle'
+    };
+
+    const data = [budgetArea, budgetLine, utilityContour, optimalBundle];
+
+    const layout = {
+      title: `Cobb-Douglas Utility with Budget Constraint (α=${alpha.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)})`,
+      xaxis: { title: 'Good X', range: [0, 20] },
+      yaxis: { title: 'Good Y', range: [0, 20] },
+      showlegend: true,
+      height: 400,
+    };
+
+    Plotly.newPlot(plotDiv, data, layout, { responsive: true });
+  }
+
+  alphaSlider.addEventListener('input', plot);
+  pXSlider.addEventListener('input', plot);
+  pYSlider.addEventListener('input', plot);
+
+  plot();
 });
