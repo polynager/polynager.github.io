@@ -93,7 +93,7 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 1.1rem;
   font-weight: 600;
   padding: 0.75rem 1.75rem;
-  background-color: #e07a5f; /* warm terracotta */
+  background-color: #2a9d8f; 
   color: #fff;
   border-radius: 8px;
   text-decoration: none;
