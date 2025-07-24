@@ -58,19 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Budget Line'
     };
 
+    // Utility contour trace — remove 'name' to hide from legend, and set showlegend false just in case
     const utilityContour = {
-    x: x,
-    y: y,
-    z: z,
-    type: 'contour',
-    contours: {
-      coloring: 'lines',
-      showlabels: false
-    },
-    line: {width: 2},
-    colorscale: 'Blues',
-    showlegend: false
-  };
+      x: x,
+      y: y,
+      z: z,
+      type: 'contour',
+      contours: {
+        coloring: 'lines',
+        showlabels: false
+      },
+      line: {width: 2},
+      colorscale: 'Blues',
+      showlegend: false
+      // name is omitted intentionally
+    };
 
     // Optimal bundle point
     const optimalBundle = {
