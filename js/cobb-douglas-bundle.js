@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Optimal Bundle'
     };
 
-    const data = [budgetArea, budgetLine, utilityContour, optimalBundle];
+    const data = [budgetArea, budgetLine, optimalBundle];
 
     const layout = {
       title: `Cobb-Douglas Utility with Budget Constraint (α=${alpha.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)})`,
