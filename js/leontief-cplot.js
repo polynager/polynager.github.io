@@ -1,103 +1,58 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const pXSlider = document.getElementById("pXLeontiefSlider");
-    const pYSlider = document.getElementById("pYLeontiefSlider");
     const aSlider = document.getElementById("aLeontiefSlider");
     const bSlider = document.getElementById("bLeontiefSlider");
+    const pXSlider = document.getElementById("pXLeontiefSlider");
+    const pYSlider = document.getElementById("pYLeontiefSlider");
+    const income = 10;  // Set a fixed income or add slider if you want
 
-    const layout = {
-        xaxis: {
-            title: 'Good X',
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        yaxis: {
-            title: 'Good Y',
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        paper_bgcolor: 'white',
-        plot_bgcolor: 'white',
-        font: { color: 'black' },
-        title: 'Leontief Utility & Budget Constraint'
-    };
-
-    function plot(pX, pY, a, b) {
+    function plot(a, b, pX, pY) {
         const x = numeric.linspace(0.1, 20, 100);
         const y = numeric.linspace(0.1, 20, 100);
-        const budgetMask = [];
 
-        const minU = 10;
-        const levels = [minU - 5, minU, minU + 5];
+        let Z = [], budgetMask = [];
 
-        // Optimal bundle
-        const xOpt = minU / a;
-        const yOpt = minU / b;
-        const reqI = pX * xOpt + pY * yOpt;
-
-        // Fill budget mask
         for (let i = 0; i < y.length; i++) {
-            const rowMask = [];
+            let rowU = [], rowMask = [];
             for (let j = 0; j < x.length; j++) {
-                rowMask.push(pX * x[j] + pY * y[i] <= reqI ? 1 : 0);
+                rowU.push(Math.min(a * x[j], b * y[i]));
+                rowMask.push(pX * x[j] + pY * y[i] <= income ? 1 : 0);
             }
+            Z.push(rowU);
             budgetMask.push(rowMask);
         }
 
-        // Budget line
-        const budgetY = x.map(xi => {
-            const yi = (reqI - pX * xi) / pY;
-            return yi >= 0 ? yi : null;
+        // Budget line y = (income - pX * x) / pY
+        const budgetY = x.map(xVal => {
+            const yVal = (income - pX * xVal) / pY;
+            return yVal >= 0 ? yVal : null;
         });
 
-        // Leontief indifference curves (L shapes)
-        const curveColors = ['#999999', '#0066cc', '#999999'];
-        const curves = levels.flatMap((U, i) => {
-            const x_c = U / a;
-            const y_c = U / b;
-            return [
-                {
-                    x: [x_c, x_c],
-                    y: [y_c, 20],
-                    mode: 'lines',
-                    line: { color: curveColors[i], dash: 'dot' },
-                    name: `U = ${U}`
-                },
-                {
-                    x: [x_c, 20],
-                    y: [y_c, y_c],
-                    mode: 'lines',
-                    line: { color: curveColors[i], dash: 'dot' },
-                    name: '',
-                    showlegend: false
-                }
-            ];
-        });
+        // Compute optimal bundle: For Leontief with budget pX x + pY y = income and ratio a x = b y:
+        // Optimal consumption x* = income / (pX + (pY * a / b))
+        const xOpt = income / (pX + (pY * a / b));
+        const yOpt = (a / b) * xOpt;
 
         const data = [
-            // Budget region shading
             {
                 z: budgetMask,
                 x: x,
                 y: y,
                 type: 'contour',
                 showscale: false,
-                contours: {
-                    coloring: 'heatmap',
-                    start: 0.5,
-                    end: 1.5,
-                    size: 1
-                },
-                colorscale: [[0, 'rgba(0,0,255,0.15)'], [1, 'rgba(0,0,255,0.15)']],
+                contours: { coloring: 'heatmap', start: 0.5, end: 1.5, size: 1 },
+                colorscale: [[0, 'rgba(0,0,255,0)'], [1, 'rgba(0,0,255,0.15)']],
                 hoverinfo: 'skip',
                 name: 'Budget Set'
             },
-            // Budget line
+            {
+                z: Z,
+                x: x,
+                y: y,
+                type: 'contour',
+                contours: { coloring: 'lines', showlabels: true, labelfont: { size: 12, color: 'black' }, start: 1, end: 5, size: 1 },
+                line: { width: 1.5, color: 'black' },
+                name: 'Utility Contours'
+            },
             {
                 x: x,
                 y: budgetY,
@@ -106,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 line: { color: 'black', width: 2 },
                 name: 'Budget Line'
             },
-            // Optimal bundle
             {
                 x: [xOpt],
                 y: [yOpt],
@@ -114,26 +68,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 type: 'scatter',
                 marker: { color: 'red', size: 8 },
                 name: 'Optimal Bundle'
-            },
-            // Indifference curves (L-shapes)
-            ...curves
+            }
         ];
 
-        Plotly.newPlot('leontiefPlot', data, layout, { responsive: true });
+        const layout = {
+            xaxis: { title: 'Good X', gridcolor: 'black' },
+            yaxis: { title: 'Good Y', gridcolor: 'black' },
+            paper_bgcolor: 'white',
+            plot_bgcolor: 'white',
+            font: { color: 'black' },
+            title: 'Leontief Utility with Budget Constraint'
+        };
+
+        Plotly.newPlot('leontiefBundlePlot', data, layout, { responsive: true });
     }
 
     function update() {
-        plot(
-            parseFloat(pXSlider.value),
-            parseFloat(pYSlider.value),
-            parseFloat(aSlider.value),
-            parseFloat(bSlider.value)
-        );
+        plot(parseFloat(aSlider.value), parseFloat(bSlider.value), parseFloat(pXSlider.value), parseFloat(pYSlider.value));
     }
 
-    [pXSlider, pYSlider, aSlider, bSlider].forEach(slider => {
-        slider.addEventListener("input", update);
-    });
+    aSlider.addEventListener("input", update);
+    bSlider.addEventListener("input", update);
+    pXSlider.addEventListener("input", update);
+    pYSlider.addEventListener("input", update);
 
     update();
 });
