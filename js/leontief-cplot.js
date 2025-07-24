@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const b = parseFloat(bSlider.value);
 
     // Utility levels to plot
-    const cLevels = [10, 15, 20];
+    const cLevels = [5, 10, 15];
 
     // Calculate required income for the middle utility (for budget set & line)
-    const min_U = 15;
+    const min_U = 10;
     const xOpt = min_U / a;
     const yOpt = min_U / b;
     const reqIncome = pX * xOpt + pY * yOpt;
