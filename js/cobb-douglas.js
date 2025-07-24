@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const alphaVal = document.getElementById("alphaVal");
   const plotDiv = document.getElementById("cobbDouglasPlot");
 
-  // Helper: like np.linspace
   function linspace(start, end, num) {
     const arr = [];
     const step = (end - start) / (num - 1);
@@ -43,14 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
       yaxis: { title: 'Good Y', range: [0, 10] },
       height: 600,
       width: 600,
-      showlegend: false,
-      plot_bgcolor: 'white',
-      paper_bgcolor: 'white'
+      showlegend: false
     };
 
     Plotly.newPlot(plotDiv, [contour], layout, { responsive: true });
   }
 
   slider.addEventListener("input", () => plotCobbDouglas(slider.value));
-  plotCobbDouglas(slider.value); // Initial plot
+  plotCobbDouglas(slider.value);
 });
