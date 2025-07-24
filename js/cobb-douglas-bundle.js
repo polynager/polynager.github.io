@@ -36,9 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
       z.push(row);
     }
 
-    // Levels of utility to plot
-    const uLevels = [0.5, 1, 1.5, 2, 3, 4, 5];
-
     // Create filled shape for budget area under the budget line
     const budgetArea = {
       type: 'scatter',
@@ -61,20 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Budget Line'
     };
 
- const utilityContour = {
-  x: x,
-  y: y,
-  z: z,
-  type: 'contour',
-  contours: {
-    coloring: 'lines',
-    showlabels: false
-  },
-  line: {width: 2},
-  colorscale: 'Blues',
-  name: 'Utility',
-  showlegend: false  
-};
+    // Utility contour trace
+    const utilityContour = {
+      x: x,
+      y: y,
+      z: z,
+      type: 'contour',
+      contours: {
+        coloring: 'lines',
+        showlabels: false
+      },
+      line: {width: 2},
+      colorscale: 'Blues',
+      name: 'Utility',
+      showlegend: false  // This hides it from the legend
+    };
 
     // Optimal bundle point
     const optimalBundle = {
