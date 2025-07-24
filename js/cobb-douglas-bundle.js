@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     coloring: 'lines',
     showlabels: true,
     labelfont: { size: 12, color: 'blue' },
-    start: 0.5,
-    end: 5,
-    size: 0.5
+    start: 5,
+    end: 50,
+    size: 5
   },
   line: { width: 2, color: 'red' },
   showlegend: false,
