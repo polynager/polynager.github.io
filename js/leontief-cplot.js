@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const pY = parseFloat(pYSlider.value);
     const a = parseFloat(aSlider.value);
     const b = parseFloat(bSlider.value);
-    const min_U = 10;  // fixed utility level
 
-    // Calculate required income to achieve min_U
+    // Utility levels to plot
+    const cLevels = [10, 15, 20];
+
+    // Calculate required income for the middle utility (for budget set & line)
+    const min_U = 15;
     const xOpt = min_U / a;
     const yOpt = min_U / b;
     const reqIncome = pX * xOpt + pY * yOpt;
 
-    // Create budget line points based on required income
+    // Budget line points based on required income
     const xBudget = [];
     const yBudget = [];
     const steps = 100;
@@ -27,30 +30,24 @@ document.addEventListener('DOMContentLoaded', () => {
       yBudget.push((reqIncome - pX * x) / pY);
     }
 
-    // Isoquant levels around min_U
-    const cLevels = [min_U - 5, min_U, min_U + 5];
-
-    // Create traces for isoquants (L-shaped)
+    // Isoquant traces with labels on the plot (no legend entries)
     const isoquantTraces = [];
-    for (let i = 0; i < cLevels.length; i++) {
-      const c = cLevels[i];
-      if (c <= 0) continue;  // skip invalid levels
-      const label = `U = ${c.toFixed(1)}`;
+    cLevels.forEach((c, i) => {
+      if (c <= 0) return;
 
-      // Horizontal part: y = c/b for x >= c/a
+      // Horizontal segment (y = c/b) from x = c/a to 20
       isoquantTraces.push({
         x: [c / a, 20],
         y: [c / b, c / b],
         mode: 'lines+text',
         line: { color: 'blue', width: 2, dash: 'dot' },
-        name: label,
-        text: i === 1 ? [label, ''] : ['', ''],  // only label middle curve
+        text: [`U = ${c}`, ''],
         textposition: 'top right',
-        showlegend: i === 1,
+        showlegend: false,
         hoverinfo: 'skip',
       });
 
-      // Vertical part: x = c/a for y >= c/b
+      // Vertical segment (x = c/a) from y = c/b to 20
       isoquantTraces.push({
         x: [c / a, c / a],
         y: [c / b, 20],
@@ -59,15 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showlegend: false,
         hoverinfo: 'skip',
       });
-    }
+    });
 
-    // Budget set polygon (area under budget line)
+    // Budget set polygon
     const budgetArea = {
       type: 'scatter',
       x: [...xBudget, 0],
       y: [...yBudget, 0],
       fill: 'toself',
-      fillcolor: 'rgba(40, 167, 69, 0.2)', // greenish transparent
+      fillcolor: 'rgba(40, 167, 69, 0.2)', // green transparent
       line: { color: 'rgba(40, 167, 69, 0)' },
       name: 'Budget Set',
       hoverinfo: 'skip',
@@ -92,12 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Optimal Bundle',
     };
 
-    // Compose all traces
+    // Compose traces
     const data = [budgetArea, budgetLine, optimalBundle, ...isoquantTraces];
 
     // Layout
     const layout = {
-      title: `Leontief Utility: a=${a.toFixed(2)}, b=${b.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)}, U=${min_U}`,
+      title: `Leontief Utility: a=${a.toFixed(2)}, b=${b.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)}`,
       xaxis: { title: 'Good X', range: [0, 20] },
       yaxis: { title: 'Good Y', range: [0, 20] },
       showlegend: true,
