@@ -52,25 +52,29 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #007bff;
 }
 
-/* Homepage Styling */
+/* Homepage Container */
 .homepage {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  padding: 3rem 3.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  max-width: 800px;
+  margin: 0 auto;
   text-align: center;
 }
 
-/* Homepage Header */
+/* Header */
 .homepage h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: #2c2c2c;
 }
 
-/* Homepage Paragraph */
+/* Welcome text */
 .homepage p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  color: #555;
 }
 
 /* Chapter list */
@@ -80,22 +84,24 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .homepage li {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 
-/* Chapter links as buttons */
+/* Chapter link as styled button */
 .homepage a {
   display: inline-block;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: #ffffff;
-  border-radius: 6px;
+  padding: 0.75rem 1.75rem;
+  background-color: #e07a5f; /* warm terracotta */
+  color: #fff;
+  border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
 .homepage a:hover {
-  background-color: #0056b3;
+  background-color: #d1634f;
+  transform: translateY(-2px);
 }
