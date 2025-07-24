@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     size: 12,
                     color: 'black'
                 },
-                start: 0,
-                end: 70,
-                size: 2  
+                start: 2,
+                end: 60,
+                size: 2 // Shows utility levels 2, 4, 6, ...
             },
             line: {
                 width: 2,
