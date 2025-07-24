@@ -55,6 +55,84 @@
         <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYLeontiefSlider" /></label>
         <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aLeontiefSlider" /></label>
         <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="bLeontiefSlider" /></label>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Utility Functions and Budget Constraints</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+    <h1>Utility Functions and Budget Constraints</h1>
+
+    <section id="cobb-douglas">
+        <h2>Cobb-Douglas Utility</h2>
+        <label>Alpha (&#945;): 
+            <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaSlider">
+            <span id="alphaVal">0.50</span>
+        </label>
+        <div id="cobbDouglasPlot"></div>
+    </section>
+
+    <section id="leontief">
+        <h2>Leontief Utility</h2>
+        <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aSlider" /></label>
+        <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="bSlider" /></label>
+        <div id="leontiefPlot"></div>
+    </section>
+
+    <section id="linear">
+        <h2>Linear Utility</h2>
+        <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="laSlider" /></label>
+        <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="lbSlider" /></label>
+        <div id="linearPlot"></div>
+    </section>
+
+    <section id="budget-set">
+        <h2>Budget Set</h2>
+        <label>pX: <input type="range" min="0.1" max="10" step="0.1" value="1" id="pXSlider" /></label>
+        <label>pY: <input type="range" min="0.1" max="10" step="0.1" value="1" id="pYSlider" /></label>
+        <label>Income: <input type="range" min="1" max="100" step="1" value="10" id="incomeSlider" /></label>
+        <div id="budgetPlot"></div>
+    </section>
+
+    <section id="cobb-douglas-bundle">
+        <h2>Cobb-Douglas Utility with Budget Constraint</h2>
+        <label>Alpha (&#945;): <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaBundleSlider" /></label>
+        <label>pX: <input type="range" min="0.1" max="5" step="0.1" value="1" id="pXBundleSlider" /></label>
+        <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYBundleSlider" /></label>
+        <div id="cobbDouglasBundlePlot"></div>
+    </section>
+
+    <section id="leontief-bundle">
+        <h2>Leontief Utility with Budget Constraint</h2>
+        <label>pX: <input type="range" min="0.1" max="5" step="0.1" value="1" id="pXLeontiefSlider" /></label>
+        <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYLeontiefSlider" /></label>
+        <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aLeontiefSlider" /></label>
+        <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="bLeontiefSlider" /></label>
+        <div id="leontiefBundlePlot" style="width:700px;"></div>
+    </section>
+
+    <section id="linear-bundle">
+        <h2>Linear Utility with Budget Constraint</h2>
+        <label>pX: <input type="range" min="0.1" max="5" step="0.1" value="1" id="pXLinearSlider" /></label>
+        <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYLinearSlider" /></label>
+        <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aLinearSlider" /></label>
+        <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="bLinearSlider" /></label>
+        <div id="linearBundlePlot"></div>
+    </section>
+
+    <script src="../js/cobb-douglas.js"></script>
+    <script src="../js/leontief.js"></script>
+    <script src="../js/linear.js"></script>
+    <script src="../js/budget-set.js"></script>
+    <script src="../js/cobb-douglas-bundle.js"></script>
+    <script src="../js/leontief-cplot.js"></script>
+    <script src="../js/linear-cplot.js"></script>
+</body>
+</html>
         <div id="leontiefBundlePlot"></div>
     </section>
 
