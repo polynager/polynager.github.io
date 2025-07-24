@@ -9,20 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const pX = parseFloat(pXSlider.value);
     const pY = parseFloat(pYSlider.value);
 
-    // Base utility level to match Python's min_U=10
     const minU = 10;
-
-    // Ratio from Python formula
     const ratio = (pX / pY) * ((1 - alpha) / alpha);
 
-    // Optimal bundle based on minU and ratio
     const xStar = minU / Math.pow(ratio, 1 - alpha);
     const yStar = ratio * xStar;
 
-    // Income needed to afford the optimal bundle
     const income = pX * xStar + pY * yStar;
 
-    // Budget line points based on income
     const xBudget = [];
     const yBudget = [];
     for (let i = 0; i <= 100; i++) {
@@ -31,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
       yBudget.push((income - pX * x) / pY);
     }
 
-    // Create grid for utility contours (x and y axes)
-    const x = numeric.linspace(0.01, 10, 100);
-    const y = numeric.linspace(0.01, 10, 100);
+    // Create grid for utility contours, matching Python's scale
+    const x = numeric.linspace(0.1, 20, 100);
+    const y = numeric.linspace(0.1, 20, 100);
     const z = [];
     for (let i = 0; i < y.length; i++) {
       const row = [];
@@ -43,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
       z.push(row);
     }
 
-    // Budget set shaded area
     const budgetArea = {
       type: 'scatter',
       x: [...xBudget, 0],
@@ -56,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
       showlegend: true,
     };
 
-    // Budget line plot
     const budgetLine = {
       x: xBudget,
       y: yBudget,
@@ -65,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Budget Line'
     };
 
-    // Utility contours at levels similar to Python ([5, 10, 15])
     const utilityContour = {
       x: x,
       y: y,
@@ -84,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
       showscale: false
     };
 
-    // Mark optimal bundle on the plot
     const optimalBundle = {
       x: [xStar],
       y: [yStar],
@@ -97,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const layout = {
       title: `Cobb-Douglas Utility with Budget Constraint (α=${alpha.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)})`,
-      xaxis: { title: 'Good X', range: [0, 10] },
-      yaxis: { title: 'Good Y', range: [0, 10] },
+      xaxis: { title: 'Good X', range: [0, 20] },
+      yaxis: { title: 'Good Y', range: [0, 20] },
       showlegend: true,
       height: 400,
     };
