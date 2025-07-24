@@ -8,11 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const alpha = parseFloat(alphaSlider.value);
     const pX = parseFloat(pXSlider.value);
     const pY = parseFloat(pYSlider.value);
-    const income = 10;
 
-    const xStar = (alpha * income) / pX;
-    const yStar = ((1 - alpha) * income) / pY;
+    // Base utility level to match Python's min_U=10
+    const minU = 10;
 
+    // Ratio from Python formula
+    const ratio = (pX / pY) * ((1 - alpha) / alpha);
+
+    // Optimal bundle based on minU and ratio
+    const xStar = minU / Math.pow(ratio, 1 - alpha);
+    const yStar = ratio * xStar;
+
+    // Income needed to afford the optimal bundle
+    const income = pX * xStar + pY * yStar;
+
+    // Budget line points based on income
     const xBudget = [];
     const yBudget = [];
     for (let i = 0; i <= 100; i++) {
@@ -21,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       yBudget.push((income - pX * x) / pY);
     }
 
-    // Create grid for utility contours
+    // Create grid for utility contours (x and y axes)
     const x = numeric.linspace(0.01, 10, 100);
     const y = numeric.linspace(0.01, 10, 100);
     const z = [];
@@ -33,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       z.push(row);
     }
 
+    // Budget set shaded area
     const budgetArea = {
       type: 'scatter',
       x: [...xBudget, 0],
@@ -45,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showlegend: true,
     };
 
+    // Budget line plot
     const budgetLine = {
       x: xBudget,
       y: yBudget,
@@ -53,23 +65,26 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Budget Line'
     };
 
+    // Utility contours at levels similar to Python ([5, 10, 15])
     const utilityContour = {
-  x: x,
-  y: y,
-  z: z,
-  type: 'contour',
-  contours: {
-    coloring: 'lines',
-    showlabels: true,
-    labelfont: { size: 12, color: 'blue' },
-    start: 5,
-    end: 50,
-    size: 5
-  },
-  line: { width: 2, color: 'red' },
-  showlegend: false,
-  showscale: false
-};
+      x: x,
+      y: y,
+      z: z,
+      type: 'contour',
+      contours: {
+        coloring: 'lines',
+        showlabels: true,
+        labelfont: { size: 12, color: 'blue' },
+        start: 5,
+        end: 15,
+        size: 5
+      },
+      line: { width: 2, color: 'red' },
+      showlegend: false,
+      showscale: false
+    };
+
+    // Mark optimal bundle on the plot
     const optimalBundle = {
       x: [xStar],
       y: [yStar],
