@@ -8,82 +8,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const alpha = parseFloat(alphaSlider.value);
     const pX = parseFloat(pXSlider.value);
     const pY = parseFloat(pYSlider.value);
-    const income = 10; // fixed income (or add slider)
+    const income = 10;
 
-    // Compute optimal bundle (Cobb-Douglas)
     const xStar = (alpha * income) / pX;
     const yStar = ((1 - alpha) * income) / pY;
 
-    // Budget line points
     const xBudget = [];
     const yBudget = [];
-    for(let i = 0; i <= 100; i++){
+    for (let i = 0; i <= 100; i++) {
       const x = i * (income / pX) / 100;
       xBudget.push(x);
       yBudget.push((income - pX * x) / pY);
     }
 
-    // Utility contours - Cobb-Douglas: U = x^alpha * y^(1-alpha)
-    // Plot over grid
+    // Create grid for utility contours
     const x = numeric.linspace(0.01, 10, 100);
     const y = numeric.linspace(0.01, 10, 100);
     const z = [];
-    for(let i=0; i<y.length; i++) {
+    for (let i = 0; i < y.length; i++) {
       const row = [];
-      for(let j=0; j<x.length; j++) {
-        row.push(Math.pow(x[j], alpha) * Math.pow(y[i], 1-alpha));
+      for (let j = 0; j < x.length; j++) {
+        row.push(Math.pow(x[j], alpha) * Math.pow(y[i], 1 - alpha));
       }
       z.push(row);
     }
 
-    // Create filled shape for budget area under the budget line
     const budgetArea = {
       type: 'scatter',
       x: [...xBudget, 0],
       y: [...yBudget, 0],
       fill: 'toself',
       fillcolor: 'rgba(0, 123, 255, 0.2)',
-      line: {color: 'rgba(0, 123, 255, 0)'},
+      line: { color: 'rgba(0, 123, 255, 0)' },
       name: 'Budget Set',
       hoverinfo: 'skip',
       showlegend: true,
     };
 
-    // Budget line trace
     const budgetLine = {
       x: xBudget,
       y: yBudget,
       mode: 'lines',
-      line: {color: 'black', width: 2},
+      line: { color: 'black', width: 2 },
       name: 'Budget Line'
     };
 
-    
-  const utilityContour = {
-    x: x,
-    y: y,
-    z: z,
-    type: 'contour',
-    contours: {
-      coloring: 'lines',
-      showlabels: true, // ← this shows U values on the plot itself
-      labelfont: {
-        family: 'Arial',
-        size: 12,
-        color: 'black'
-      }
-    },
-    line: { width: 2 },
-    colorscale: 'Blues',
-    showlegend: false // ← this hides "Utility" from the side legend
-  };
+    const utilityContour = {
+      x: x,
+      y: y,
+      z: z,
+      type: 'contour',
+      contours: {
+        coloring: 'lines',
+        showlabels: true,
+        labelfont: {
+          size: 12,
+          color: 'blue'
+        }
+      },
+      line: { width: 2 },
+      colorscale: 'Blues',
+      name: 'Utility',
+      showlegend: false  // ✅ Hides from legend
+    };
 
-    // Optimal bundle point
     const optimalBundle = {
       x: [xStar],
       y: [yStar],
       mode: 'markers',
-      marker: {color: 'red', size: 10},
+      marker: { color: 'red', size: 10 },
       name: 'Optimal Bundle'
     };
 
@@ -91,18 +84,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const layout = {
       title: `Cobb-Douglas Utility with Budget Constraint (α=${alpha.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)})`,
-      xaxis: {title: 'Good X', range: [0, 10]},
-      yaxis: {title: 'Good Y', range: [0, 10]},
+      xaxis: { title: 'Good X', range: [0, 10] },
+      yaxis: { title: 'Good Y', range: [0, 10] },
       showlegend: true,
       height: 400,
     };
 
-    Plotly.newPlot(plotDiv, data, layout, {responsive: true});
+    Plotly.newPlot(plotDiv, data, layout, { responsive: true });
   }
 
   alphaSlider.addEventListener('input', plot);
   pXSlider.addEventListener('input', plot);
   pYSlider.addEventListener('input', plot);
 
-  plot(); // initial plot
+  plot();
 });
