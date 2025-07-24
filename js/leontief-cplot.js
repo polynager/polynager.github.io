@@ -9,40 +9,31 @@ document.addEventListener("DOMContentLoaded", function () {
             title: 'Good X',
             gridcolor: 'black',
             zeroline: false,
-            linecolor: 'black'
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
         },
         yaxis: {
             title: 'Good Y',
             gridcolor: 'black',
             zeroline: false,
-            linecolor: 'black'
+            linecolor: 'black',
+            tickfont: { color: 'black' },
+            titlefont: { color: 'black' }
         },
         paper_bgcolor: 'white',
         plot_bgcolor: 'white',
         font: { color: 'black' },
-        showlegend: true,
-        title: 'Leontief Utility with Budget Constraint'
+        title: 'Leontief Utility & Budget Constraint'
     };
 
     function plot(pX, pY, a, b) {
         const x = numeric.linspace(0.1, 20, 100);
         const y = numeric.linspace(0.1, 20, 100);
-        const Z = [];
         const budgetMask = [];
+
         const minU = 10;
         const levels = [minU - 5, minU, minU + 5];
-
-        for (let i = 0; i < y.length; i++) {
-            const rowU = [];
-            const rowMask = [];
-            for (let j = 0; j < x.length; j++) {
-                const u = Math.min(a * x[j], b * y[i]);
-                rowU.push(u);
-                rowMask.push(0); // filled later
-            }
-            Z.push(rowU);
-            budgetMask.push(rowMask);
-        }
 
         // Optimal bundle
         const xOpt = minU / a;
@@ -51,20 +42,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fill budget mask
         for (let i = 0; i < y.length; i++) {
+            const rowMask = [];
             for (let j = 0; j < x.length; j++) {
-                if (pX * x[j] + pY * y[i] <= reqI) {
-                    budgetMask[i][j] = 1;
-                }
+                rowMask.push(pX * x[j] + pY * y[i] <= reqI ? 1 : 0);
             }
+            budgetMask.push(rowMask);
         }
 
         // Budget line
-        const budgetLineY = x.map(xi => {
+        const budgetY = x.map(xi => {
             const yi = (reqI - pX * xi) / pY;
             return yi >= 0 ? yi : null;
         });
 
-        // Utility curves (L-shapes)
+        // Leontief indifference curves (L shapes)
+        const curveColors = ['#999999', '#0066cc', '#999999'];
         const curves = levels.flatMap((U, i) => {
             const x_c = U / a;
             const y_c = U / b;
@@ -73,14 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     x: [x_c, x_c],
                     y: [y_c, 20],
                     mode: 'lines',
-                    line: { color: ['#999999', '#0066cc', '#999999'][i], dash: 'dot' },
+                    line: { color: curveColors[i], dash: 'dot' },
                     name: `U = ${U}`
                 },
                 {
                     x: [x_c, 20],
                     y: [y_c, y_c],
                     mode: 'lines',
-                    line: { color: ['#999999', '#0066cc', '#999999'][i], dash: 'dot' },
+                    line: { color: curveColors[i], dash: 'dot' },
                     name: '',
                     showlegend: false
                 }
@@ -101,16 +93,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     end: 1.5,
                     size: 1
                 },
-                colorscale: [[0, 'rgba(0,255,255,0.2)'], [1, 'rgba(0,255,255,0.2)']],
-                hoverinfo: 'skip'
+                colorscale: [[0, 'rgba(0,0,255,0.15)'], [1, 'rgba(0,0,255,0.15)']],
+                hoverinfo: 'skip',
+                name: 'Budget Set'
             },
             // Budget line
             {
                 x: x,
-                y: budgetLineY,
+                y: budgetY,
                 mode: 'lines',
-                name: 'Budget Line',
-                line: { color: 'black', width: 2 }
+                type: 'scatter',
+                line: { color: 'black', width: 2 },
+                name: 'Budget Line'
             },
             // Optimal bundle
             {
@@ -121,11 +115,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 marker: { color: 'red', size: 8 },
                 name: 'Optimal Bundle'
             },
-            // Utility curves
+            // Indifference curves (L-shapes)
             ...curves
         ];
 
-       Plotly.newPlot('leontiefBundlePlot', data, layout, { responsive: true });
+        Plotly.newPlot('leontiefPlot', data, layout, { responsive: true });
     }
 
     function update() {
@@ -137,7 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    [pXSlider, pYSlider, aSlider, bSlider].forEach(slider => slider.addEventListener("input", update));
+    [pXSlider, pYSlider, aSlider, bSlider].forEach(slider => {
+        slider.addEventListener("input", update);
+    });
 
     update();
 });
