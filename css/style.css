@@ -1,53 +1,47 @@
-/* General Page Styles */
-body {
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  background-color: #f8f9fa;
-  color: #212529;
-  margin: 2rem auto;
-  max-width: 960px;
-  line-height: 1.6;
+/* Homepage Styling */
+.homepage {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: center;
 }
 
-/* Headings */
-h1, h2 {
-  color: #343a40;
+/* Homepage Header */
+.homepage h1 {
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 
-/* Section */
-section {
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 1.5rem;
+/* Homepage Paragraph */
+.homepage p {
+  font-size: 1.1rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* Labels + Sliders */
-label {
-  display: block;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
+/* Chapter list */
+.homepage ul {
+  list-style: none;
+  padding: 0;
 }
 
-input[type="range"] {
-  width: 250px;
-  margin-left: 1rem;
-  vertical-align: middle;
+.homepage li {
+  margin: 1rem 0;
 }
 
-/* Sliders grouped horizontally */
-label + label {
-  margin-top: 0.5rem;
-}
-
-/* Plot container */
-#leontiefBundlePlot {
-  margin-top: 2rem;
-}
-
-/* Optional: Style text inside slider labels */
-input[type="range"]::-webkit-slider-thumb {
+/* Chapter links as buttons */
+.homepage a {
+  display: inline-block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
   background-color: #007bff;
+  color: #ffffff;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.homepage a:hover {
+  background-color: #0056b3;
 }
