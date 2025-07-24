@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   },
   line: { width: 2 },
+  colorscale: 'Blues',
   showlegend: false,
   showscale: false  // ✅ This is key
 };
