@@ -49,7 +49,7 @@ label + label {
 
 /* Optional: Style text inside slider labels */
 input[type="range"]::-webkit-slider-thumb {
-  background-color: #007bff;
+  background-color: #318925;
 }
 
 /* Homepage Container */
@@ -88,49 +88,27 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* Chapter link as styled button */
-.homepage a {
+.homepage a,
+.back-home-button {
   display: inline-block;
   font-size: 1.1rem;
   font-weight: 600;
   padding: 0.75rem 1.75rem;
-  background-color: #318925; 
+  background-color: #318925;
   color: #fff;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.25s ease, transform 0.2s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-}
-
-.homepage a:hover {
-  background-color: #d1634f;
-  transform: translateY(-2px);
-}
-.back-home-container {
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
-.back-home-container {
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
-.back-home-button {
-  display: inline-block;
-  background-color: #318925;   
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
+.homepage a:hover,
 .back-home-button:hover {
-  background-color: #863021; 
+  background-color: #256d1a;
   transform: translateY(-2px);
-}ransform: translateY(-1px);
 }
 
+.back-home-container {
+  margin-bottom: 2rem;
+  text-align: left;
+}
