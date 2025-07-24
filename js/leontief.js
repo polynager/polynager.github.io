@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 start: 0,
                 end: 70,
-                size: 10  // ← show utility levels like 5, 10, 15...
+                size: 2  
             },
             line: {
                 width: 2,
