@@ -59,19 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
   z: z,
   type: 'contour',
   contours: {
-    coloring: 'lines', // or 'none' if you want no fill
+    coloring: 'lines',
     showlabels: true,
-    labelfont: {
-      size: 12,
-      color: 'blue'
-    }
+    labelfont: { size: 12, color: 'blue' },
+    start: 0.5,
+    end: 5,
+    size: 0.5
   },
-  line: { width: 2 },
-  colorscale: 'Blues',
+  line: { width: 2, color: 'red' },
   showlegend: false,
-  showscale: false  // ✅ This is key
+  showscale: false
 };
-
     const optimalBundle = {
       x: [xStar],
       y: [yStar],
