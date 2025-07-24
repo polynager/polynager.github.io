@@ -61,20 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Budget Line'
     };
 
-    // Utility contour trace
-    const utilityContour = {
-      x: x,
-      y: y,
-      z: z,
-      type: 'contour',
-      contours: {
-        coloring: 'lines',
-        showlabels: false
-      },
-      line: {width: 2},
-      colorscale: 'Blues',
-      name: 'Utility'
-    };
+ const utilityContour = {
+  x: x,
+  y: y,
+  z: z,
+  type: 'contour',
+  contours: {
+    coloring: 'lines',
+    showlabels: false
+  },
+  line: {width: 2},
+  colorscale: 'Blues',
+  name: 'Utility',
+  showlegend: false  
+};
 
     // Optimal bundle point
     const optimalBundle = {
