@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       colorscale: 'Blues',
       name: 'Utility',
       showlegend: false,
+      showscale: false,
       colorbar: { show: false }
     };
 
