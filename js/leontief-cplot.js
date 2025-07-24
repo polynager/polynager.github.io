@@ -63,26 +63,33 @@ document.addEventListener('DOMContentLoaded', () => {
       hoverinfo: 'skip'
     }));
 
-    // Combine horizontal and vertical parts for isoquants
-    const isoquantTraces = [];
-    for(let i=0; i < cLevels.length; i++) {
-      isoquantTraces.push({
-        x: [cLevels[i]/a, 10],
-        y: [cLevels[i]/b, cLevels[i]/b],
-        mode: 'lines',
-        line: {color: 'blue', width: 2, dash: 'dot'},
-        name: `U = ${cLevels[i].toFixed(1)}`,
-        showlegend: i===0,
-      });
-      isoquantTraces.push({
-        x: [cLevels[i]/a, cLevels[i]/a],
-        y: [cLevels[i]/b, 10],
-        mode: 'lines',
-        line: {color: 'blue', width: 2, dash: 'dot'},
-        showlegend: false,
-        hoverinfo: 'skip'
-      });
-    }
+const isoquantTraces = [];
+for (let i = 0; i < cLevels.length; i++) {
+  const uVal = `U = ${cLevels[i].toFixed(1)}`;
+
+  // Horizontal part
+  isoquantTraces.push({
+    x: [cLevels[i]/a, 10],
+    y: [cLevels[i]/b, cLevels[i]/b],
+    mode: 'lines+text',
+    line: {color: 'blue', width: 2, dash: 'dot'},
+    name: uVal,
+    text: [uVal, ''],
+    textposition: 'top right',
+    showlegend: i === 0,
+    hoverinfo: 'skip'
+  });
+
+  // Vertical part
+  isoquantTraces.push({
+    x: [cLevels[i]/a, cLevels[i]/a],
+    y: [cLevels[i]/b, 10],
+    mode: 'lines',
+    line: {color: 'blue', width: 2, dash: 'dot'},
+    showlegend: false,
+    hoverinfo: 'skip'
+  });
+}
 
     // Budget set polygon
     const budgetArea = {
