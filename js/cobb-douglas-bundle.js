@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
       z: z,
       type: 'contour',
       contours: {
-        coloring: 'lines',
+        coloring: 'none',
         showlabels: true,
         labelfont: {
           size: 12,
