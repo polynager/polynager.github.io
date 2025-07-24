@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ...curves
         ];
 
-        Plotly.newPlot('leontiefPlot', data, layout, { responsive: true });
+        Plotly.newPlot('leontiefBundlePlot', data, layout, { responsive: true });
     }
 
     function update() {
