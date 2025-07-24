@@ -10,55 +10,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const pY = parseFloat(pYSlider.value);
     const a = parseFloat(aSlider.value);
     const b = parseFloat(bSlider.value);
-    const income = 10; // fixed income
+    const min_U = 10;  // fixed utility level
 
-    // Optimal bundle calculation
-    const xStar = income / (pX + pY * (a / b));
-    const yStar = (a / b) * xStar;
+    // Calculate required income to achieve min_U
+    const xOpt = min_U / a;
+    const yOpt = min_U / b;
+    const reqIncome = pX * xOpt + pY * yOpt;
 
-    // Budget line points
+    // Create budget line points based on required income
     const xBudget = [];
     const yBudget = [];
-    for (let i = 0; i <= 100; i++) {
-      const x = (i * (income / pX)) / 100;
+    const steps = 100;
+    for (let i = 0; i <= steps; i++) {
+      const x = (i / steps) * (reqIncome / pX);
       xBudget.push(x);
-      yBudget.push((income - pX * x) / pY);
+      yBudget.push((reqIncome - pX * x) / pY);
     }
 
-    // Utility isoquants levels
-    const cLevels = [1, 2, 3, 4, 5];
+    // Isoquant levels around min_U
+    const cLevels = [min_U - 5, min_U, min_U + 5];
 
-    // Isoquants traces (horizontal and vertical parts)
+    // Create traces for isoquants (L-shaped)
     const isoquantTraces = [];
     for (let i = 0; i < cLevels.length; i++) {
       const c = cLevels[i];
-      const uLabel = `U = ${c.toFixed(1)}`;
+      if (c <= 0) continue;  // skip invalid levels
+      const label = `U = ${c.toFixed(1)}`;
 
-      // Horizontal part (y = c/b)
+      // Horizontal part: y = c/b for x >= c/a
       isoquantTraces.push({
-        x: [c / a, 10],
+        x: [c / a, 20],
         y: [c / b, c / b],
         mode: 'lines+text',
         line: { color: 'blue', width: 2, dash: 'dot' },
-        name: uLabel,
-        text: [uLabel, ''],
+        name: label,
+        text: i === 1 ? [label, ''] : ['', ''],  // only label middle curve
         textposition: 'top right',
-        showlegend: i === 0,
-        hoverinfo: 'skip'
+        showlegend: i === 1,
+        hoverinfo: 'skip',
       });
 
-      // Vertical part (x = c/a)
+      // Vertical part: x = c/a for y >= c/b
       isoquantTraces.push({
         x: [c / a, c / a],
-        y: [c / b, 10],
+        y: [c / b, 20],
         mode: 'lines',
         line: { color: 'blue', width: 2, dash: 'dot' },
         showlegend: false,
-        hoverinfo: 'skip'
+        hoverinfo: 'skip',
       });
     }
 
-    // Budget set area polygon
+    // Budget set polygon (area under budget line)
     const budgetArea = {
       type: 'scatter',
       x: [...xBudget, 0],
@@ -68,35 +71,37 @@ document.addEventListener('DOMContentLoaded', () => {
       line: { color: 'rgba(40, 167, 69, 0)' },
       name: 'Budget Set',
       hoverinfo: 'skip',
-      showlegend: true
+      showlegend: true,
     };
 
-    // Budget line
+    // Budget line trace
     const budgetLine = {
       x: xBudget,
       y: yBudget,
       mode: 'lines',
       line: { color: 'black', width: 2 },
-      name: 'Budget Line'
+      name: 'Budget Line',
     };
 
     // Optimal bundle point
     const optimalBundle = {
-      x: [xStar],
-      y: [yStar],
+      x: [xOpt],
+      y: [yOpt],
       mode: 'markers',
       marker: { color: 'red', size: 10 },
-      name: 'Optimal Bundle'
+      name: 'Optimal Bundle',
     };
 
+    // Compose all traces
     const data = [budgetArea, budgetLine, optimalBundle, ...isoquantTraces];
 
+    // Layout
     const layout = {
-      title: `Leontief Utility with Budget Constraint (a=${a.toFixed(2)}, b=${b.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)})`,
-      xaxis: { title: 'Good X', range: [0, 10] },
-      yaxis: { title: 'Good Y', range: [0, 10] },
+      title: `Leontief Utility: a=${a.toFixed(2)}, b=${b.toFixed(2)}, pX=${pX.toFixed(2)}, pY=${pY.toFixed(2)}, U=${min_U}`,
+      xaxis: { title: 'Good X', range: [0, 20] },
+      yaxis: { title: 'Good Y', range: [0, 20] },
       showlegend: true,
-      height: 400
+      height: 450,
     };
 
     Plotly.newPlot(plotDiv, data, layout, { responsive: true });
@@ -107,5 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
   aSlider.addEventListener('input', plot);
   bSlider.addEventListener('input', plot);
 
-  plot(); // initial plot
+  plot();
 });
