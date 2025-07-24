@@ -69,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
       line: { width: 2 },
       colorscale: 'Blues',
       name: 'Utility',
-      showlegend: false  // ✅ Hides from legend
+      showlegend: false,
+      colorbar: { show: false }
     };
 
     const optimalBundle = {
