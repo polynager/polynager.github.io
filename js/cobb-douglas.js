@@ -1,59 +1,56 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.getElementById("alphaSlider");
-    const alphaVal = document.getElementById("alphaVal");
+  const slider = document.getElementById("alphaSlider");
+  const alphaVal = document.getElementById("alphaVal");
+  const plotDiv = document.getElementById("cobbDouglasPlot");
 
-    const layout = (title, xTitle, yTitle) => ({
-        title: title,
-        xaxis: {
-            title: xTitle,
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        yaxis: {
-            title: yTitle,
-            gridcolor: 'black',
-            zeroline: false,
-            linecolor: 'black',
-            tickfont: { color: 'black' },
-            titlefont: { color: 'black' }
-        },
-        paper_bgcolor: 'white',
-        plot_bgcolor: 'white',
-        font: { color: 'black' }
-    });
+  // Helper: like np.linspace
+  function linspace(start, end, num) {
+    const arr = [];
+    const step = (end - start) / (num - 1);
+    for (let i = 0; i < num; i++) arr.push(start + step * i);
+    return arr;
+  }
 
-        const z = y.map(yVal =>
-            x.map(xVal => Math.pow(xVal, alpha) * Math.pow(yVal, 1 - alpha))
-        );
+  function plotCobbDouglas(alpha) {
+    alphaVal.textContent = parseFloat(alpha).toFixed(2);
+    const x = linspace(0.1, 10, 100);
+    const y = linspace(0.1, 10, 100);
+    const z = y.map(yVal =>
+      x.map(xVal => Math.pow(xVal, alpha) * Math.pow(yVal, 1 - alpha))
+    );
 
-        const data = [{
-            z: z,
-            type: 'contour',
-            colorscale: 'Jet',
-            contours: {
-                coloring: 'lines',
-                showlabels: true,
-                labelfont: {
-                    family: 'Arial',
-                width: 2
-            },
-            colorbar: {
-                show: false  // ← Hide color legend
-                show: false
-            }
-        }];
+    const contour = {
+      z: z,
+      x: x,
+      y: y,
+      type: 'contour',
+      contours: {
+        coloring: 'lines',
+        showlabels: true,
+        labelfont: {
+          family: 'Arial',
+          size: 12,
+          color: 'black'
+        }
+      },
+      line: { width: 2, color: 'blue' },
+      showscale: false
+    };
 
-        Plotly.newPlot(
-            'cobbDouglasPlot',
-            data,
-            layout(`Cobb-Douglas Utility (α = ${alpha.toFixed(2)})`, 'Good X', 'Good Y'),
-            { responsive: true }
-        );
-    }
+    const layout = {
+      title: `Cobb-Douglas Utility (α = ${parseFloat(alpha).toFixed(2)})`,
+      xaxis: { title: 'Good X', range: [0, 10] },
+      yaxis: { title: 'Good Y', range: [0, 10] },
+      height: 600,
+      width: 600,
+      showlegend: false,
+      plot_bgcolor: 'white',
+      paper_bgcolor: 'white'
+    };
 
-    plotCobbDouglas(parseFloat(slider.value));
-    slider.addEventListener("input", () => plotCobbDouglas(parseFloat(slider.value)));
+    Plotly.newPlot(plotDiv, [contour], layout, { responsive: true });
+  }
+
+  slider.addEventListener("input", () => plotCobbDouglas(slider.value));
+  plotCobbDouglas(slider.value); // Initial plot
 });
