@@ -40,8 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       title: `Cobb-Douglas Utility (α = ${parseFloat(alpha).toFixed(2)})`,
       xaxis: { title: 'Good X', range: [0, 10] },
       yaxis: { title: 'Good Y', range: [0, 10] },
-      height: 600,
-      width: 600,
+      height: 400,
       showlegend: false
     };
 
