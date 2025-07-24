@@ -53,26 +53,23 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Budget Line'
     };
 
-    // const utilityContour = {
-    //   x: x,
-    //   y: y,
-    //   z: z,
-    //   type: 'contour',
-    //   contours: {
-    //     coloring: 'none',
-    //     showlabels: true,
-    //     labelfont: {
-    //       size: 12,
-    //       color: 'blue'
-    //     }
-    //   },
-    //   line: { width: 2 },
-    //   colorscale: 'Blues',
-    //   name: 'Utility',
-    //   showlegend: false,
-    //   showscale: false,
-    //   colorbar: { show: false }
-    // };
+    const utilityContour = {
+  x: x,
+  y: y,
+  z: z,
+  type: 'contour',
+  contours: {
+    coloring: 'lines', // or 'none' if you want no fill
+    showlabels: true,
+    labelfont: {
+      size: 12,
+      color: 'blue'
+    }
+  },
+  line: { width: 2 },
+  showlegend: false,
+  showscale: false  // ✅ This is key
+};
 
     const optimalBundle = {
       x: [xStar],
