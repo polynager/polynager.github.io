@@ -79,16 +79,23 @@
 <!-- Modal for Python Editor -->
 <div id="codeModal">
   <div class="modal-content">
-  <span class="close">&times;</span>
-  <div class="modal-left">
-    <textarea id="modalEditor"># code here</textarea>
-    <button onclick="runPythonModal()">Run</button>
-  </div>
-  <div class="modal-right">
-    <div id="modalOutput"></div>
+    <header>
+      <h3 id="modalTitle">Edit Python Code</h3>
+      <button onclick="closeModal()" title="Close">&times;</button>
+    </header>
+
+    <!-- Split content into left and right -->
+    <div class="modal-body">
+      <div id="modalEditor"></div>
+
+      <div class="modal-right">
+        <button onclick="runModalCode()">Run</button>
+        <div id="modalOutput"></div>
+      </div>
+    </div>
   </div>
 </div>
-</div>
+
 
 
 <!-- Scripts -->
