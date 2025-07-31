@@ -211,3 +211,65 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 14px;
 }
 
+#codeModal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* prevent main scroll */
+}
+
+#codeModal .modal-content {
+  background: #fff;
+  width: 80vw;
+  max-width: 900px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+#codeModal header {
+  flex: none;
+  padding: 10px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#modalEditor {
+  height: 50%;
+  overflow: auto;
+  border-bottom: 1px solid #ccc;
+}
+
+#modalControls {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 10px;
+}
+
+#modalOutput {
+  flex: 1;
+  overflow: auto;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin-top: 10px;
+  max-height: 100%;
+}
+
+#modalOutput img {
+  max-width: 100%;
+  height: auto;
+}
+
