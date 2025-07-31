@@ -251,21 +251,23 @@ input[type="range"]::-webkit-slider-thumb {
 .modal-body {
   flex: 1;
   display: flex;
-  flex-direction: row; /* THIS makes side-by-side layout */
+  flex-direction: row;
   overflow: hidden;
+  height: 80vh; /* Set a fixed height for modal body */
 }
 
 #modalEditor {
-  width: 40%;
+  width: 45%;
   height: 100%;
   overflow: auto;
   border-right: 1px solid #ccc;
   display: flex;
   flex-direction: column;
 }
+
 #modalEditor button {
   margin-top: 10px;
-  align-self: flex-start; /* aligns button left */
+  align-self: flex-start;
   padding: 0.6rem 1.2rem;
   background-color: #318925;
   color: white;
@@ -277,23 +279,32 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #256d1a;
 }
 
-/* Output and run button on right */
 .modal-right {
-  width: 50%;
+  width: 55%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
 
 #modalOutput {
   flex: 1;
-  overflow: auto;
-  padding: 10px;
-  background: #fefefe;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: 1rem;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure Plotly plots fit */
+#modalOutput .plot-container {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .modal-right button {
@@ -308,6 +319,13 @@ input[type="range"]::-webkit-slider-thumb {
 
 .modal-right button:hover {
   background-color: #256d1a;
+}
+
+/* Optional: Fix modal size more strictly if needed */
+.modal-content {
+  width: 90%;
+  max-width: 1200px;
+  height: 90vh;
 }
 
 .section-header {
