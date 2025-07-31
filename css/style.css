@@ -331,4 +331,11 @@ input[type="range"]::-webkit-slider-thumb {
 .see-code-button:hover {
   background-color: #5a6268;
 }
+.run-button-container {
+  padding: 10px 12px 0;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: flex-start;
+}
 
