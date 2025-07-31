@@ -16,12 +16,12 @@ h1, h2 {
 
 /* Section */
 section {
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid #dee2e6;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* Labels + Sliders */
@@ -30,65 +30,24 @@ label {
   margin-bottom: 0.75rem;
   font-weight: 500;
 }
-
 input[type="range"] {
   width: 250px;
   margin-left: 1rem;
-  vertical-align: middle;
 }
-
-/* Sliders grouped horizontally */
-label + label {
-  margin-top: 0.5rem;
-}
-
-/* Plot container */
-#leontiefBundlePlot {
-  margin-top: 2rem;
-}
-
-/* Optional: Style text inside slider labels */
 input[type="range"]::-webkit-slider-thumb {
   background-color: #318925;
 }
 
-/* Homepage Container */
-.homepage {
-  background-color: #fdfdfd;
-  border-radius: 12px;
-  padding: 3rem 3.5rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+/* Plot container spacing */
+#leontiefBundlePlot {
+  margin-top: 2rem;
 }
 
-/* Header */
-.homepage h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #2c2c2c;
+/* Back to Homepage Button */
+.back-home-container {
+  margin-bottom: 2rem;
+  text-align: left;
 }
-
-/* Welcome text */
-.homepage p {
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
-  color: #555;
-}
-
-/* Chapter list */
-.homepage ul {
-  list-style: none;
-  padding: 0;
-}
-
-.homepage li {
-  margin: 1.5rem 0;
-}
-
-/* Chapter link as styled button */
-.homepage a,
 .back-home-button {
   display: inline-block;
   font-size: 1.1rem;
@@ -101,119 +60,12 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
   transition: background-color 0.25s ease, transform 0.2s ease;
 }
-
-.homepage a:hover,
 .back-home-button:hover {
   background-color: #256d1a;
   transform: translateY(-2px);
 }
 
-.back-home-container {
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
-.quiz-section {
-  background: #fff8f4;
-  border: 1px solid #e1cfc5;
-  border-radius: 12px;
-  padding: 2rem;
-  margin-top: 3rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.question {
-  margin-bottom: 2rem;
-}
-
-.option-label {
-  display: block;
-  margin: 0.5rem 0;
-  cursor: pointer;
-}
-
-.correct {
-  color: #2e7d32;
-  font-weight: bold;
-}
-
-.incorrect {
-  color: #c62828;
-  font-weight: bold;
-}
-
-.submit-button {
-  background-color: #e2725b;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.submit-button:hover {
-  background-color: #cf5a42;
-}
-
-/* Python plot section */
-#python-plot {
-  background-color: #fffaf5;
-  border: 1px solid #e1cfc2;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  margin-top: 2rem;
-}
-
-#python-code {
-  width: 100%;
-  height: 180px;
-  font-family: monospace;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem;
-  background-color: #fefefe;
-}
-
-.run-python-button {
-  padding: 0.6rem 1.25rem;
-  font-size: 1rem;
-  background-color: #b65a38;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.run-python-button:hover {
-  background-color: #93432d;
-}
-
-.plot-output img {
-  max-width: 100%;
-  margin-top: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-.code-editor-container {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
-}
-
-.CodeMirror {
-  height: auto;
-  border: 1px solid #ddd;
-  font-size: 14px;
-}
-
+/* Modal Layout */
 #codeModal {
   display: none;
   position: fixed;
@@ -224,9 +76,8 @@ input[type="range"]::-webkit-slider-thumb {
   justify-content: center;
   align-items: center;
 }
-
 #codeModal .modal-content {
-  background: #ffffff;
+  background: #fff;
   width: 95%;
   max-width: 1200px;
   height: 90vh;
@@ -236,8 +87,6 @@ input[type="range"]::-webkit-slider-thumb {
   overflow: hidden;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
 }
-
-/* Header */
 #codeModal header {
   padding: 10px;
   background: #f0f0f0;
@@ -247,14 +96,14 @@ input[type="range"]::-webkit-slider-thumb {
   align-items: center;
 }
 
-/* Body splits editor + output side-by-side */
+/* Modal Body Layout */
 .modal-body {
   flex: 1;
   display: flex;
-  flex-direction: row; /* THIS makes side-by-side layout */
   overflow: hidden;
 }
 
+/* Code Editor Area */
 #modalEditor {
   width: 40%;
   height: 100%;
@@ -265,7 +114,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 #modalEditor button {
   margin-top: 10px;
-  align-self: flex-start; /* aligns button left */
+  align-self: flex-start;
   padding: 0.6rem 1.2rem;
   background-color: #318925;
   color: white;
@@ -277,15 +126,14 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #256d1a;
 }
 
-/* Output and run button on right */
+/* Output Area */
 .modal-right {
-  width: 50%;
+  width: 60%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
 #modalOutput {
   flex: 1;
   overflow: auto;
@@ -295,7 +143,6 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 6px;
   margin-bottom: 1rem;
 }
-
 .modal-right button {
   align-self: flex-end;
   padding: 0.6rem 1.2rem;
@@ -305,18 +152,11 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 6px;
   cursor: pointer;
 }
-
 .modal-right button:hover {
   background-color: #256d1a;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
+/* See Code Button */
 .see-code-button {
   padding: 0.5rem 1rem;
   font-size: 0.95rem;
@@ -327,15 +167,21 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
-
 .see-code-button:hover {
   background-color: #5a6268;
 }
-.run-button-container {
-  padding: 10px 12px 0;
-  background-color: #f0f0f0;
-  border-top: 1px solid #ccc;
+
+/* Section Header */
+.section-header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
+/* CodeMirror Editor Style */
+.CodeMirror {
+  height: auto;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
