@@ -265,17 +265,26 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Output and run button on right */
 .modal-right {
-  width: 60%;
+  width: 50%;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  justify-content: space-between;
+}
+
+#modalOutput {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+  background: #fefefe;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
 .modal-right button {
-  align-self: flex-start;
+  align-self: flex-end;
   padding: 0.6rem 1.2rem;
-  margin-bottom: 1rem;
   background-color: #318925;
   color: white;
   border: none;
@@ -285,14 +294,4 @@ input[type="range"]::-webkit-slider-thumb {
 
 .modal-right button:hover {
   background-color: #256d1a;
-}
-
-/* Output area */
-#modalOutput {
-  flex: 1;
-  overflow: auto;
-  padding: 10px;
-  background: #fefefe;
-  border: 1px solid #ccc;
-  border-radius: 6px;
 }
