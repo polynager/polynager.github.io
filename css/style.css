@@ -255,12 +255,26 @@ input[type="range"]::-webkit-slider-thumb {
   overflow: hidden;
 }
 
-/* Editor takes left side */
 #modalEditor {
   width: 40%;
   height: 100%;
   overflow: auto;
   border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+#modalEditor button {
+  margin-top: 10px;
+  align-self: flex-start; /* aligns button left */
+  padding: 0.6rem 1.2rem;
+  background-color: #318925;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#modalEditor button:hover {
+  background-color: #256d1a;
 }
 
 /* Output and run button on right */
