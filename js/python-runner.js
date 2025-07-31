@@ -417,6 +417,8 @@ import numpy as np
 import io, base64
 from contextlib import redirect_stdout
 
+plt.show = lambda *args, **kwargs: None
+
 buf_out = io.StringIO()
 img_data = None
 plt.clf()
