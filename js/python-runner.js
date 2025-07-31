@@ -70,10 +70,10 @@ text_output = buf_out.getvalue()
   }
 }
 
-// Show/hide code editor blocks
 function toggleCodeEditor(editorId) {
   const container = document.getElementById(`${editorId}-editor-container`);
   if (container) {
-    container.style.display = container.style.display === "none" ? "block" : "none";
+    const isHidden = container.style.display === "none";
+    container.style.display = isHidden ? "block" : "none";
   }
 }
