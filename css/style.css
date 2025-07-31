@@ -198,4 +198,16 @@ input[type="range"]::-webkit-slider-thumb {
   border: 1px solid #ddd;
   border-radius: 6px;
 }
+.code-editor-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+.CodeMirror {
+  height: auto;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
 
