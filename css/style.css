@@ -310,11 +310,6 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #256d1a;
 }
 
-.code-button-wrapper {
-  position: relative;
-  height: 0;
-}
-
 .section-header {
   display: flex;
   justify-content: space-between;
