@@ -16,7 +16,7 @@
 </div>
     <h1>Utility Functions and Budget Constraints</h1>
 
-    <section id="cobb-douglas">
+<section id="cobb-douglas">
   <h2>Cobb-Douglas Utility</h2>
   <label>Alpha (&#945;): 
     <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaSlider">
@@ -24,31 +24,12 @@
   </label>
   <div id="cobbDouglasPlot"></div>
 
-  <button onclick="toggleCodeEditor('cobbDouglas')">See & Run Code</button>
-  <div id="cobbDouglas-editor-container" class="code-editor-container" style="display: none;">
-    <textarea id="cobbDouglas-code" class="code-area">
-import matplotlib.pyplot as plt
-import numpy as np
-
-def cobb_douglas_utility(x, y, alpha):
-    return (x**alpha) * (y**(1 - alpha))
-
-x = np.linspace(0.1, 10, 100)
-y = np.linspace(0.1, 10, 100)
-X, Y = np.meshgrid(x, y)
-U = cobb_douglas_utility(X, Y, 0.5)
-
-plt.figure(figsize=(6,5))
-contour = plt.contour(X, Y, U, levels=5)
-plt.clabel(contour)
-plt.xlabel("Good X")
-plt.ylabel("Good Y")
-plt.title("Cobb-Douglas Utility (α = 0.5)")
-plt.grid(True)
-plt.show()
-    </textarea>
-    <button onclick="runPythonFromEditor('cobbDouglas')">Run</button>
-    <div id="cobbDouglas-output" class="plot-output"></div>
+  <button onclick="toggleCodeEditor('cobbDouglas')">See & Edit Code</button>
+  
+  <div id="cobbDouglas-editor-container" class="code-editor-container" style="display: none; margin-top:10px; border: 1px solid #ddd; padding: 10px; border-radius: 6px;">
+    <div id="cobbDouglas-cm-editor" style="height: 300px; border: 1px solid #ccc;"></div>
+    <button onclick="runPythonFromEditor('cobbDouglas')" style="margin-top: 8px;">Run</button>
+    <div id="cobbDouglas-output" class="plot-output" style="margin-top: 10px;"></div>
   </div>
 </section>
 
@@ -100,27 +81,7 @@ plt.show()
         <div id="linearBundlePlot"></div>
     </section>
     
-   <!-- Python Code Runner -->
-  <section id="python-plot">
-    <h2>Try Your Own Python Code</h2>
-    <textarea id="python-code" rows="10">
-    import matplotlib.pyplot as plt
-    import numpy as np
-    
-    x = np.linspace(0.1, 10, 100)
-    y = x ** 0.5
-    
-    plt.plot(x, y, label="y = √x")
-    plt.xlabel("Good X")
-    plt.ylabel("Utility")
-    plt.title("Custom Utility Plot")
-    plt.grid(True)
-    plt.legend()
-    plt.show()
-        </textarea>
-        <button class="run-python-button" onclick="runPython()">Run Python Code</button>
-        <div id="py-output" class="plot-output"></div>
-      </section>
+   
 
   <!-- JS Scripts -->
   <script src="../js/quiz.js"></script>
@@ -133,6 +94,98 @@ plt.show()
   <script src="../js/linear-cplot.js"></script>
   <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
   <script src="../js/python-runner.js"></script>
-        
+<script>
+  // Store CodeMirror instances per section
+  const editors = {};
+
+  // Initial code for Cobb-Douglas
+  const codeSamples = {
+    cobbDouglas: `import matplotlib.pyplot as plt
+import numpy as np
+
+def cobb_douglas_utility(x, y, alpha):
+    return (x**alpha) * (y**(1 - alpha))
+
+x = np.linspace(0.1, 10, 100)
+y = np.linspace(0.1, 10, 100)
+X, Y = np.meshgrid(x, y)
+U = cobb_douglas_utility(X, Y, 0.5)
+
+plt.figure(figsize=(6,5))
+contour = plt.contour(X, Y, U, levels=5)
+plt.clabel(contour)
+plt.xlabel("Good X")
+plt.ylabel("Good Y")
+plt.title("Cobb-Douglas Utility (α = 0.5)")
+plt.grid(True)
+plt.show()`
+  };
+
+  function toggleCodeEditor(id) {
+    const container = document.getElementById(id + '-editor-container');
+    if (container.style.display === 'none') {
+      container.style.display = 'block';
+
+      // Init CodeMirror once per editor
+      if (!editors[id]) {
+        editors[id] = CodeMirror(document.getElementById(id + '-cm-editor'), {
+          mode: 'python',
+          lineNumbers: true,
+          theme: 'default',
+          value: codeSamples[id] || '',
+          indentUnit: 4,
+          tabSize: 4,
+          lineWrapping: true,
+        });
+      }
+    } else {
+      container.style.display = 'none';
+    }
+  }
+
+  async function runPythonFromEditor(id) {
+    const outputDiv = document.getElementById(id + '-output');
+    outputDiv.innerHTML = 'Running...';
+
+    // Load Pyodide if not already loaded
+    if (!window.pyodide) {
+      window.pyodide = await loadPyodide();
+      await pyodide.loadPackage(['matplotlib', 'numpy']);
+      // Use non-interactive Agg backend for matplotlib
+      pyodide.runPython(`
+import matplotlib
+matplotlib.use('AGG')
+      `);
+    }
+
+    try {
+      const code = editors[id].getValue();
+
+      // Wrap code to capture plot as PNG image in base64
+      const codeWithPlotSave = `
+import io
+import matplotlib.pyplot as plt
+
+plt.close('all')
+
+${code}
+
+buf = io.BytesIO()
+plt.savefig(buf, format='png')
+buf.seek(0)
+img_data = buf.read()
+import base64
+img_b64 = base64.b64encode(img_data).decode('ascii')
+img_b64
+`;
+
+      const imgB64 = await pyodide.runPythonAsync(codeWithPlotSave);
+      outputDiv.innerHTML = '<img src="data:image/png;base64,' + imgB64 + '" alt="Plot output" />';
+    } catch (err) {
+      outputDiv.innerHTML = '<pre style="color: red;">' + err + '</pre>';
+    }
+  }
+</script>
+
 </body>
 </html>
