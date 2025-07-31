@@ -223,14 +223,13 @@ input[type="range"]::-webkit-slider-thumb {
   z-index: 9999;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* prevent main scroll */
 }
 
 #codeModal .modal-content {
   background: #ffffff;
-  width: 95%;         /* Increased from 90% */
-  max-width: 1200px;  /* Increased from 850px */
-  height: 90vh;       /* Increased from 85vh */
+  width: 95%;
+  max-width: 1200px;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -238,8 +237,8 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
 }
 
+/* Header */
 #codeModal header {
-  flex: none;
   padding: 10px;
   background: #f0f0f0;
   border-bottom: 1px solid #ccc;
@@ -248,35 +247,52 @@ input[type="range"]::-webkit-slider-thumb {
   align-items: center;
 }
 
-#modalEditor {
-  height: 50%;
-  overflow: auto;
-  border-bottom: 1px solid #ccc;
-}
-
-#modalControls {
+/* Body splits editor + output side-by-side */
+.modal-body {
   flex: 1;
   display: flex;
-  flex-direction: row;
-  overflow: auto;
-  padding: 10px;
-  gap: 20px;
+  flex-direction: row; /* THIS makes side-by-side layout */
+  overflow: hidden;
 }
 
-#modalCodeEditor {
+/* Editor takes left side */
+#modalEditor {
   width: 50%;
   height: 100%;
-}
-
-#modalOutput {
-  width: 50%;
   overflow: auto;
-  border: 1px solid #ddd;
-  padding: 8px;
-  max-height: 100%;
+  border-right: 1px solid #ccc;
 }
 
-#modalOutput img {
-  max-width: 100%;
-  height: auto;
+/* Output and run button on right */
+.modal-right {
+  width: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-right button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 1rem;
+  background-color: #318925;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-right button:hover {
+  background-color: #256d1a;
+}
+
+/* Output area */
+#modalOutput {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+  background: #fefefe;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
