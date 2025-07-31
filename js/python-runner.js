@@ -1,25 +1,34 @@
-// python-runner.js
-
 let pyodideReady = loadPyodide({
   indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/",
 });
 
+// Run main demo Python block
 async function runPython() {
+  runPythonFromEditor("python");
+}
+
+// Run Python code from an editor identified by `idPrefix`
+// E.g., 'cobbDouglas' expects textarea with ID 'cobbDouglas-code' and output div 'cobbDouglas-output'
+async function runPythonFromEditor(idPrefix) {
   const pyodide = await pyodideReady;
   await pyodide.loadPackage(["matplotlib", "numpy"]);
 
-  const userCode = document.getElementById("python-code").value;
-  document.getElementById("py-output").innerHTML = "⏳ Running...";
+  const textarea = document.getElementById(`${idPrefix}-code`);
+  const outputDiv = document.getElementById(`${idPrefix}-output`);
+
+  if (!textarea || !outputDiv) return;
+
+  const userCode = textarea.value;
+  outputDiv.innerHTML = "⏳ Running...";
 
   const wrappedCode = `
 import matplotlib.pyplot as plt
 import numpy as np
 import io, base64
 import sys
-
 from contextlib import redirect_stdout
-buf_out = io.StringIO()
 
+buf_out = io.StringIO()
 plt.clf()
 img_data = None
 
@@ -55,8 +64,16 @@ text_output = buf_out.getvalue()
 
     if (!outputHTML) outputHTML = "✅ Code ran, but returned no output.";
 
-    document.getElementById("py-output").innerHTML = outputHTML;
+    outputDiv.innerHTML = outputHTML;
   } catch (err) {
-    document.getElementById("py-output").innerText = "⚠️ Error:\n" + err;
+    outputDiv.innerText = "⚠️ Error:\n" + err;
+  }
+}
+
+// Show/hide code editor blocks
+function toggleCodeEditor(editorId) {
+  const container = document.getElementById(`${editorId}-editor-container`);
+  if (container) {
+    container.style.display = container.style.display === "none" ? "block" : "none";
   }
 }
