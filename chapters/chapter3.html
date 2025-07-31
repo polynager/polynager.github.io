@@ -40,6 +40,11 @@
   <button onclick="openModal('leontief')">See & Edit Code</button>
 </section>
 
+<section id="leontief-3d">
+  <h2>Leontief 3D Utility Surface</h2>
+  <div id="leontief3DPlot" style="width: 100%; height: 600px;"></div>
+</section>
+
 <section id="linear">
   <h2>Linear Utility</h2>
   <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="laSlider" /></label>
@@ -48,6 +53,11 @@
   <button onclick="openModal('linear')">See & Edit Code</button>
 </section>
 
+<section id="linear-3d">
+  <h2>Linear 3D Utility Surface</h2>
+  <div id="linear3DPlot" style="width: 100%; height: 600px;"></div>
+</section>
+  
 <!-- Budget Constraint Sections -->
 <section id="budget-set">
   <h2>Budget Set</h2>
@@ -107,7 +117,9 @@
 <script src="../js/cobb-douglas.js"></script>
 <script src="../js/cobb-douglas-3d.js"></script>
 <script src="../js/leontief.js"></script>
+<script src="../js/leontief-3d.js"></script>
 <script src="../js/linear.js"></script>
+<script src="../js/linear-3d.js"></script>
 <script src="../js/budget-set.js"></script>
 <script src="../js/cobb-douglas-bundle.js"></script>
 <script src="../js/leontief-cplot.js"></script>
