@@ -16,13 +16,16 @@
 
 <!-- Utility Sections -->
 <section id="cobb-douglas">
+  <div class="code-button-wrapper">
+    <button class="see-code-button" onclick="openModal('cobbDouglas')">See & Edit Code</button>
+  </div>
   <h2>Cobb-Douglas Utility</h2>
   <label>Alpha (&#945;): 
-    <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaSlider">
+    <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaSlider"
+           oninput="document.getElementById('alphaVal').textContent = this.value">
     <span id="alphaVal">0.50</span>
   </label>
   <div id="cobbDouglasPlot"></div>
-  <button onclick="openModal('cobbDouglas')">See & Edit Code</button>
 </section>
 
 <section id="leontief">
