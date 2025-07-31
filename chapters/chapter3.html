@@ -29,6 +29,7 @@
 
 <section id="cobb-douglas-3d">
   <h2>Cobb-Douglas 3D Utility Surface</h2>
+   <button class="see-code-button" onclick="openModal('cobbDouglas3D')">See & Edit Code</button>
   <div id="cobbDouglas3DPlot" style="width: 100%; height: 600px;"></div>
 </section>
 
@@ -43,6 +44,7 @@
 <section id="leontief-3d">
   <h2>Leontief 3D Utility Surface</h2>
   <div id="leontief3DPlot" style="width: 100%; height: 600px;"></div>
+  <button onclick="openModal('leontief3D')">See & Edit Code</button>
 </section>
 
 <section id="linear">
@@ -56,11 +58,13 @@
 <section id="linear-3d">
   <h2>Linear 3D Utility Surface</h2>
   <div id="linear3DPlot" style="width: 100%; height: 600px;"></div>
+  <button onclick="openModal('linear3D')">See & Edit Code</button>
 </section>
   
 <!-- Budget Constraint Sections -->
 <section id="budget-set">
   <h2>Budget Set</h2>
+  <button onclick="openModal('budgetset')">See & Edit Code</button>
   <label>pX: <input type="range" min="0.1" max="10" step="0.1" value="1" id="pXSlider" /></label>
   <label>pY: <input type="range" min="0.1" max="10" step="0.1" value="1" id="pYSlider" /></label>
   <label>Income: <input type="range" min="1" max="100" step="1" value="10" id="incomeSlider" /></label>
@@ -69,6 +73,7 @@
 
 <section id="cobb-douglas-bundle">
   <h2>Cobb-Douglas Utility with Budget Constraint</h2>
+  <button onclick="openModal('cobbDouglasutility')">See & Edit Code</button>
   <label>Alpha (&#945;): <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaBundleSlider" /></label>
   <label>pX: <input type="range" min="0.1" max="5" step="0.1" value="1" id="pXBundleSlider" /></label>
   <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYBundleSlider" /></label>
@@ -77,6 +82,7 @@
 
 <section id="leontief-bundle">
   <h2>Leontief Utility with Budget Constraint</h2>
+  <button onclick="openModal('leontieffutility')">See & Edit Code</button>
   <label>pX: <input type="range" min="0.1" max="5" step="0.1" value="1" id="pXLeontiefSlider" /></label>
   <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYLeontiefSlider" /></label>
   <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aLeontiefSlider" /></label>
@@ -86,6 +92,7 @@
 
 <section id="linear-bundle">
   <h2>Linear Utility with Budget Constraint</h2>
+  <button onclick="openModal('linearutility')">See & Edit Code</button>
   <label>pX: <input type="range" min="0.1" max="5" step="0.1" value="1" id="pXLinearSlider" /></label>
   <label>pY: <input type="range" min="0.1" max="5" step="0.1" value="2" id="pYLinearSlider" /></label>
   <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aLinearSlider" /></label>
