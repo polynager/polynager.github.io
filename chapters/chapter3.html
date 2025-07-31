@@ -100,19 +100,25 @@
   <div id="linearBundlePlot"></div>
 </section>
 
-<div id="codeModal">
+<div id="codeModal" class="modal">
   <div class="modal-content">
     <header>
       <h3 id="modalTitle">Edit Python Code</h3>
       <button onclick="closeModal()" title="Close">&times;</button>
     </header>
 
-    <!-- Side-by-side editor and output -->
-<div class="modal-body">
-  <div id="modalEditor"></div>
-  <div class="modal-right">
-    <div id="modalOutput"></div>
-    <button onclick="runModalCode()">Run</button>
+    <div class="modal-body" style="display: flex;">
+      <!-- Left side: CodeMirror editor and Run button -->
+      <div class="modal-left" style="flex: 1; display: flex; flex-direction: column;">
+        <div id="modalEditor" style="flex: 1; min-height: 300px;"></div>
+        <button onclick="runModalCode()" style="margin-top: 10px; align-self: flex-start;">Run</button>
+      </div>
+
+      <!-- Right side: Output -->
+      <div class="modal-right" style="flex: 1; padding-left: 20px;">
+        <div id="modalOutput" style="height: 100%; overflow: auto;"></div>
+      </div>
+    </div>
   </div>
 </div>
     
