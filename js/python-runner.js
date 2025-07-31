@@ -4,19 +4,28 @@ let pyodideReadyPromise = loadPyodide({
 
 const defaultCodes = {
   cobbDouglas: `
-import matplotlib.pyplot as plt
-import numpy as np
+# Cobb-Douglas utility function
+def cobb_douglas_utility(x, y, alpha):
+    return (x**alpha) * (y**(1 - alpha))
+
+# Plotting function
+def plot_cobb_douglas(α):
+    x = np.linspace(0.1, 10, 100)
+    y = np.linspace(0.1, 10, 100)
+    X, Y = np.meshgrid(x, y)
+    U = cobb_douglas_utility(X, Y, α)
+    
+    plt.figure(figsize=(6, 5))
+    contour = plt.contour(X, Y, U, levels=5)
+    plt.clabel(contour, inline=1, fontsize=10)
+    plt.xlabel('Good X')
+    plt.ylabel('Good Y')
+    plt.title(f'Cobb-Douglas Utility (α = {α:.2f})')
+    plt.grid(True)
+    plt.show()
 
 alpha = 0.5
-x = np.linspace(0.1, 10, 100)
-y = (x ** (alpha)) * ((10 - x) ** (1 - alpha))
-
-plt.plot(x, y)
-plt.xlabel("Good X")
-plt.ylabel("Utility")
-plt.title("Cobb-Douglas Utility")
-plt.grid(True)
-plt.show()
+plot_cobb_douglas(alpha)
 `,
   leontief: `
 import matplotlib.pyplot as plt
