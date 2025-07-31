@@ -1,135 +1,146 @@
-// python-runner.js
+let pyodideReadyPromise = loadPyodide({
+  indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/",
+});
 
-let modalEditor = null;
-let pyodide = null;
-let currentSectionId = null;
-
-// Python code samples for each graph
-const codeSamples = {
-  cobbDouglas: `import matplotlib.pyplot as plt
+const defaultCodes = {
+  cobbDouglas: `
+import matplotlib.pyplot as plt
 import numpy as np
 
-def cobb_douglas_utility(x, y, alpha):
-    return (x**alpha) * (y**(1 - alpha))
-
+alpha = 0.5
 x = np.linspace(0.1, 10, 100)
-y = np.linspace(0.1, 10, 100)
-X, Y = np.meshgrid(x, y)
-U = cobb_douglas_utility(X, Y, 0.5)
+y = (x ** (alpha)) * ((10 - x) ** (1 - alpha))
 
-plt.figure(figsize=(6,5))
-contour = plt.contour(X, Y, U, levels=5)
-plt.clabel(contour)
+plt.plot(x, y)
 plt.xlabel("Good X")
-plt.ylabel("Good Y")
-plt.title("Cobb-Douglas Utility (α = 0.5)")
+plt.ylabel("Utility")
+plt.title("Cobb-Douglas Utility")
 plt.grid(True)
 plt.show()
 `,
-
-  leontief: `import matplotlib.pyplot as plt
+  leontief: `
+import matplotlib.pyplot as plt
 import numpy as np
 
-def leontief_utility(x, y, a, b):
-    return np.minimum(x / a, y / b)
-
+a, b = 1, 1
 x = np.linspace(0.1, 10, 100)
-y = np.linspace(0.1, 10, 100)
-X, Y = np.meshgrid(x, y)
-U = leontief_utility(X, Y, 1, 1)
+y = x * b / a
 
-plt.figure(figsize=(6,5))
-contour = plt.contour(X, Y, U, levels=5)
-plt.clabel(contour)
+plt.plot(x, y)
 plt.xlabel("Good X")
 plt.ylabel("Good Y")
-plt.title("Leontief Utility (a=1, b=1)")
+plt.title("Leontief Utility")
 plt.grid(True)
 plt.show()
 `,
-
-  linear: `import matplotlib.pyplot as plt
+  linear: `
+import matplotlib.pyplot as plt
 import numpy as np
 
-def linear_utility(x, y, a, b):
-    return a * x + b * y
+a, b = 1, 1
+x = np.linspace(0, 10, 100)
+y = -a/b * x + 10
 
-x = np.linspace(0.1, 10, 100)
-y = np.linspace(0.1, 10, 100)
-X, Y = np.meshgrid(x, y)
-U = linear_utility(X, Y, 1, 1)
-
-plt.figure(figsize=(6,5))
-contour = plt.contour(X, Y, U, levels=5)
-plt.clabel(contour)
+plt.plot(x, y)
 plt.xlabel("Good X")
 plt.ylabel("Good Y")
-plt.title("Linear Utility (a=1, b=1)")
+plt.title("Linear Utility")
 plt.grid(True)
 plt.show()
 `
 };
 
-function openModal(sectionId) {
-  currentSectionId = sectionId;
-  const modal = document.getElementById('codeModal');
-  modal.style.display = 'flex';
-  document.getElementById('modalTitle').textContent = `Edit Python Code: ${sectionId}`;
+let currentEditor = null;
+let currentGraphKey = null;
 
-  if (!modalEditor) {
-    modalEditor = CodeMirror(document.getElementById('modalEditor'), {
-      mode: 'python',
-      lineNumbers: true,
-      theme: 'default',
-      indentUnit: 4,
-      tabSize: 4,
-      lineWrapping: true,
-    });
-    modalEditor.setSize('100%', '100%');
-  }
+function openModal(graphKey) {
+  currentGraphKey = graphKey;
 
-  modalEditor.setValue(codeSamples[sectionId] || "# No code available.");
-  document.getElementById('modalOutput').innerHTML = '';
+  const modal = document.getElementById("codeModal");
+  const editorContainer = document.getElementById("modalEditor");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalOutput = document.getElementById("modalOutput");
+
+  modal.style.display = "flex";
+  modalTitle.textContent = `Edit Python Code: ${graphKey}`;
+  modalOutput.innerHTML = "";
+
+  // Clean existing editor if any
+  editorContainer.innerHTML = "";
+
+  const textarea = document.createElement("textarea");
+  textarea.id = "codeEditor";
+  textarea.value = defaultCodes[graphKey] || "";
+  editorContainer.appendChild(textarea);
+
+  currentEditor = CodeMirror.fromTextArea(textarea, {
+    mode: "python",
+    lineNumbers: true,
+    theme: "default",
+    indentUnit: 4,
+    tabSize: 4,
+  });
+
+  setTimeout(() => currentEditor.refresh(), 100); // Fix sizing
 }
 
 function closeModal() {
-  document.getElementById('codeModal').style.display = 'none';
+  const modal = document.getElementById("codeModal");
+  modal.style.display = "none";
+  currentEditor = null;
+  currentGraphKey = null;
 }
 
-// Run Python code in modal, capture matplotlib plot as PNG, and display
 async function runModalCode() {
-  const outputDiv = document.getElementById('modalOutput');
-  outputDiv.innerHTML = 'Running...';
+  if (!currentEditor) return;
+  const userCode = currentEditor.getValue();
+  const modalOutput = document.getElementById("modalOutput");
+  modalOutput.innerHTML = "⏳ Running...";
 
-  if (!pyodide) {
-    pyodide = await loadPyodide();
-    await pyodide.loadPackage(['matplotlib', 'numpy']);
-    pyodide.runPython(`import matplotlib; matplotlib.use('AGG')`);
-  }
+  const pyodide = await pyodideReadyPromise;
+  await pyodide.loadPackage(["matplotlib", "numpy"]);
 
-  try {
-    const code = modalEditor.getValue();
-
-    const codeWithPlotSave = `
-import io
+  const wrappedCode = `
 import matplotlib.pyplot as plt
+import numpy as np
+import io, base64
+from contextlib import redirect_stdout
 
-plt.close('all')
+buf_out = io.StringIO()
+img_data = None
+plt.clf()
 
-${code}
+with redirect_stdout(buf_out):
+    try:
+${userCode.split("\n").map(line => "        " + line).join("\n")}
+    except Exception as e:
+        print("Error:", e)
 
-buf = io.BytesIO()
-plt.savefig(buf, format='png')
-buf.seek(0)
-img_data = buf.read()
-import base64
-img_b64 = base64.b64encode(img_data).decode('ascii')
-img_b64
+if plt.get_fignums():
+    img_buf = io.BytesIO()
+    plt.savefig(img_buf, format='png')
+    img_buf.seek(0)
+    img_data = base64.b64encode(img_buf.read()).decode('utf-8')
+
+text_output = buf_out.getvalue()
 `;
 
-    const imgB64 = await pyodide.runPythonAsync(codeWithPlotSave);
-    outputDiv.innerHTML = '<img src="data:image/png;base64,' + imgB64 + '" alt="Plot output" style="max-width:100%; height:auto;"/>';
+  try {
+    await pyodide.runPythonAsync(wrappedCode);
+    const imgData = pyodide.globals.get("img_data");
+    const textOutput = pyodide.globals.get("text_output");
+
+    let outputHTML = "";
+    if (imgData && imgData.toString().length > 0) {
+      outputHTML += `<img src="data:image/png;base64,${imgData}" />`;
+    }
+    if (textOutput && textOutput.length > 0) {
+      outputHTML += `<pre>${textOutput}</pre>`;
+    }
+
+    if (!outputHTML) outputHTML = "✅ Code ran, but returned no output.";
+    modalOutput.innerHTML = outputHTML;
   } catch (err) {
-    outputDiv.innerHTML = '<pre style="color:red;">' + err + '</pre>';
+    modalOutput.innerHTML = `<pre style="color:red;">⚠️ Error:\n${err}</pre>`;
   }
 }
