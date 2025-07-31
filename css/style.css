@@ -227,7 +227,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 #codeModal .modal-content {
   background: #ffffff;
-  width: 95%;
+  width: 100%;
   max-width: 1200px;
   height: 90vh;
   display: flex;
@@ -328,7 +328,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .see-code-button:hover {
-  background-color: #5a6268;
+  background-color: #256D1A;
 }
 .run-button-container {
   padding: 10px 12px 0;
