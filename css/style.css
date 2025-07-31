@@ -112,6 +112,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-bottom: 2rem;
   text-align: left;
 }
+
 .quiz-section {
   background: #fff8f4;
   border: 1px solid #e1cfc5;
@@ -155,6 +156,7 @@ input[type="range"]::-webkit-slider-thumb {
 .submit-button:hover {
   background-color: #cf5a42;
 }
+
 /* Python plot section */
 #python-plot {
   background-color: #fffaf5;
@@ -198,6 +200,7 @@ input[type="range"]::-webkit-slider-thumb {
   border: 1px solid #ddd;
   border-radius: 6px;
 }
+
 .code-editor-container {
   margin-top: 1rem;
   padding: 1rem;
@@ -254,17 +257,22 @@ input[type="range"]::-webkit-slider-thumb {
 #modalControls {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   overflow: auto;
   padding: 10px;
+  gap: 20px;
+}
+
+#modalCodeEditor {
+  width: 50%;
+  height: 100%;
 }
 
 #modalOutput {
-  flex: 1;
+  width: 50%;
   overflow: auto;
   border: 1px solid #ddd;
   padding: 8px;
-  margin-top: 10px;
   max-height: 100%;
 }
 
@@ -272,4 +280,3 @@ input[type="range"]::-webkit-slider-thumb {
   max-width: 100%;
   height: auto;
 }
-
