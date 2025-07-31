@@ -102,14 +102,13 @@
 
     <!-- Side-by-side editor and output -->
 <div class="modal-body">
-  <div id="modalEditor" style="display: flex; flex-direction: column;">
-    <button onclick="runModalCode()" style="margin-top: 10px; align-self: flex-start;">Run</button>
-  </div>
+  <div id="modalEditor"></div>
   <div class="modal-right">
     <div id="modalOutput"></div>
+    <button onclick="runModalCode()">Run</button>
   </div>
 </div>
-
+    
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
