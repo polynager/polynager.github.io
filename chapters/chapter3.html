@@ -14,12 +14,13 @@
 </div>
 <h1>Utility Functions and Budget Constraints</h1>
 
+<!-- Utility Sections -->
 <section id="cobb-douglas">
   <div class="section-header">
     <h2>Cobb-Douglas Utility</h2>
     <button class="see-code-button" onclick="openModal('cobbDouglas')">See & Edit Code</button>
   </div>
-  <label>Alpha (&#945;): 
+  <label>Alpha (α): 
     <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" id="alphaSlider"
            oninput="document.getElementById('alphaVal').textContent = this.value">
     <span id="alphaVal">0.50</span>
@@ -28,45 +29,55 @@
 </section>
 
 <section id="cobb-douglas-3d">
-   <div class="section-header">
-  <h2>Cobb-Douglas 3D Utility Surface</h2>
-   </div>
-   <button class="see-code-button" onclick="openModal('cobbDouglas3D')">See & Edit Code</button>
+  <div class="section-header">
+    <h2>Cobb-Douglas 3D Utility Surface</h2>
+    <button class="see-code-button" onclick="openModal('cobbDouglas3D')">See & Edit Code</button>
+  </div>
   <div id="cobbDouglas3DPlot" style="width: 100%; height: 600px;"></div>
 </section>
 
 <section id="leontief">
-  <h2>Leontief Utility</h2>
-  <button onclick="openModal('leontief')">See & Edit Code</button>
+  <div class="section-header">
+    <h2>Leontief Utility</h2>
+    <button class="see-code-button" onclick="openModal('leontief')">See & Edit Code</button>
+  </div>
   <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="aSlider" /></label>
   <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="bSlider" /></label>
   <div id="leontiefPlot"></div>
 </section>
 
 <section id="leontief-3d">
-  <h2>Leontief 3D Utility Surface</h2>
-  <button onclick="openModal('leontief3D')">See & Edit Code</button>
+  <div class="section-header">
+    <h2>Leontief 3D Utility Surface</h2>
+    <button class="see-code-button" onclick="openModal('leontief3D')">See & Edit Code</button>
+  </div>
   <div id="leontief3DPlot" style="width: 100%; height: 600px;"></div>
 </section>
 
 <section id="linear">
-  <h2>Linear Utility</h2>
-  <button onclick="openModal('linear')">See & Edit Code</button>
+  <div class="section-header">
+    <h2>Linear Utility</h2>
+    <button class="see-code-button" onclick="openModal('linear')">See & Edit Code</button>
+  </div>
   <label>a: <input type="range" min="0.1" max="5" step="0.1" value="1" id="laSlider" /></label>
   <label>b: <input type="range" min="0.1" max="5" step="0.1" value="1" id="lbSlider" /></label>
   <div id="linearPlot"></div>
 </section>
 
 <section id="linear-3d">
-  <h2>Linear 3D Utility Surface</h2>
+  <div class="section-header">
+    <h2>Linear 3D Utility Surface</h2>
+    <button class="see-code-button" onclick="openModal('linear3D')">See & Edit Code</button>
+  </div>
   <div id="linear3DPlot" style="width: 100%; height: 600px;"></div>
-  <button onclick="openModal('linear3D')">See & Edit Code</button>
 </section>
-  
+
 <!-- Budget Constraint Sections -->
 <section id="budget-set">
-  <h2>Budget Set</h2>
-  <button onclick="openModal('budgetset')">See & Edit Code</button>
+  <div class="section-header">
+    <h2>Budget Set</h2>
+    <button class="see-code-button" onclick="openModal('budgetset')">See & Edit Code</button>
+  </div>
   <label>pX: <input type="range" min="0.1" max="10" step="0.1" value="1" id="pXSlider" /></label>
   <label>pY: <input type="range" min="0.1" max="10" step="0.1" value="1" id="pYSlider" /></label>
   <label>Income: <input type="range" min="1" max="100" step="1" value="10" id="incomeSlider" /></label>
