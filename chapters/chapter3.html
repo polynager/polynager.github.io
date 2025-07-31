@@ -102,10 +102,11 @@
 
     <!-- Side-by-side editor and output -->
 <div class="modal-body">
-  <div id="modalEditor"></div>
+  <div id="modalEditor" style="display: flex; flex-direction: column;">
+    <button onclick="runModalCode()" style="margin-top: 10px; align-self: flex-start;">Run</button>
+  </div>
   <div class="modal-right">
     <div id="modalOutput"></div>
-    <button onclick="runModalCode()">Run</button>
   </div>
 </div>
 
