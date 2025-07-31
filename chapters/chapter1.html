@@ -70,16 +70,10 @@
         <div id="linearBundlePlot"></div>
     </section>
     
-    <section class="quiz-section">
-      <h2>Concept Questions</h2>
-      <div id="quiz"></div>
-      <button onclick="submitQuiz()" class="submit-button">Submit Answers</button>
-    </section>
-    <script src="../js/quiz.js"></script>
-
-    <section id="python-plot">
-      <h2>Try Your Own Python Plot</h2>
-      <textarea id="python-code">
+   <!-- Python Code Runner -->
+  <section id="python-plot">
+    <h2>Try Your Own Python Code</h2>
+    <textarea id="python-code" rows="10">
     import matplotlib.pyplot as plt
     import numpy as np
     
@@ -93,10 +87,20 @@
     plt.grid(True)
     plt.legend()
     plt.show()
-      </textarea>
-      <button class="run-python-button" onclick="runPython()">Run Python Code</button>
-      <div id="py-output" class="plot-output"></div>
-    </section>
+        </textarea>
+        <button class="run-python-button" onclick="runPython()">Run Python Code</button>
+        <div id="py-output" class="plot-output"></div>
+      </section>
+
+  <!-- JS Scripts -->
+  <script src="../js/quiz.js"></script>
+  <script src="../js/cobb-douglas.js"></script>
+  <script src="../js/leontief.js"></script>
+  <script src="../js/linear.js"></script>
+  <script src="../js/budget-set.js"></script>
+  <script src="../js/cobb-douglas-bundle.js"></script>
+  <script src="../js/leontief-cplot.js"></script>
+  <script src="../js/linear-cplot.js"></script>
 
     <script src="../js/cobb-douglas.js"></script>
     <script src="../js/leontief.js"></script>
@@ -106,39 +110,8 @@
     <script src="../js/leontief-cplot.js"></script>
     <script src="../js/linear-cplot.js"></script>
     <script src="../js/quiz.js"></script>
-
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-    <script>
-      let pyodideReady = loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/" });
-    
-      async function runPython() {
-        const pyodide = await pyodideReady;
-        await pyodide.loadPackage(["matplotlib", "numpy"]);
-    
-        const userCode = document.getElementById("python-code").value;
-    
-        pyodide.runPython(`
-    import matplotlib
-    matplotlib.use('module://matplotlib_inline.backend_inline')
-    from js import document
-    from pyodide.ffi import create_proxy
-    from matplotlib import pyplot as plt
-    import io
-    import base64
-    
-    plt.clf()
-    ${userCode}
-    
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    img_data = base64.b64encode(buf.read()).decode('utf-8')
-        `);
-    
-        const imgData = pyodide.globals.get("img_data");
-        document.getElementById("py-output").innerHTML = `<img src="data:image/png;base64,${imgData}" />`;
-      }
-    </script>
-
+    <script src="../js/python-runner.js"></script>
+        
 </body>
 </html>
