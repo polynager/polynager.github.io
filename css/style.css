@@ -224,15 +224,15 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #codeModal .modal-content {
-  background: #fff;
-  width: 80vw;
-  max-width: 900px;
-  height: 80vh;
+  background: #ffffff;
+  width: 95%;         /* Increased from 90% */
+  max-width: 1200px;  /* Increased from 850px */
+  height: 90vh;       /* Increased from 85vh */
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
 }
 
 #codeModal header {
