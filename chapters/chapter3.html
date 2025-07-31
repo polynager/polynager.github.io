@@ -79,17 +79,17 @@
 <!-- Modal for Python Editor -->
 <div id="codeModal">
   <div class="modal-content">
-    <header>
-      <h3 id="modalTitle">Edit Python Code</h3>
-      <button onclick="closeModal()" title="Close">&times;</button>
-    </header>
-    <div id="modalEditor"></div>
-    <div id="modalControls">
-      <button onclick="runModalCode()">Run</button>
-      <div id="modalOutput"></div>
-    </div>
+  <span class="close">&times;</span>
+  <div class="modal-left">
+    <textarea id="modalEditor"># code here</textarea>
+    <button onclick="runPythonModal()">Run</button>
+  </div>
+  <div class="modal-right">
+    <div id="modalOutput"></div>
   </div>
 </div>
+</div>
+
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
