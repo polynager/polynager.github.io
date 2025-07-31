@@ -103,20 +103,24 @@
 <div id="codeModal" class="modal">
   <div class="modal-content">
     <header>
-      <h3 id="modalTitle">Edit Python Code</h3>
-      <button onclick="closeModal()" title="Close">&times;</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <h3 id="modalTitle" style="margin: 0;">Edit Python Code</h3>
+        <button onclick="closeModal()" title="Close" style="font-size: 1.5rem;">&times;</button>
+      </div>
     </header>
 
-    <div class="modal-body" style="display: flex;">
-      <!-- Left side: CodeMirror editor and Run button -->
-      <div class="modal-left" style="flex: 1; display: flex; flex-direction: column;">
+    <div class="modal-body">
+      <!-- Left side: Editor + Run button -->
+      <div class="modal-left" style="flex: 1; display: flex; flex-direction: column; padding-right: 1rem; border-right: 1px solid #ccc;">
         <div id="modalEditor" style="flex: 1; min-height: 300px;"></div>
-        <button onclick="runModalCode()" style="margin-top: 10px; align-self: flex-start;">Run</button>
+        <div class="run-button-container" style="margin-top: 10px;">
+          <button onclick="runModalCode()">Run</button>
+        </div>
       </div>
 
       <!-- Right side: Output -->
-      <div class="modal-right" style="flex: 1; padding-left: 20px;">
-        <div id="modalOutput" style="height: 100%; overflow: auto;"></div>
+      <div class="modal-right" style="flex: 1; padding-left: 1rem;">
+        <div id="modalOutput" style="height: 100%; overflow: auto; background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 1rem;"></div>
       </div>
     </div>
   </div>
