@@ -155,3 +155,47 @@ input[type="range"]::-webkit-slider-thumb {
 .submit-button:hover {
   background-color: #cf5a42;
 }
+/* Python plot section */
+#python-plot {
+  background-color: #fffaf5;
+  border: 1px solid #e1cfc2;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-top: 2rem;
+}
+
+#python-code {
+  width: 100%;
+  height: 180px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  background-color: #fefefe;
+}
+
+.run-python-button {
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  background-color: #b65a38;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.run-python-button:hover {
+  background-color: #93432d;
+}
+
+.plot-output img {
+  max-width: 100%;
+  margin-top: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
