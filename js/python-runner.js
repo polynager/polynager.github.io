@@ -95,6 +95,8 @@ plt.show()
 `,
 linear: `
 # Linear utility function (corrected)
+from matplotlib import cm
+
 def linear_utility(x, y, a, b):
     return a * x + b * y
 
