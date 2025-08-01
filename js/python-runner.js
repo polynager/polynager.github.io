@@ -230,7 +230,7 @@ plot_budget_set(p_X=1, p_Y=1, I=10)
     plt.show()
 
 # Change values if needed
-cobbDouglasutility(p_X=1.0, p_Y=2.0, α=0.5))
+cobb_douglas_cplot(p_X=1.0, p_Y=2.0, α=0.5)
 
 `, leontieffutility:`def leontief_cplot(p_X, p_Y, a, b):
     min_U = 10
