@@ -8,8 +8,8 @@ const questions = [
     ],
     correct: 1,
     explanation: {
-      correct: "✅ Correct! Cobb-Douglas utility implies fixed **expenditure shares**: \\( \\alpha \\) for X and \\( 1 - \\alpha \\) for Y.",
-      incorrect: "❌ Not quite. The parameter \\( \\alpha \\) determines how much income is **spent** on each good, not how many units are consumed."
+      correct: "✅ Correct! Cobb-Douglas utility implies fixed expenditure shares: \\( \\alpha \\) for X and \\( 1 - \\alpha \\) for Y.",
+      incorrect: "❌ Not quite. The parameter \\( \\alpha \\) determines how much income is spent on each good, not how many units are consumed."
     }
   },
   {
@@ -17,8 +17,8 @@ const questions = [
     options: ["10 units", "1 unit", "0 units"],
     correct: 2,
     explanation: {
-      correct: "✅ Correct! Additional Y doesn’t increase utility unless X also increases. Leontief utility depends on the **minimum**.",
-      incorrect: "❌ Not quite. Leontief preferences require a **balance** — extra Y alone doesn’t help if X stays the same."
+      correct: "✅ Correct! Additional Y doesn’t increase utility unless X also increases. Leontief utility depends on the minimum.",
+      incorrect: "❌ Not quite. Leontief preferences require a balance — extra Y alone doesn’t help if X stays the same."
     }
   },
   {
@@ -26,7 +26,7 @@ const questions = [
     options: ["The price per unit of goods.", "The marginal utility per dollar.", "The slope of the budget line."],
     correct: 1,
     explanation: {
-      correct: "✅ Correct! These ratios represent the **marginal utility per dollar** spent on each good.",
+      correct: "✅ Correct! These ratios represent the marginal utility per dollar spent on each good.",
       incorrect: "❌ Not quite. \\( \\frac{a}{p_X} \\) shows how much utility you get per dollar spent on Good X."
     }
   },
@@ -39,7 +39,7 @@ const questions = [
     ],
     correct: 0,
     explanation: {
-      correct: "✅ Correct! The consumer will spend all income on the good with **higher marginal utility per dollar** — Good X.",
+      correct: "✅ Correct! The consumer will spend all income on the good with higher marginal utility per dollar — Good X.",
       incorrect: "❌ Not quite. If \\( \\frac{a}{p_X} > \\frac{b}{p_Y} \\), the consumer should purchase only Good X."
     }
   }
