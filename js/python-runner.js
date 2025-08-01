@@ -24,6 +24,7 @@ def plot_cobb_douglas(α):
     plt.grid(True)
     plt.show()
 
+#Edit this value for any graph changes
 alpha = 0.5
 plot_cobb_douglas(alpha)`
 ,
