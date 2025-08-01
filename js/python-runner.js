@@ -116,8 +116,7 @@ def plot_linear(a, b):
 
 # Change values if needed
 plot_linear(a = 0.5, b = 0.5)  
-  ,
-
+  
 `, linear3D:`
 # 3D Linear utility surface plot with contour
 fig = plt.figure(figsize=(10, 7))
