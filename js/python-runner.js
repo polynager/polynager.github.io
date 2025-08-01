@@ -52,19 +52,28 @@ plt.tight_layout()
 plt.show()`
 ,
 leontief: `
-import matplotlib.pyplot as plt
-import numpy as np
+# Leontief utility function (corrected)
+def leontief_utility(x, y, a, b):
+    return np.minimum(a * x, b * y)
 
-a, b = 1, 1
-x = np.linspace(0.1, 10, 100)
-y = x * b / a
+# Plotting function
+def plot_leontief(a, b):
+    x = np.linspace(0.1, 10, 100)
+    y = np.linspace(0.1, 10, 100)
+    X, Y = np.meshgrid(x, y)
+    U = leontief_utility(X, Y, a, b)
+    
+    plt.figure(figsize=(6, 5))
+    contour = plt.contour(X, Y, U, levels=5)
+    plt.clabel(contour, inline=1, fontsize=10)
+    plt.xlabel('Good X')
+    plt.ylabel('Good Y')
+    plt.title(f'Leontief Utility (a = {a:.2f}, b = {b:.2f})')
+    plt.grid(True)
+    plt.show()
 
-plt.plot(x, y)
-plt.xlabel("Good X")
-plt.ylabel("Good Y")
-plt.title("Leontief Utility")
-plt.grid(True)
-plt.show()
+# Edit values if needed
+plot_leontief(a = 0.5, b = 0.5)
 `, leontief3D:`
 # 3D Leontief utility surface plot with contour
 fig = plt.figure(figsize=(10, 7))
@@ -85,19 +94,29 @@ plt.tight_layout()
 plt.show()
 `,
 linear: `
-import matplotlib.pyplot as plt
-import numpy as np
+# Linear utility function (corrected)
+def linear_utility(x, y, a, b):
+    return a * x + b * y
 
-a, b = 1, 1
-x = np.linspace(0, 10, 100)
-y = -a/b * x + 10
+# Plotting function
+def plot_linear(a, b):
+    x = np.linspace(0.1, 10, 100)
+    y = np.linspace(0.1, 10, 100)
+    X, Y = np.meshgrid(x, y)
+    U = linear_utility(X, Y, a, b)
+    
+    plt.figure(figsize=(6, 5))
+    contour = plt.contour(X, Y, U, levels=5)
+    plt.clabel(contour, inline=1, fontsize=10)
+    plt.xlabel('Good X')
+    plt.ylabel('Good Y')
+    plt.title(f'Linear Utility (a = {a:.2f}, b = {b:.2f})')
+    plt.grid(True)
+    plt.show()
 
-plt.plot(x, y)
-plt.xlabel("Good X")
-plt.ylabel("Good Y")
-plt.title("Linear Utility")
-plt.grid(True)
-plt.show(),
+# Change values if needed
+plot_linear(a = 0.5, b = 0.5)  
+  ,
 
 `, linear3D:`
 # 3D Linear utility surface plot with contour
@@ -105,7 +124,9 @@ fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(111, projection='3d')
 
 X, Y = np.meshgrid(np.linspace(0, 10, 100), np.linspace(0, 10, 100))
-a, b = 1, 1
+# Change values if needed
+a = 1
+b = 1
 U = a * X + b * Y
 
 ax.plot_surface(X, Y, U, cmap=cm.cividis, alpha=0.8, edgecolor='none')
@@ -154,9 +175,12 @@ plt.show()
     plt.grid(True)
     plt.legend()
     plt.show()
+
+# Change values if needed
+plot_budget_set(p_X=1, p_Y=1, I=10)
     
     `, 
-  cobbDouglasutility: `def cobb_douglas_cplot(p_X=1.0, p_Y=2.0, α=0.5):
+  cobbDouglasutility: `def cobb_douglas_cplot(p_X, p_Y, α):
     x = np.linspace(0.1, 20, 100)
     y = np.linspace(0.1, 20, 100)
     X, Y = np.meshgrid(x, y)
@@ -206,13 +230,10 @@ plt.show()
     plt.grid(True)
     plt.show()
 
-# Create interactive sliders
-interact(
-    cobb_douglas_cplot,
-    p_X=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='p_X'),
-    p_Y=FloatSlider(value=2.0, min=0.1, max=5.0, step=0.1, description='p_Y'),
-    α=FloatSlider(value=0.5, min=0.01, max=0.99, step=0.01, description='α'),
-)`, leontieffutility:`def leontief_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0):
+# Change values if needed
+cobbDouglasutility(p_X=1.0, p_Y=2.0, α=0.5))
+
+`, leontieffutility:`def leontief_cplot(p_X, p_Y, a, b):
     min_U = 10
 
     # Grid
@@ -268,15 +289,10 @@ interact(
     plt.legend()
     plt.show()
 
-# Make it interactive
-interact(
-    leontief_cplot,
-    p_X=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='p_X'),
-    p_Y=FloatSlider(value=2.0, min=0.1, max=5.0, step=0.1, description='p_Y'),
-    a=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='a'),
-    b=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='b'),
-)`, 
- linearutility:`def linear_utility_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0):
+# Change values if needed
+leontief_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
+`, 
+ linearutility:`def linear_utility_cplot(p_X, p_Y, a, b):
     x = np.linspace(0.01, 10, 400)
     y = np.linspace(0.01, 10, 400)
     X, Y = np.meshgrid(x, y)
@@ -288,11 +304,6 @@ interact(
     # Value per dollar
     ratio_X = a / p_X
     ratio_Y = b / p_Y
-
-    # Decision logic
-    print("==== Optimal Consumption Decision ====")
-    print(f"a / p_X = {a:.2f} / {p_X:.2f} = {ratio_X:.2f}")
-    print(f"b / p_Y = {b:.2f} / {p_Y:.2f} = {ratio_Y:.2f}")
 
     if np.isclose(ratio_X, ratio_Y):
         print("Since a/p_X = b/p_Y, utility per dollar is equal for both goods.")
@@ -309,7 +320,6 @@ interact(
         print("→ Corner solution: spend entire income on Good Y.")
         x_optimal = 0
         y_optimal = U_min / b
-    print("======================================\n")
 
     # Required income
     if isinstance(x_optimal, np.ndarray):
@@ -351,14 +361,9 @@ interact(
     plt.grid(True)
     plt.show()
 
-# Interactive sliders
-interact(
-    linear_utility_cplot,
-    p_X=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='p_X'),
-    p_Y=FloatSlider(value=2.0, min=0.1, max=5.0, step=0.1, description='p_Y'),
-    a=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='a'),
-    b=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1, description='b'),
-)
+# Change values if needed
+linear_utility_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0):
+
 `
 };
 
