@@ -368,3 +368,12 @@ input[type="range"]::-webkit-slider-thumb {
   display: flex;
   justify-content: flex-start;
 }
+
+/* Remove default margins inside explanation */
+.explanation-text p {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.4;
+  font-size: 1rem;
+}
+
