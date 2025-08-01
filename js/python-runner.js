@@ -361,7 +361,7 @@ leontief_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
     plt.show()
 
 # Change values if needed
-linear_utility_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0):
+linear_utility_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
 
 `
 };
