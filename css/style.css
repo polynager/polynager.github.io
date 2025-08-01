@@ -350,7 +350,7 @@ input[type="range"]::-webkit-slider-thumb {
 .see-code-button {
   padding: 0.5rem 1rem;
   font-size: 0.95rem;
-  background-color: #6c757d;
+  background-color: #b65a38;
   color: white;
   border: none;
   border-radius: 6px;
@@ -359,7 +359,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .see-code-button:hover {
-  background-color: #5a6268;
+  background-color: #b65a38;
 }
 .run-button-container {
   padding: 10px 12px 0;
