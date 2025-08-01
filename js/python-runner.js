@@ -378,7 +378,7 @@ function openModal(graphKey) {
   const modalOutput = document.getElementById("modalOutput");
 
   modal.style.display = "flex";
-  modalTitle.textContent = `Edit Python Code: ${graphKey}`;
+  modalTitle.textContent = `See and Edit Python Code: `;
   modalOutput.innerHTML = "";
 
   // Clean existing editor if any
