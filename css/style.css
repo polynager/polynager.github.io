@@ -369,11 +369,8 @@ input[type="range"]::-webkit-slider-thumb {
   justify-content: flex-start;
 }
 
-/* Remove default margins inside explanation */
-.explanation-text p {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 1.4;
-  font-size: 1rem;
+.explanation-text {
+  margin-top: 0;       /* Removes extra space above text */
+  margin-bottom: 40px; /* Adds space below the text (and graph) */
 }
 
