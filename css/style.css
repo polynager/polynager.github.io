@@ -166,6 +166,22 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #cf5a42;
 }
 
+#container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.text-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
 /* Python plot section */
 #python-plot {
   background-color: #fffaf5;
