@@ -29,7 +29,6 @@ alpha = 0.5
 plot_cobb_douglas(alpha)`
 ,
 cobbDouglas3D:`
-    
 # 3D Cobb-Douglas surface plot with contour
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -76,6 +75,8 @@ def plot_leontief(a, b):
 plot_leontief(a = 0.5, b = 0.5)
 `, leontief3D:`
 # 3D Leontief utility surface plot with contour
+from matplotlib import cm
+
 fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(111, projection='3d')
 
@@ -121,6 +122,8 @@ plot_linear(a = 0.5, b = 0.5)
   
 `, linear3D:`
 # 3D Linear utility surface plot with contour
+from matplotlib import cm
+
 fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(111, projection='3d')
 
@@ -383,7 +386,6 @@ function openModal(graphKey) {
   modalTitle.textContent = `See and Edit Python Code: `;
   modalOutput.innerHTML = "";
 
-  // Clean existing editor if any
   editorContainer.innerHTML = "";
 
   const textarea = document.createElement("textarea");
