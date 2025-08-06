@@ -20,17 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const x0 = (incomeInitial / pxInitial) * alpha;
     const y0 = (incomeInitial / pyInitial) * (1 - alpha);
-    const yBudget0 = xVals.map(x => {
-      const y = (incomeInitial - pxInitial * x) / pyInitial;
-      return y >= 0 ? y : null;
-    });
+    const yBudget0 = xVals.map(x => (incomeInitial - pxInitial * x) / pyInitial);
 
     const x1 = (income / px) * alpha;
     const y1 = (income / py) * (1 - alpha);
-    const yBudget1 = xVals.map(x => {
-      const y = (income - px * x) / py;
-      return y >= 0 ? y : null;
-    });
+    const yBudget1 = xVals.map(x => (income - px * x) / py);
 
     const traceFill = {
       x: [...xVals, xVals[xVals.length - 1], xVals[0]],
@@ -60,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       line: { color: 'black' }
     };
 
-        const traceOriginalBundle = {
+    const traceOriginalBundle = {
       x: [x0],
       y: [y0],
       mode: 'markers',
@@ -94,35 +88,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     Plotly.newPlot(plotDiv, data, layout, { responsive: true });
 
-    // Update explanation
+    // Explanation text
     explanationDiv.innerHTML = '';
 
-    if (income > incomeInitial) {
-      explanationDiv.innerHTML += `<p>Income increased from ${incomeInitial} to ${income}, so the consumer can afford more of both goods.</p>`;
-    } else if (income < incomeInitial) {
-      explanationDiv.innerHTML += `<p>Income decreased from ${incomeInitial} to ${income}, reducing affordable consumption.</p>`;
+    if (income !== incomeInitial) {
+      explanationDiv.innerHTML += `<p>Income changed from ${incomeInitial} to ${income}. This shifts the budget line and feasible consumption.</p>`;
     }
 
-    if (px > pxInitial) {
-      explanationDiv.innerHTML += `<p>Price of Good X increased from ${pxInitial} to ${px}, reducing X consumption.</p>`;
-    } else if (px < pxInitial) {
-      explanationDiv.innerHTML += `<p>Price of Good X decreased from ${pxInitial} to ${px}, increasing X consumption.</p>`;
+    if (px !== pxInitial) {
+      explanationDiv.innerHTML += `<p>Price of Good X changed from ${pxInitial} to ${px}. This affects the slope of the budget line.</p>`;
     }
 
-    if (py > pyInitial) {
-      explanationDiv.innerHTML += `<p>Price of Good Y increased from ${pyInitial} to ${py}, reducing Y consumption.</p>`;
-    } else if (py < pyInitial) {
-      explanationDiv.innerHTML += `<p>Price of Good Y decreased from ${pyInitial} to ${py}, increasing Y consumption.</p>`;
+    if (py !== pyInitial) {
+      explanationDiv.innerHTML += `<p>Price of Good Y changed from ${pyInitial} to ${py}. This affects the slope of the budget line.</p>`;
     }
   }
 
-  // Attach event listeners
+  // Event listeners
   alphaSlider.addEventListener('input', plotIncomeEffect);
   pXSlider.addEventListener('input', plotIncomeEffect);
   pYSlider.addEventListener('input', plotIncomeEffect);
   incomeSlider.addEventListener('input', plotIncomeEffect);
 
-  // Initial plot
+  // Initial render
   plotIncomeEffect();
 });
-
