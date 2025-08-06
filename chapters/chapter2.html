@@ -14,15 +14,16 @@
   <a href="../index.html" class="back-home-button">&larr; Back to Homepage</a>
 </div>
 <section id="cobb-income">
-  <h2>Cobb-Douglas Income Effect</h2>
-
-  <label>α: <input type="range" id="alphaIncomeSlider" min="0.1" max="0.9" step="0.01" value="0.5"></label><br>
-  <label>pₓ: <input type="range" id="pXIncomeSlider" min="0.1" max="5" step="0.1" value="1"></label><br>
-  <label>pᵧ: <input type="range" id="pYIncomeSlider" min="0.1" max="5" step="0.1" value="1"></label><br>
-  <label>Income: <input type="range" id="incomeSlider" min="5" max="20" step="1" value="10"></label><br><br>
-
-  <div id="incomePlot" style="width: 100%; height: 400px;"></div>
-  <div id="incomeExplanation"></div>
+  <div class="section-header">
+    <h2>Income Effect (Cobb-Douglas)</h2>
+    <button class="see-code-button" onclick="openModal('income')">See & Edit Code</button>
+  </div>
+  <label>α: <input type="range" id="alphaIncomeSlider" min="0.01" max="0.99" step="0.01" value="0.6" /></label>
+  <label>pₓ: <input type="range" id="pXIncomeSlider" min="0.5" max="5" step="0.1" value="1" /></label>
+  <label>pᵧ: <input type="range" id="pYIncomeSlider" min="0.5" max="5" step="0.1" value="1" /></label>
+  <label>Income: <input type="range" id="incomeSlider" min="1" max="25" step="0.5" value="10" /></label>
+  <div id="incomePlot" style="height: 400px;"></div>
+  <div id="incomeExplanation" class="explanation"></div>
 </section>
   
 <script src="income_cobb_douglas.js"></script>
