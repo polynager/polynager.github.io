@@ -113,4 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("incomeVal").textContent = income;
     document.getElementById("pxVal").textContent = px;
-    document.getElementById("py
+     document.getElementById("pyVal").textContent = py;
+    document.getElementById("alphaVal").textContent = alpha;
+
+    cobbDouglasIncomeEffect(px, py, income, alpha);
+  }
+
+  updatePlot();
+
+  [incomeSlider, pxSlider, pySlider, alphaSlider].forEach(slider => {
+    slider.addEventListener("input", updatePlot);
+  });
+});
