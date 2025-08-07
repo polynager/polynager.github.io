@@ -69,22 +69,20 @@
     <pre id="taxOutput"></pre>
   </section>
 
-  <!-- === Modal Code Editor === -->
-  <div id="codeModal" class="hidden">
-    <div class="modal-content">
-      <header>
-        <h3 id="modalTitle">Edit Python Code</h3>
-        <button onclick="closeModal()" title="Close">&times;</button>
-      </header>
-      <div class="modal-body">
-        <div id="modalEditor"></div>
-        <div class="modal-right">
-          <div id="modalOutput"></div>
-          <button onclick="runModalCode()">Run</button>
-        </div>
-      </div>
-    </div>
+  <div id="codeModal">
+  <div class="modal-content">
+    <header>
+      <h3 id="modalTitle">Edit Python Code</h3>
+      <button onclick="closeModal()" title="Close">&times;</button>
+    </header>
+
+<div class="modal-body">
+  <div id="modalEditor"></div>
+  <div class="modal-right">
+    <div id="modalOutput"></div>
+    <button onclick="runModalCode()">Run</button>
   </div>
+</div>
 
   <!-- === Scripts === -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
