@@ -75,7 +75,7 @@ function updateGraph(px_new) {
     showlegend: true
   };
 
-  Plotly.newPlot("plot", data, layout, { responsive: true });
+  Plotly.newPlot("substitutionPlot", data, layout, { responsive: true });
 
   // Explanation text
   outputText.textContent =
