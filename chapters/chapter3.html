@@ -71,7 +71,22 @@
   <div id="taxEffectPlot" style="width:100%; height:600px;"></div>
   <pre id="taxOutput"></pre>
 </section>
-  
+
+<div id="codeModal">
+  <div class="modal-content">
+    <header>
+      <h3 id="modalTitle">Edit Python Code</h3>
+      <button onclick="closeModal()" title="Close">&times;</button>
+    </header>
+
+<div class="modal-body">
+  <div id="modalEditor"></div>
+  <div class="modal-right">
+    <div id="modalOutput"></div>
+    <button onclick="runModalCode()">Run</button>
+  </div>
+</div>
+
 <script src="../js/cobb-income.js"></script>
 <script src="../js/inc-subst.js"></script>
 <script src="../js/market-demand.js"></script>
