@@ -213,6 +213,7 @@
     </tbody>
   </table>
 
+  
   <strong>Economic Framework</strong>
   <p>We assume a <strong>Cobb-Douglas utility function</strong>:</p>
   <p><em>U(x, y) = x<sup>α</sup> y<sup>1 − α</sup></em></p>
@@ -227,8 +228,19 @@
     <li><strong>Substitution Effect</strong>: Change in consumption holding utility constant — household substitutes toward relatively cheaper gasoline.</li>
     <li><strong>Income Effect</strong>: Additional change from the increase in real purchasing power due to lower gas prices.</li>
   </ol>
+</div>
+  
 
-  <strong>What the Graph Shows</strong>
+<section id="carbon-tax">
+      <div class="section-header">
+    <h2>Impact of a 20% Carbon Tax Cut on Household Consumption</h2>
+        <button class="see-code-button" onclick="openModal('w')">See & Edit Code</button>
+      </div>
+    <div id="taxEffectPlot" style="width:100%; height:600px;"></div>
+    <pre id="taxOutput"></pre>
+  </section>
+<div class="explanation-text">
+   <strong>What the Graph Shows: </strong>
   <ul>
     <li><strong>Original Budget Line</strong> (gray, dashed): Before the carbon tax cut.</li>
     <li><strong>New Budget Line</strong> (black): After the tax cut.</li>
@@ -253,16 +265,7 @@
     <li>This framework helps illustrate <strong>how much of the behavioral response</strong> is due to relative price changes vs real income changes.</li>
   </ul>
 </div>
-
-<section id="carbon-tax">
-      <div class="section-header">
-    <h2>Impact of a 20% Carbon Tax Cut on Household Consumption</h2>
-        <button class="see-code-button" onclick="openModal('w')">See & Edit Code</button>
-      </div>
-    <div id="taxEffectPlot" style="width:100%; height:600px;"></div>
-    <pre id="taxOutput"></pre>
-  </section>
-
+  
   <div id="codeModal">
   <div class="modal-content">
     <header>
