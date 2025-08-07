@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
   // === DOM Elements ===
   const sliders = {
-    alpha: document.getElementById('alphaSlider'),
-    px: document.getElementById('pxSlider'),
-    py: document.getElementById('pySlider'),
-    income: document.getElementById('incomeSlider'),
-  };
+  alpha: document.getElementById('alphaSlider'),
+  px: document.getElementById('pxSliderIncome'), 
+  py: document.getElementById('pySlider'),
+  income: document.getElementById('incomeSlider'),
+};
 
-  const labels = {
-    alpha: document.getElementById('alphaVal'),
-    px: document.getElementById('pxVal'),
-    py: document.getElementById('pyVal'),
-    income: document.getElementById('incomeVal'),
-  };
+const labels = {
+  alpha: document.getElementById('alphaVal'),
+  px: document.getElementById('pxValIncome'),     
+  py: document.getElementById('pyVal'),
+  income: document.getElementById('incomeVal'),
+};
 
   const explanation = document.getElementById('explanation');
   const plotDiv = document.getElementById('cobb-income');
