@@ -90,6 +90,58 @@
   <p>The total effect is the sum of the substitution and income effect.</p>
 </div>
 
+<div class="text-box">
+  <h2>3. Deriving the Substitution and Income Effects (Cobb-Douglas)</h2>
+
+  <p>We want to decompose the <strong>total effect</strong> of a price change into two components:</p>
+  <ul>
+    <li><strong>Substitution effect</strong>: the change in consumption holding utility constant (movement along the same indifference curve).</li>
+    <li><strong>Income effect</strong>: the change in consumption from the change in real purchasing power (movement between indifference curves).</li>
+  </ul>
+
+  <p>We'll work with a <strong>Cobb-Douglas utility function</strong> of the form:</p>
+  <p><em>U(x, y) = x<sup>α</sup> y<sup>1 − α</sup></em></p>
+
+  <strong>Step 1: Original Optimal Bundle</strong>
+  <p>At initial prices and income:</p>
+  <ul>
+    <li>Income: <em>I</em></li>
+    <li>Prices: <em>p<sub>x</sub><sup>initial</sup>, p<sub>y</sub></em></li>
+    <li>Preference parameter: <em>α</em></li>
+  </ul>
+  <p>The Cobb-Douglas demand functions give the optimal bundle:</p>
+  <p><em>x₀ = (I / p<sub>x</sub>) α, &nbsp;&nbsp;&nbsp; y₀ = (I / p<sub>y</sub>) (1 − α)</em></p>
+  <p>The utility at this bundle is:</p>
+  <p><em>U* = x₀<sup>α</sup> y₀<sup>1 − α</sup></em></p>
+
+  <strong>Step 2: Substitution Effect — Compensated Bundle</strong>
+  <p>We keep utility constant at <em>U*</em>, but change the relative prices (specifically <em>p<sub>x</sub></em>). To find the bundle that keeps utility constant while minimizing expenditure (i.e., Hicksian demand), we solve:</p>
+  <p><em>U* = x<sup>α</sup> y<sup>1 − α</sup> ⇒ y = (U*)<sup>1 / (1 − α)</sup> x<sup>−α / (1 − α)</sup></em></p>
+  <p>We then impose the <strong>tangency condition</strong>: the slope of the indifference curve equals the new price ratio:</p>
+  <p><em>dy/dx = −(α / (1 − α)) · (U*)<sup>1 / (1 − α)</sup> x<sup>−1 / (1 − α)</sup> = −p<sub>x</sub><sup>new</sup> / p<sub>y</sub></em></p>
+  <p>Solving this gives us the <strong>compensated quantity</strong> of good <em>x</em>, denoted <em>x<sub>sub</sub></em>, and the associated <em>y<sub>sub</sub></em>.</p>
+
+  <strong>Step 3: New Optimal Bundle (Total Effect)</strong>
+  <p>With the new price <em>p<sub>x</sub><sup>new</sup></em> and unchanged income, we apply the Cobb-Douglas demand again:</p>
+  <p><em>x₁ = (I / p<sub>x</sub><sup>new</sup>) α, &nbsp;&nbsp;&nbsp; y₁ = (I / p<sub>y</sub>) (1 − α)</em></p>
+  <p>This gives the <strong>new optimal bundle</strong> under the new price.</p>
+
+  <strong>Step 4: Decomposition</strong>
+  <ul>
+    <li><strong>Total effect</strong>: change in <em>x</em>: <em>x₁ − x₀</em></li>
+    <li><strong>Substitution effect</strong>: <em>x<sub>sub</sub> − x₀</em></li>
+    <li><strong>Income effect</strong>: <em>x₁ − x<sub>sub</sub></em></li>
+  </ul>
+
+  <p>On a plot, these effects can be shown as <strong>horizontal arrows</strong>:</p>
+  <ul>
+    <li>From (<em>x₀, y₀</em>) → (<em>x<sub>sub</sub>, y₀</em>): substitution effect (price change only, utility held constant).</li>
+    <li>From (<em>x<sub>sub</sub>, y₀</em>) → (<em>x₁, y₀</em>): income effect (real purchasing power change).</li>
+  </ul>
+
+  <p>This approach clearly isolates the substitution and income effects of a price change in one good, under Cobb-Douglas preferences.</p>
+</div>
+
   <!-- === Substitution & Income === -->
   <section id="inc-subst">
     <div class="section-header">
@@ -123,15 +175,95 @@
     <pre id="taxOutput"></pre>
   </section>
 
-<section id="quiz2">
-  <h2> Concept Questions Quiz</h2>
-  <div class="quiz-container">
-    <div id="quiz2"></div>
-    <button class="submit-button" onclick="submitQuiz()">Submit Answers</button>
-    <div id="results"></div>
-  </div>
-</section>
-  
+<div class="text-box">
+  <h2>4. Simulation: Impact of a Carbon Tax Cut on Household Consumption</h2>
+
+  <strong>Context</strong>
+  <p>This simulation models how a <strong>20% reduction in the carbon tax</strong>—as recently implemented in Canada—affects a household's consumption of two goods:</p>
+  <ul>
+    <li><strong>Gasoline</strong> (Good X)</li>
+    <li><strong>Groceries</strong> (Good Y)</li>
+  </ul>
+  <p>We assume that:</p>
+  <ul>
+    <li>Gasoline becomes 20% cheaper due to the tax cut.</li>
+    <li>The household reallocates its monthly budget in response to the new relative prices.</li>
+  </ul>
+
+  <strong>Assumptions</strong>
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Monthly Income</td>
+        <td>$3,000</td>
+        <td>Approximate average household income</td>
+      </tr>
+      <tr>
+        <td>α (Gasoline preference)</td>
+        <td>0.3</td>
+        <td>30% of budget typically spent on gasoline</td>
+      </tr>
+      <tr>
+        <td>Price of Gasoline</td>
+        <td>$1.80 → $1.44</td>
+        <td>Reflects 20% tax cut</td>
+      </tr>
+      <tr>
+        <td>Price of Groceries</td>
+        <td>$1.00 (normalized)</td>
+        <td>Set as baseline for simplicity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <strong>Economic Framework</strong>
+  <p>We assume a <strong>Cobb-Douglas utility function</strong>:</p>
+  <p><em>U(x, y) = x<sup>α</sup> y<sup>1 − α</sup></em></p>
+  <p>Where:</p>
+  <ul>
+    <li><em>x</em>: litres of gasoline</li>
+    <li><em>y</em>: units of groceries</li>
+    <li><em>α = 0.3</em></li>
+  </ul>
+  <p>The simulation decomposes the effect of the price change into:</p>
+  <ol>
+    <li><strong>Substitution Effect</strong>: Change in consumption holding utility constant — household substitutes toward relatively cheaper gasoline.</li>
+    <li><strong>Income Effect</strong>: Additional change from the increase in real purchasing power due to lower gas prices.</li>
+  </ol>
+
+  <strong>What the Graph Shows</strong>
+  <ul>
+    <li><strong>Original Budget Line</strong> (gray, dashed): Before the carbon tax cut.</li>
+    <li><strong>New Budget Line</strong> (black): After the tax cut.</li>
+    <li><strong>Compensated Budget Line</strong> (purple, dotted): Same utility as before, but at new prices.</li>
+    <li><strong>Original & New Indifference Curves</strong>: Utility contours before and after the change.</li>
+    <li><strong>Red Point</strong>: Original consumption bundle.</li>
+    <li><strong>Purple Point</strong>: Substitution bundle (same utility as before, new prices).</li>
+    <li><strong>Green Point</strong>: New consumption bundle (after the tax cut).</li>
+    <li><strong>Arrows</strong>:
+      <ul>
+        <li><strong>Purple</strong>: Substitution effect (horizontal move from red to purple).</li>
+        <li><strong>Orange</strong>: Income effect (horizontal move from purple to green).</li>
+      </ul>
+    </li>
+  </ul>
+
+  <strong>Interpretation</strong>
+  <p>After the tax cut:</p>
+  <ul>
+    <li><strong>Gasoline consumption increases</strong> due to both substitution and income effects.</li>
+    <li><strong>Groceries consumption stays constant</strong> in this visualization (we isolate horizontal movements in <em>X</em>).</li>
+    <li>This framework helps illustrate <strong>how much of the behavioral response</strong> is due to relative price changes vs real income changes.</li>
+  </ul>
+</div>
+
   <div id="codeModal">
   <div class="modal-content">
     <header>
