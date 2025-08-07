@@ -15,7 +15,7 @@ const labels = {
 };
 
   const explanation = document.getElementById('explanation');
-  const plotDiv = document.getElementById('cobb-income');
+  const plotDiv = document.getElementById('incomePlot');
 
   // === Constants for Original Settings ===
   const incomeInitial = 10;
