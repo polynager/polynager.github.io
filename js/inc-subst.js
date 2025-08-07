@@ -5,7 +5,7 @@ const py = 5;
 
 const slider = document.getElementById("pxSlider");
 const pxVal = document.getElementById("pxVal");
-const plotDiv = document.getElementById("plot");
+const plotDiv = document.getElementById("substitutionPlot");
 const output = document.getElementById("output");
 
 slider.addEventListener("input", () => {
