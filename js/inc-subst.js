@@ -1,32 +1,42 @@
-// === Parameters ===
-const alpha = 0.6;
-const income = 50;
-const pxInitial = 5;
-const py = 5;
-
 // === DOM Elements ===
-const slider = document.getElementById("pxSliderSubst");
-const pxValSpan = document.getElementById("pxValSubst");
-const plotContainer = document.getElementById("substitutionPlot");
-const outputBox = document.getElementById("output");
+const alphaSlider = document.getElementById("alphaSliderSubst");
+const pxSlider = document.getElementById("pxSliderSubst");
+const pySlider = document.getElementById("pySliderSubst");
+const incomeSlider = document.getElementById("incomeSliderSubst");
 
-// === Event Listener ===
-slider.addEventListener("input", () => {
-  const pxNew = parseFloat(slider.value);
-  pxValSpan.textContent = pxNew.toFixed(1);
-  drawSubstitutionGraph(pxNew);
-});
+const alphaValSpan = document.getElementById("alphaValSubst");
+const pxValSpan = document.getElementById("pxValSubst");
+const pyValSpan = document.getElementById("pyValSubst");
+const incomeValSpan = document.getElementById("incomeValSubst");
+
+const plotContainer = document.getElementById("substitutionPlot");
+const outputBox = document.getElementById("explanationSubst");
+
+// === Utility ===
+function getCurrentParams() {
+  return {
+    alpha: parseFloat(alphaSlider.value),
+    pxInitial: 5, // fixed original price
+    pxNew: parseFloat(pxSlider.value),
+    py: parseFloat(pySlider.value),
+    income: parseFloat(incomeSlider.value)
+  };
+}
 
 // === Drawing Function ===
-function drawSubstitutionGraph(pxNew) {
+function drawSubstitutionGraph({ alpha, pxInitial, pxNew, py, income }) {
   // === Original Bundle ===
   const x0 = (income / pxInitial) * alpha;
   const y0 = (income / py) * (1 - alpha);
   const U0 = Math.pow(x0, alpha) * Math.pow(y0, 1 - alpha);
 
   // === Compensated Bundle (same utility, new price) ===
-  const compensatedY = x => Math.pow(U0, 1 / (1 - alpha)) * Math.pow(x, -alpha / (1 - alpha));
-  const xSub = Math.pow((alpha / (1 - alpha)) * (py / pxNew), 1 - alpha) * (income / pxInitial) * alpha;
+  const compensatedY = x =>
+    Math.pow(U0, 1 / (1 - alpha)) * Math.pow(x, -alpha / (1 - alpha));
+  const xSub =
+    Math.pow((alpha / (1 - alpha)) * (py / pxNew), 1 - alpha) *
+    (income / pxInitial) *
+    alpha;
   const ySub = compensatedY(xSub);
 
   // === New Bundle (at new prices) ===
@@ -34,7 +44,7 @@ function drawSubstitutionGraph(pxNew) {
   const y1 = (income / py) * (1 - alpha);
   const U1 = Math.pow(x1, alpha) * Math.pow(y1, 1 - alpha);
 
-  // === X values for plotting ===
+  // === X Values for plotting ===
   const xValues = Array.from({ length: 400 }, (_, i) => 0.1 + i * ((20 - 0.1) / 400));
 
   // === Budget Lines ===
@@ -93,14 +103,14 @@ function drawSubstitutionGraph(pxNew) {
       x: [x0, xSub], y: [y0, y0],
       mode: 'lines+text', name: 'Substitution Effect',
       line: { color: 'purple', width: 2 },
-      text: ['', 'Substitution Effect'],
+      text: ['', 'Substitution'],
       textposition: 'top center'
     },
     {
       x: [xSub, x1], y: [y0, y0],
       mode: 'lines+text', name: 'Income Effect',
       line: { color: 'orange', width: 2 },
-      text: ['', 'Income Effect'],
+      text: ['', 'Income'],
       textposition: 'top center'
     }
   ];
@@ -114,15 +124,15 @@ function drawSubstitutionGraph(pxNew) {
     margin: { t: 50, b: 70 }
   };
 
-  // === Plotting ===
   Plotly.newPlot(plotContainer, traces, layout, { responsive: true });
 
-  // === Output ===
+  // === Text Output ===
   const substitutionEffect = xSub - x0;
   const incomeEffect = x1 - xSub;
+
   outputBox.textContent = `
 Original price of Good X: ${pxInitial}
-New price of Good X: ${pxNew}
+New price of Good X: ${pxNew.toFixed(2)}
 
 Original optimal bundle: x = ${x0.toFixed(2)}, y = ${y0.toFixed(2)}
 Substitution bundle: x = ${xSub.toFixed(2)}, y = ${y0.toFixed(2)}
@@ -133,5 +143,18 @@ Total change in X: ${(x1 - x0).toFixed(2)}
   `.trim();
 }
 
+// === Update UI display values + Plot on input ===
+[
+  { slider: alphaSlider, display: alphaValSpan },
+  { slider: pxSlider, display: pxValSpan },
+  { slider: pySlider, display: pyValSpan },
+  { slider: incomeSlider, display: incomeValSpan }
+].forEach(({ slider, display }) => {
+  slider.addEventListener("input", () => {
+    display.textContent = parseFloat(slider.value).toFixed(2);
+    drawSubstitutionGraph(getCurrentParams());
+  });
+});
+
 // === Initial Render ===
-drawSubstitutionGraph(parseFloat(slider.value));
+drawSubstitutionGraph(getCurrentParams());
