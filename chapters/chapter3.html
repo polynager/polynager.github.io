@@ -3,93 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <title>Income & Substitution Effects — Cobb-Douglas</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
-  <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <div class="back-home-container">
-    <a href="../index.html" class="back-home-button">&larr; Back to Homepage</a>
-  </div>
 
-  <!-- === Income Effect === -->
-  <section id="cobb-income">
-    <div class="section-header">
-      <h2>Income Effect — Cobb-Douglas Utility</h2>
-      <button class="see-code-button" onclick="openModal('coobincome')">See & Edit Code</button>
-    </div>
+<div class="back-home-container">
+  <a href="#" class="back-home-button">&larr; Back to Homepage</a>
+</div>
+
+<!-- === Cobb-Douglas Income Effect === -->
+<section>
+  <div class="section-header">
+    <h2>Income Effect — Cobb-Douglas Utility</h2>
+    <button class="see-code-button" onclick="openModal('cobb-income')">See & Edit Code</button>
+  </div>
+  <div class="slider-group">
     <label>Alpha (α): <span id="alphaVal">0.6</span>
-      <input type="range" min="0.1" max="0.9" step="0.01" value="0.6" id="alphaSlider" />
+      <input type="range" id="alphaSlider" min="0.1" max="0.9" step="0.01" value="0.6" />
     </label>
     <label>pₓ: <span id="pxValIncome">1.0</span>
-      <input type="range" min="0.1" max="5" step="0.1" value="1" id="pxSliderIncome" />
+      <input type="range" id="pxSliderIncome" min="0.1" max="5" step="0.1" value="1" />
     </label>
     <label>pᵧ: <span id="pyVal">1.0</span>
-      <input type="range" min="0.1" max="5" step="0.1" value="1" id="pySlider" />
+      <input type="range" id="pySlider" min="0.1" max="5" step="0.1" value="1" />
     </label>
     <label>Income: <span id="incomeVal">10.0</span>
-      <input type="range" min="1" max="25" step="0.5" value="10" id="incomeSlider" />
+      <input type="range" id="incomeSlider" min="1" max="25" step="0.5" value="10" />
     </label>
-    <div id="cobb-income" style="width: 100%; height: 500px;"></div>
-    <div id="explanation"></div>
-  </section>
+  </div>
+  <div id="cobb-income" class="plot"></div>
+</section>
 
-  <!-- === Substitution & Income === -->
-  <section id="inc-subst">
+<!-- === Substitution & Income === -->
+<section>
+  <div class="section-header">
     <h2>Substitution & Income Effect</h2>
-    <button class="see-code-button" onclick="openModal('incsubst')">See & Edit Code</button>
-    <label>α: <span id="alphaValSubst">0.5</span></label>
-    <input type="range" id="alphaSliderSubst" min="0.01" max="0.99" step="0.01" value="0.5">
-    <label>pₓ: <span id="pxValSubst">1.00</span></label>
-    <input type="range" id="pxSliderSubst" min="0.5" max="10" step="0.1" value="1.0">
-    <label>pᵧ: <span id="pyValSubst">1.00</span></label>
-    <input type="range" id="pySliderSubst" min="0.5" max="10" step="0.1" value="1.0">
-    <label>Income: <span id="incomeValSubst">10.00</span></label>
-    <input type="range" id="incomeSliderSubst" min="1" max="20" step="0.5" value="10">
-    <div id="substitutionPlot" style="width:100%; height:600px;"></div>
-    <div id="explanationSubst"></div>
-  </section>
+    <button class="see-code-button" onclick="openModal('inc-subst')">See & Edit Code</button>
+  </div>
+  <div class="slider-group">
+    <label>Alpha (α): <span id="alphaValSubst">0.5</span>
+      <input type="range" id="alphaSliderSubst" min="0.01" max="0.99" step="0.01" value="0.5" />
+    </label>
+    <label>pₓ: <span id="pxValSubst">1.0</span>
+      <input type="range" id="pxSliderSubst" min="0.5" max="10" step="0.1" value="1" />
+    </label>
+    <label>pᵧ: <span id="pyValSubst">1.0</span>
+      <input type="range" id="pySliderSubst" min="0.5" max="10" step="0.1" value="1" />
+    </label>
+    <label>Income: <span id="incomeValSubst">10.0</span>
+      <input type="range" id="incomeSliderSubst" min="1" max="20" step="0.5" value="10" />
+    </label>
+  </div>
+  <div id="substitutionPlot" class="plot"></div>
+</section>
 
-  <!-- === Market Demand === -->
-  <section id="market-demand">
-    <h2>Individual and Market Demand Curves</h2>
-    <button class="see-code-button" onclick="openModal('marketdemand')">See & Edit Code</button>
-    <div id="demandPlot" style="width:100%; height:600px;"></div>
-  </section>
+<!-- === Market Demand === -->
+<section>
+  <div class="section-header">
+    <h2>Market Demand Curve</h2>
+    <button class="see-code-button" onclick="openModal('market-demand')">See & Edit Code</button>
+  </div>
+  <div id="demandPlot" class="plot"></div>
+</section>
 
-  <!-- === Carbon Tax === -->
-  <section id="carbon-tax">
-    <h2>Impact of a 20% Carbon Tax Cut on Household Consumption</h2>
-    <button class="see-code-button" onclick="openModal('carbontax')">See & Edit Code</button>
-    <div id="taxEffectPlot" style="width:100%; height:600px;"></div>
-    <pre id="taxOutput"></pre>
-  </section>
+<!-- === Carbon Tax === -->
+<section>
+  <div class="section-header">
+    <h2>Carbon Tax Impact</h2>
+    <button class="see-code-button" onclick="openModal('carbon-tax')">See & Edit Code</button>
+  </div>
+  <div id="taxEffectPlot" class="plot"></div>
+  <pre id="taxOutput"></pre>
+</section>
 
-  <!-- === Modal Code Editor === -->
-  <div id="codeModal" class="hidden">
-    <div class="modal-content">
-      <header>
-        <h3 id="modalTitle">Edit Python Code</h3>
-        <button onclick="closeModal()" title="Close">&times;</button>
-      </header>
-      <div class="modal-body">
-        <div id="modalEditor"></div>
-        <div class="modal-right">
-          <div id="modalOutput"></div>
-          <button onclick="runModalCode()">Run</button>
-        </div>
+<!-- === Code Editor Modal === -->
+<div id="codeModal" class="hidden">
+  <div class="modal-content">
+    <header>
+      <h3 id="modalTitle">Edit Code</h3>
+      <button onclick="closeModal()" title="Close">&times;</button>
+    </header>
+    <div class="modal-body">
+      <div id="modalEditor"></div>
+      <div class="modal-right">
+        <div id="modalOutput"></div>
+        <button onclick="runModalCode()">Run</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- === Scripts === -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
-  <script src="../js/modal.js"></script>
-  <script src="../js/cobb-income.js"></script>
-  <script src="../js/inc-subst.js"></script>
-  <script src="../js/market-demand.js"></script>
-  <script src="../js/carbon-tax.js"></script>
+<!-- === Scripts === -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/cobb-income.js"></script>
+<script src="js/inc-subst.js"></script>
+<script src="js/market-demand.js"></script>
+<script src="js/carbon-tax.js"></script>
+
 </body>
 </html>
