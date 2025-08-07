@@ -367,6 +367,85 @@ leontief_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
 
 # Change values if needed
 linear_utility_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
+`, cobbDouglasincome:`import numpy as np
+import matplotlib.pyplot as plt
+from ipywidgets import interact, FloatSlider, Output
+from IPython.display import display
+
+# Fixed initial conditions
+income_initial = 10
+px_initial = 1
+py_initial = 1
+alpha_initial = 0.6
+
+# Output box
+output_text = Output()
+
+def cobb_douglas_income_effect(px=1.0, py=1.0, income=10.0, α=0.6):
+    x_vals = np.linspace(0, 20, 200)
+
+    # === Original optimal bundle and budget line ===
+    x0 = (income_initial / px_initial) * α
+    y0 = (income_initial / py_initial) * (1 - α)
+    y_budget0 = (income_initial - px_initial * x_vals) / py_initial
+    y_budget0[y_budget0 < 0] = np.nan
+
+    # === New optimal bundle and budget line ===
+    x1 = (income / px) * α
+    y1 = (income / py) * (1 - α)
+    y_budget1 = (income - px * x_vals) / py
+    y_budget1[y_budget1 < 0] = np.nan
+
+    # === Plotting ===
+    plt.figure(figsize=(8, 6))
+
+    # Shaded area under new budget line
+    plt.fill_between(x_vals, 0, y_budget1, color='#e0f7fa', alpha=0.5, label='New Feasible Set')
+
+    # Plot new and original budget lines
+    plt.plot(x_vals, y_budget1, color='black', label='New Budget Line')
+    plt.plot(x_vals, y_budget0, color='gray', linestyle='--', label='Original Budget Line')
+
+    # Optimal bundles
+    plt.plot(x0, y0, 'ro', label='Original Bundle')
+    plt.plot(x1, y1, 'go', label='New Bundle')
+
+    # Labels and limits
+    plt.xlabel('Good X')
+    plt.ylabel('Good Y')
+    plt.title(f'Income Effect — α={α:.2f}, pₓ={px:.2f}, pᵧ={py:.2f}, I={income:.2f}')
+    plt.xlim(0, 20)
+    plt.ylim(0, 20)
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # === Output interpretation ===
+    output_text.clear_output()
+    with output_text:
+        if income > income_initial:
+            print(f"Income has increased from {income_initial} to {income}, allowing the consumer to buy more of both goods.")
+        elif income < income_initial:
+            print(f"Income has decreased from {income_initial} to {income}, reducing the consumer's ability to buy both goods.")
+
+        if px > px_initial:
+            print(f"The price of Good X has increased from {px_initial} to {px}, reducing the consumption of Good X.")
+        elif px < px_initial:
+            print(f"The price of Good X has decreased from {px_initial} to {px}, increasing the consumption of Good X.")
+
+        if py > py_initial:
+            print(f"The price of Good Y has increased from {py_initial} to {py}, reducing the consumption of Good Y.")
+        elif py < py_initial:
+            print(f"The price of Good Y has decreased from {py_initial} to {py}, increasing the consumption of Good Y.")
+
+# Interactive sliders
+interact(
+    cobb_douglas_income_effect,
+    income=FloatSlider(value=10.0, min=1.0, max=25.0, step=0.5, description='Income'),
+    )
+
+# Show output
+display(output_text)
 `
 };
 
