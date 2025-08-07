@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const incomeVal = document.getElementById('incomeVal');
 
   const explanation = document.getElementById('explanation');
-  const plotDiv = document.getElementById('plot');
+  const plotDiv = document.getElementById('incomeplot');
 
   const incomeInitial = 10;
   const pxInitial = 1;
