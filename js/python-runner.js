@@ -546,87 +546,70 @@ ax.grid(True)
 # Show plot
 plt.tight_layout()
 plt.show()`
-// `, w: `import numpy as np
-// import matplotlib.pyplot as plt
+, w: `import numpy as np
+import matplotlib.pyplot as plt
+import numpy as np
 
-// # === PARAMETERS ===
-// income = 3000             # Monthly household budget
-// alpha = 0.3               # Preference for gasoline (Good X)
-// px_initial = 1.80         # Initial price per litre of gasoline
-// py = 1.00                 # Normalized price of groceries
-// px_new = px_initial * 0.8  # 20% tax cut reduces gas price
+income = 3000
+alpha = 0.3
+px_initial = 1.80
+py = 1.00
+px_new = px_initial * 0.8
 
-// # === ORIGINAL OPTIMAL BUNDLE ===
-// x0 = (income / px_initial) * alpha         # Litres of gasoline
-// y0 = (income / py) * (1 - alpha)           # Units of groceries
-// U = (x0**alpha) * (y0**(1 - alpha))        # Utility level
+x0 = (income / px_initial) * alpha
+y0 = (income / py) * (1 - alpha)
+U = (x0**alpha) * (y0**(1 - alpha))
 
-// # === COMPENSATED (SUBSTITUTION EFFECT) BUNDLE ===
-// def compensated_y(x):
-//     return U**(1 / (1 - alpha)) * x**(-alpha / (1 - alpha))
+def compensated_y(x):
+    return U**(1 / (1 - alpha)) * x**(-alpha / (1 - alpha))
 
-// x_sub = (alpha / (1 - alpha) * py / px_new) ** (1 - alpha) * (income / px_initial) * alpha
-// y_sub = y0  # Horizontal movement only for income/substitution decomposition
+x_sub = (alpha / (1 - alpha) * py / px_new) ** (1 - alpha) * (income / px_initial) * alpha
+y_sub = y0
 
-// # === NEW OPTIMAL BUNDLE ===
-// x1 = (income / px_new) * alpha
-// y1 = (income / py) * (1 - alpha)
+x1 = (income / px_new) * alpha
+y1 = (income / py) * (1 - alpha)
 
-// # === PLOTTING ===
-// x_vals = np.linspace(0.1, 2000, 500)
-// y_budget_initial = (income - px_initial * x_vals) / py
-// y_budget_new = (income - px_new * x_vals) / py
-// income_compensated = px_new * x_sub + py * y_sub
-// y_budget_comp = (income_compensated - px_new * x_vals) / py
+x_vals = np.linspace(0.1, 2000, 500)
+y_budget_initial = (income - px_initial * x_vals) / py
+y_budget_new = (income - px_new * x_vals) / py
+income_compensated = px_new * x_sub + py * y_sub
+y_budget_comp = (income_compensated - px_new * x_vals) / py
 
-// # Indifference curves
-// def indiff(U_level):
-//     return U_level**(1 / (1 - alpha)) * x_vals**(-alpha / (1 - alpha))
+def indiff(U_level):
+    return U_level**(1 / (1 - alpha)) * x_vals**(-alpha / (1 - alpha))
 
-// U_new = (x1**alpha) * (y1**(1 - alpha))
-// y_indiff_orig = indiff(U)
-// y_indiff_new = indiff(U_new)
+U_new = (x1**alpha) * (y1**(1 - alpha))
+y_indiff_orig = indiff(U)
+y_indiff_new = indiff(U_new)
 
-// plt.figure(figsize=(10, 7))
-// plt.plot(x_vals, y_budget_initial, 'gray', linestyle='--', label='Original Budget')
-// plt.plot(x_vals, y_budget_new, 'black', label='New Budget (After Tax Cut)')
-// plt.plot(x_vals, y_budget_comp, 'purple', linestyle=':', label='Compensated Budget')
+plt.figure(figsize=(10, 7))
+plt.plot(x_vals, y_budget_initial, 'gray', linestyle='--', label='Original Budget')
+plt.plot(x_vals, y_budget_new, 'black', label='New Budget (After Tax Cut)')
+plt.plot(x_vals, y_budget_comp, 'purple', linestyle=':', label='Compensated Budget')
 
-// plt.plot(x_vals, y_indiff_orig, 'blue', linestyle='--', label='Original Indifference Curve')
-// plt.plot(x_vals, y_indiff_new, 'green', linestyle='--', label='New Indifference Curve')
+plt.plot(x_vals, y_indiff_orig, 'blue', linestyle='--', label='Original Indifference Curve')
+plt.plot(x_vals, y_indiff_new, 'green', linestyle='--', label='New Indifference Curve')
 
-// # Plot bundles
-// plt.plot(x0, y0, 'ro', label='Original Bundle')
-// plt.plot(x_sub, y0, 'mo', label='Substitution Bundle')
-// plt.plot(x1, y0, 'go', label='New Bundle')
+plt.plot(x0, y0, 'ro', label='Original Bundle')
+plt.plot(x_sub, y0, 'mo', label='Substitution Bundle')
+plt.plot(x1, y0, 'go', label='New Bundle')
 
-// # Arrows (horizontal)
-// plt.annotate('', xy=(x_sub, y0), xytext=(x0, y0),
-//              arrowprops=dict(arrowstyle='->', color='purple', lw=2), annotation_clip=False)
-// plt.text((x0 + x_sub)/2, y0 + 50, 'Substitution Effect', color='purple')
+plt.annotate('', xy=(x_sub, y0), xytext=(x0, y0),
+             arrowprops=dict(arrowstyle='->', color='purple', lw=2), annotation_clip=False)
+plt.text((x0 + x_sub)/2, y0 + 50, 'Substitution Effect', color='purple')
 
-// plt.annotate('', xy=(x1, y0), xytext=(x_sub, y0),
-//              arrowprops=dict(arrowstyle='->', color='orange', lw=2), annotation_clip=False)
-// plt.text((x_sub + x1)/2, y0 + 50, 'Income Effect', color='orange')
+plt.annotate('', xy=(x1, y0), xytext=(x_sub, y0),
+             arrowprops=dict(arrowstyle='->', color='orange', lw=2), annotation_clip=False)
+plt.text((x_sub + x1)/2, y0 + 50, 'Income Effect', color='orange')
 
-// # Labels
-// plt.xlabel("Gasoline (litres)")
-// plt.ylabel("Groceries (units)")
-// plt.title("Impact of a 20% Carbon Tax Cut on Household Consumption")
-// plt.xlim(0, 2000)
-// plt.ylim(0, 3500)
-// plt.grid(True)
-// plt.legend()
-// plt.show()
-
-// # === PRINT NUMERICAL RESULTS ===
-// print("=== Numerical Results ===")
-// print(f"Original gasoline price: ${px_initial:.2f} → New price: ${px_new:.2f}")
-// print(f"Original bundle: Gasoline = {x0:.1f} L, Groceries = {y0:.1f} units")
-// print(f"Substitution effect bundle: Gasoline = {x_sub:.1f} L, Groceries = {y0:.1f} units")
-// print(f"New bundle: Gasoline = {x1:.1f} L, Groceries = {y1:.1f} units")
-// print(f"Total gasoline change: {x1 - x0:.1f} L = Substitution ({x_sub - x0:.1f}) + Income ({x1 - x_sub:.1f})")
-// `
+plt.xlabel("Gasoline (litres)")
+plt.ylabel("Groceries (units)")
+plt.title("Impact of a 20% Carbon Tax Cut on Household Consumption")
+plt.xlim(0, 2000)
+plt.ylim(0, 3500)
+plt.grid(True)
+plt.legend()
+plt.show() `
 };
 
 let currentEditor = null;
