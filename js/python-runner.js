@@ -668,7 +668,7 @@ print(f"Original bundle: Gasoline = {x0:.1f} L, Groceries = {y0:.1f} units")
 print(f"Substitution effect bundle: Gasoline = {x_sub:.1f} L, Groceries = {y0:.1f} units")
 print(f"New bundle: Gasoline = {x1:.1f} L, Groceries = {y1:.1f} units")
 print(f"Total gasoline change: {x1 - x0:.1f} L = Substitution ({x_sub - x0:.1f}) + Income ({x1 - x_sub:.1f})")
-`
+`,
 };
 
 let currentEditor = null;
