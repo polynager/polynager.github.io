@@ -29,6 +29,28 @@
     <li><strong>Inferior good:</strong> A good for which consumption decreases with an increase in income, reflecting a negative income effect.</li>
   </ul>
 </div>
+      <!-- === Income Effect === -->
+  <section id="cobb-income">
+    <div class="section-header">
+      <h2>Income Effect — Cobb-Douglas Utility</h2>
+      <button class="see-code-button" onclick="openModal('x')">See & Edit Code</button>
+    </div>
+    <label>Alpha (α): <span id="alphaVal">0.6</span>
+      <input type="range" min="0.1" max="0.9" step="0.01" value="0.6" id="alphaSlider" />
+    </label>
+    <label>pₓ: <span id="pxValIncome">1.0</span>
+      <input type="range" min="0.1" max="5" step="0.1" value="1" id="pxSliderIncome" />
+    </label>
+    <label>pᵧ: <span id="pyVal">1.0</span>
+      <input type="range" min="0.1" max="5" step="0.1" value="1" id="pySlider" />
+    </label>
+    <label>Income: <span id="incomeVal">10.0</span>
+      <input type="range" min="1" max="25" step="0.5" value="10" id="incomeSlider" />
+    </label>
+    <div id="cobbIncomePlot" style="width: 100%; height: 500px;"></div>
+    <div id="explanation"></div>
+  </section>
+
   <div class="text-box">
   <h2>Explanation of the Code</h2>
 
@@ -67,27 +89,6 @@
   <strong>Total effect</strong>
   <p>The total effect is the sum of the substitution and income effect.</p>
 </div>
-    <!-- === Income Effect === -->
-  <section id="cobb-income">
-    <div class="section-header">
-      <h2>Income Effect — Cobb-Douglas Utility</h2>
-      <button class="see-code-button" onclick="openModal('x')">See & Edit Code</button>
-    </div>
-    <label>Alpha (α): <span id="alphaVal">0.6</span>
-      <input type="range" min="0.1" max="0.9" step="0.01" value="0.6" id="alphaSlider" />
-    </label>
-    <label>pₓ: <span id="pxValIncome">1.0</span>
-      <input type="range" min="0.1" max="5" step="0.1" value="1" id="pxSliderIncome" />
-    </label>
-    <label>pᵧ: <span id="pyVal">1.0</span>
-      <input type="range" min="0.1" max="5" step="0.1" value="1" id="pySlider" />
-    </label>
-    <label>Income: <span id="incomeVal">10.0</span>
-      <input type="range" min="1" max="25" step="0.5" value="10" id="incomeSlider" />
-    </label>
-    <div id="cobbIncomePlot" style="width: 100%; height: 500px;"></div>
-    <div id="explanation"></div>
-  </section>
 
   <!-- === Substitution & Income === -->
   <section id="inc-subst">
