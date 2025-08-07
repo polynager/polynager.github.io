@@ -367,7 +367,7 @@ leontief_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
 
 # Change values if needed
 linear_utility_cplot(p_X=1.0, p_Y=2.0, a=1.0, b=1.0)
-`, cobbDouglasincome:`import numpy as np
+`, x:`import numpy as np
 import matplotlib.pyplot as plt
 from ipywidgets import interact, FloatSlider, Output
 from IPython.display import display
