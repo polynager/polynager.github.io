@@ -1,21 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // === DOM Elements ===
   const sliders = {
-    alpha: document.getElementById('alphaSlider'),
-    px: document.getElementById('pxSlider'),
-    py: document.getElementById('pySlider'),
-    income: document.getElementById('incomeSlider'),
+    alpha: document.getElementById('alphaSliderSubst'),
+    px: document.getElementById('pxSliderSubst'),
+    py: document.getElementById('pySliderSubst'),
+    income: document.getElementById('incomeSliderSubst'),
   };
 
   const labels = {
-    alpha: document.getElementById('alphaVal'),
-    px: document.getElementById('pxVal'),
-    py: document.getElementById('pyVal'),
-    income: document.getElementById('incomeVal'),
+    alpha: document.getElementById('alphaValSubst'),
+    px: document.getElementById('pxValSubst'),
+    py: document.getElementById('pyValSubst'),
+    income: document.getElementById('incomeValSubst'),
   };
 
-  const explanation = document.getElementById('explanation');
-  const plotDiv = document.getElementById('incomeplot');
+  const explanation = document.getElementById('explanationSubst');
+  const plotDiv = document.getElementById('substitutionPlot');
 
   // === Constants for Original Settings ===
   const incomeInitial = 10;
