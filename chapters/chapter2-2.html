@@ -38,6 +38,29 @@
     <p id="supplyExplanation"></p>
   </section>
 
+  <section id="equilibrium">
+    <h2>Market Equilibrium: Original vs. Shifted</h2>
+    <div>
+      <label><input type="checkbox" id="changePref"> Change in Consumer Preferences</label>
+      <input type="range" id="prefShift" min="-50" max="50" step="5" value="0">
+      <span id="prefShiftVal">0</span>
+
+      <label><input type="checkbox" id="changeCost"> Change in Production Costs</label>
+      <input type="range" id="costShift" min="0" max="50" step="5" value="0">
+      <span id="costShiftVal">0</span>
+
+      <label>Demand Slope: <input type="range" id="slopeD" min="5" max="20" step="1" value="10"></label>
+      <span id="slopeDVal">10</span>
+
+      <label>Supply Slope: <input type="range" id="slopeS" min="5" max="20" step="1" value="10"></label>
+      <span id="slopeSVal">10</span>
+    </div>
+
+    <div id="equilibriumPlot" style="width:100%; height:500px;"></div>
+    <pre id="equilibriumExplanation"></pre>
+  </section>
+
+  <script src="js/equilibrium.js"></script>
   <script src="../js/supply-curve.js"></script> 
   <script src="../js/supply-shift.js"></script> 
   <script src="../js/demand-shift.js"></script>
