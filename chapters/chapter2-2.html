@@ -13,7 +13,18 @@
     <div id="demandcurvePlot" style="width: 100%; height: 500px;"></div>
   </section>
 
-  <!-- Load JS after Plotly and after the HTML elements -->
+  <section id="demand-shift">
+   <h2>Impact of Demand Shifts</h2>
+  <div>
+    <label><input type="checkbox" id="prefCheckbox"> Increase in Consumer Pref.</label>
+    <label><input type="checkbox" id="subCheckbox"> Price of Substitute Decreased</label>
+  </div>
+  <div id="demandShiftPlot" style="width:100%;height:500px;"></div>
+  <div id="demandShiftExplanation" style="margin-top:20px;"></div>
+  </section>
+    
+  <script src="js/demand-shift.js"></script>
   <script src="../js/demand-curve.js"></script>
+  
 </body>
 </html>
