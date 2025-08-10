@@ -1,36 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Test Demand Curve</title>
+  <meta charset="UTF-8" />
+  <title>Basic Demand Curve</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-  <div id="demandcurvePlot" style="width:600px;height:400px;"></div>
+  <h1>Introduction to Demand</h1>
 
-  <script>
-    function basicDemandCurve(p, a = 100, b = 10) {
-      return a - b * p;
-    }
+  <section id="demand-curve">
+    <h2>Basic Demand Curve</h2>
+    <div id="demandcurvePlot" style="width: 100%; height: 500px;"></div>
+  </section>
 
-    const prices = Array.from({ length: 100 }, (_, i) => i * (15 / 99));
-    const quantities = prices.map(p => basicDemandCurve(p));
-
-    const traceDemand = {
-      x: quantities,
-      y: prices,
-      mode: 'lines',
-      name: 'Demand Curve',
-      line: { color: 'blue' }
-    };
-
-    const layout = {
-      title: 'Basic Demand Curve',
-      xaxis: { title: 'Quantity', range: [0, 150] },
-      yaxis: { title: 'Price', range: [0, 15] }
-    };
-
-    Plotly.newPlot('demandcurvePlot', [traceDemand], layout);
-  </script>
+  <!-- Load JS after Plotly and after the HTML elements -->
+  <script src="demand-curve.js"></script>
 </body>
 </html>
