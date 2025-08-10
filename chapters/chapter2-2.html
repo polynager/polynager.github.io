@@ -60,6 +60,26 @@
     <pre id="equilibriumExplanation"></pre>
   </section>
 
+<section id="price-elasticity">
+  <h2>Demand Elasticity Interactive Plot</h2>
+<div>
+  <label>
+    Elasticity (E):
+    <input type="range" id="elasticity" min="0" max="10" step="0.1" value="1" />
+    <span id="elasticityVal">1</span>
+  </label>
+  <label>
+    <input type="checkbox" id="perfectlyInelastic" /> Perfectly Inelastic (E=0)
+  </label>
+  <label>
+    <input type="checkbox" id="perfectlyElastic" /> Perfectly Elastic (E=∞)
+  </label>
+</div>
+<div id="plot" style="width: 100%; max-width: 800px; height: 600px;"></div>
+<div id="explanation" style="margin-top: 20px; font-style: italic;"></div>
+</section>
+
+  <script src="../js/price-elasticity.js"></script>
   <script src="../js/equilibrium.js"></script>
   <script src="../js/supply-curve.js"></script> 
   <script src="../js/supply-shift.js"></script> 
