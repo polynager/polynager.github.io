@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return a - b * p;
   }
 
-  // Generate a range of prices
+  // Generate price range
   const prices = Array.from({ length: 100 }, (_, i) => i * (15 / 99));
 
   // Calculate quantities
