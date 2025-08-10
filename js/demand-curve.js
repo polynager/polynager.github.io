@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const layout = {
     title: 'Basic Demand Curve',
     xaxis: { title: 'Quantity', range: [0, 150] },
-    yaxis: { title: 'Price', range: [0, 15] },
-    grid: true
+    yaxis: { title: 'Price', range: [0, 15] }
   };
 
   Plotly.newPlot('demandcurvePlot', [traceDemand], layout, { responsive: true });
