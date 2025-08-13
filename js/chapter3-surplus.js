@@ -96,7 +96,7 @@
         textposition: 'top right',
         marker: { color: 'black', size: 8 }
       });
-    }
+  
 
     if (shifted) {
       traces.push({
