@@ -20,7 +20,7 @@
     const minPrice = supplyCurve(0, supplyIntercept);
     const producerSurplus = 0.5 * eqQuantity * (eqPrice - minPrice);
 
-    return { consumerSurplus, producerSurplus };
+    return { consumerSurplus, producerSurplus, maxPrice, minPrice };
   }
 
   // Function to explain shifts
@@ -46,7 +46,6 @@
   function plotShift(shiftType, showOldEq) {
     const quantities = Array.from({ length: 500 }, (_, i) => i * 0.02); // 0 to 10
 
-    // Default intercepts
     let demandIntercept = initialDemandIntercept;
     let supplyIntercept = initialSupplyIntercept;
     let shifted = false;
@@ -57,7 +56,7 @@
     else if (shiftType === "Demand Shift Left") { demandIntercept -= 5; shifted = true; }
     else if (shiftType === "Demand Shift Right") { demandIntercept += 5; shifted = true; }
 
-    // Calculate shifted curves and equilibrium
+    // Shifted curves and equilibrium
     const pricesDemandShifted = quantities.map(q => demandCurve(q, demandIntercept));
     const pricesSupplyShifted = quantities.map(q => supplyCurve(q, supplyIntercept));
     const eqQuantityShifted = (demandIntercept - supplyIntercept) / (1 - (-2));
@@ -70,35 +69,48 @@
     const oldSurpluses = calculateSurplus(eqQuantityOriginal, eqPriceOriginal, initialDemandIntercept, initialSupplyIntercept);
     const newSurpluses = shifted ? calculateSurplus(eqQuantityShifted, eqPriceShifted, demandIntercept, supplyIntercept) : { consumerSurplus: null, producerSurplus: null };
 
-    // Plot traces
     const traces = [];
- 
-      traces.push({
-        x: quantities,
-        y: quantities.map(q => demandCurve(q, initialDemandIntercept)),
-        mode: 'lines',
-        name: 'Original Demand Curve',
-        line: { dash: 'dot', color: 'blue' }
-      });
-      traces.push({
-        x: quantities,
-        y: quantities.map(q => supplyCurve(q, initialSupplyIntercept)),
-        mode: 'lines',
-        name: 'Original Supply Curve',
-        line: { dash: 'dot', color: 'green' }
-      });
-      traces.push({
-        x: [eqQuantityOriginal],
-        y: [eqPriceOriginal],
-        mode: 'markers+text',
-        name: 'Original Eq',
-        text: [`Q=${eqQuantityOriginal.toFixed(2)}, P=${eqPriceOriginal.toFixed(2)}`],
-        textposition: 'top right',
-        marker: { color: 'black', size: 8 }
-      });
-  
+
+    // Original curves
+    traces.push({
+      x: quantities,
+      y: quantities.map(q => demandCurve(q, initialDemandIntercept)),
+      mode: 'lines',
+      name: 'Original Demand Curve',
+      line: { dash: 'dot', color: 'blue' }
+    });
+    traces.push({
+      x: quantities,
+      y: quantities.map(q => supplyCurve(q, initialSupplyIntercept)),
+      mode: 'lines',
+      name: 'Original Supply Curve',
+      line: { dash: 'dot', color: 'green' }
+    });
+
+    // Shade original consumer surplus
+    traces.push({
+      x: [0, eqQuantityOriginal, 0],
+      y: [oldSurpluses.maxPrice, eqPriceOriginal, eqPriceOriginal],
+      fill: 'toself',
+      fillcolor: 'rgba(0,0,255,0.2)',
+      line: { width: 0 },
+      name: 'Consumer Surplus (Original)',
+      showlegend: shifted
+    });
+
+    // Shade original producer surplus
+    traces.push({
+      x: [0, eqQuantityOriginal, 0],
+      y: [eqPriceOriginal, eqPriceOriginal, oldSurpluses.minPrice],
+      fill: 'toself',
+      fillcolor: 'rgba(0,128,0,0.2)',
+      line: { width: 0 },
+      name: 'Producer Surplus (Original)',
+      showlegend: shifted
+    });
 
     if (shifted) {
+      // Shifted curves
       traces.push({
         x: quantities,
         y: pricesDemandShifted,
@@ -113,14 +125,25 @@
         name: 'Shifted Supply Curve',
         line: { color: 'green' }
       });
+
+      // Shade shifted consumer surplus
       traces.push({
-        x: [eqQuantityShifted],
-        y: [eqPriceShifted],
-        mode: 'markers+text',
-        name: 'Shifted Eq',
-        text: [`Q=${eqQuantityShifted.toFixed(2)}, P=${eqPriceShifted.toFixed(2)}`],
-        textposition: 'top right',
-        marker: { color: 'red', size: 8 }
+        x: [0, eqQuantityShifted, 0],
+        y: [newSurpluses.maxPrice, eqPriceShifted, eqPriceShifted],
+        fill: 'toself',
+        fillcolor: 'rgba(0,0,255,0.4)',
+        line: { width: 0 },
+        name: 'Consumer Surplus (Shifted)'
+      });
+
+      // Shade shifted producer surplus
+      traces.push({
+        x: [0, eqQuantityShifted, 0],
+        y: [eqPriceShifted, eqPriceShifted, newSurpluses.minPrice],
+        fill: 'toself',
+        fillcolor: 'rgba(0,128,0,0.4)',
+        line: { width: 0 },
+        name: 'Producer Surplus (Shifted)'
       });
     }
 
@@ -131,13 +154,12 @@
       margin: { t: 50 }
     });
 
-    // Display explanation
     const explanationEl = document.getElementById('explanationSurplus');
     if (shifted && explanationEl) {
       explanationEl.textContent = explainShift(shiftType, oldSurpluses, newSurpluses);
     }
   }
-  
+
   const shiftSelect = document.getElementById('shiftType');
   const showOldEqCheckbox = document.getElementById('showOldEq');
 
@@ -148,6 +170,5 @@
   shiftSelect.addEventListener('change', updatePlot);
   showOldEqCheckbox.addEventListener('change', updatePlot);
 
-  // Initial plot
   updatePlot();
 })();
