@@ -77,5 +77,5 @@
             }]
         };
 
-        Plotly.newPlot('isoquantsPlot', traces, layout); 
+        Plotly.newPlot('Isoquant-chapter6', traces, layout); 
     })();
