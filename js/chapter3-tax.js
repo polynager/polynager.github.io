@@ -56,7 +56,7 @@
       x: [eqQOriginal, eqQTax],
       y: [eqPOriginal, eqPConsumer],
       mode: 'markers',
-      name: 'Equilibria',
+      name: 'Equilibrium',
       marker: { color: 'black', size: 8 }
     };
 
