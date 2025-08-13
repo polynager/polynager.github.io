@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Graphs</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+    <h1>Economics Chapter Graphs</h1>
+
+    <section>
+        <h2>1. Pricing Strategies</h2>
+        <div>
+            <label for="scenarioSelect">Select Scenario:</label>
+            <select id="scenarioSelect">
+                <option value="Perfect Competition">Perfect Competition</option>
+                <option value="Market Power">Market Power</option>
+                <option value="Perfect Price Discrimination">Perfect Price Discrimination</option>
+            </select>
+        </div>
+        <div id="chart1" class="plot"></div>
+    </section>
+
+    <section>
+        <h2>2. Traveling vs Local Market</h2>
+        <div>
+            <label for="MC_slider">Marginal Cost: </label>
+            <input type="range" id="MC_slider" min="50" max="200" value="100" step="5">
+            <span id="MC_value">100</span>
+        </div>
+        <div id="chart2" class="plot"></div>
+    </section>
+
+    <section>
+        <h2>3. Market Segmentation Impact</h2>
+        <div>
+            <label for="MC_slider3">Marginal Cost: </label>
+            <input type="range" id="MC_slider3" min="50" max="200" value="100" step="5">
+            <span id="MC_value3">100</span>
+        </div>
+        <div id="chart3" class="plot"></div>
+    </section>
+
+    <script src="chapter10-graph1.js"></script>
+    <script src="chapter10-graph2.js"></script>
+    <script src="chapter10-graph3.js"></script>
+
+</body>
+</html>
