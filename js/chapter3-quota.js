@@ -54,7 +54,7 @@ function plotQuota(quota) {
         });
     }
 
-    Plotly.newPlot('quotaChart', traces, {
+    Plotly.newPlot('Quota-chapter3', traces, {
         title: 'Quota Effect on Supply and Demand',
         xaxis: { title: 'Quantity' },
         yaxis: { title: 'Price' },
