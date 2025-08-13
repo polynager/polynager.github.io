@@ -72,8 +72,7 @@
 
     // Plot traces
     const traces = [];
-
-    if (showOldEq) {
+ 
       traces.push({
         x: quantities,
         y: quantities.map(q => demandCurve(q, initialDemandIntercept)),
