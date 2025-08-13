@@ -49,14 +49,12 @@
   <p id="quotaExplanation"></p>
 </section>
 
-<!-- Tax Section -->
 <section id="chapter3-tax">
-  <h2>Impact of Taxes on Supply and Demand</h2>
-  <label for="taxSlider">Tax Rate:</label>
-  <input type="range" id="taxSlider" min="0" max="10" step="0.1" value="0">
-  <span id="taxValue">0</span>
-  <canvas id="taxChart" width="800" height="500"></canvas>
-  <div id="results"></div>
+  <h2>Tax Impact on Market</h2>
+  <label for="taxSlider">Tax Rate: <span id="taxValue">0</span></label>
+  <input type="range" id="taxSlider" min="0" max="10" step="0.1" value="0" />
+  <canvas id="taxChart" width="800" height="500" style="border:1px solid #ccc;"></canvas>
+  <div id="results" style="margin-top:20px;"></div>
 </section>
 
 <section id="chapter3-elasticity">
