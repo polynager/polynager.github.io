@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <h1>Market and Firm-Level Supply/Demand Visualization</h1>
+  <section>
+    <h2>Market Equilibrium</h2>
+    <canvas id="marketChart" width="600" height="400"></canvas>
+    <label for="demandShift">Shift Demand:</label>
+    <input type="range" id="demandShift" min="-5" max="5" value="0" step="0.5">
+  </section>
+
+  <section>
+    <h2>Firm-Level Cost Curves</h2>
+    <canvas id="firmChart" width="600" height="400"></canvas>
+    <label for="avcShift">Shift AVC:</label>
+    <input type="range" id="avcShift" min="-2" max="2" value="0" step="0.1">
+  </section>
+
+  <section>
+    <h2>Industry Supply Aggregation</h2>
+    <canvas id="industryChart" width="600" height="400"></canvas>
+    <div id="firmCheckboxes"></div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="chapter8-script.js"></script>
+</body>
+</html>
