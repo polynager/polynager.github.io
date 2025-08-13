@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Economics Graphs</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f7f7f7;
+        }
+        h2 {
+            margin-top: 50px;
+        }
+        .graph-container {
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        .graph-container input[type=range] {
+            margin: 10px 0;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Economics Graphs</h1>
+
+    <div class="graph-container">
+        <h2>1. Cournot Duopoly: Burton and K2</h2>
+        <div id="graph1"></div>
+    </div>
+
+    <div class="graph-container">
+        <h2>2. Saudi Arabia Residual Demand</h2>
+        <div id="graph2"></div>
+    </div>
+
+    <div class="graph-container">
+        <h2>3. Reaction Curves</h2>
+        <div id="graph3"></div>
+    </div>
+
+    <div class="graph-container">
+        <h2>4. Monopoly → Two Firms → N Firms</h2>
+        <div id="graph4"></div>
+    </div>
+
+    <!-- JavaScript files -->
+    <script src="graph1.js"></script>
+    <script src="graph2.js"></script>
+    <script src="graph3.js"></script>
+    <script src="graph4.js"></script>
+
+</body>
+</html>
