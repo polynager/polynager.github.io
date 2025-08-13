@@ -13,18 +13,18 @@ function supplyCurve(q, intercept = 2, slope = 1) {
 // Calculate surpluses and DWL
 function calculateSurplusesAndDWL(priceCeiling) {
   const eqQuantityOriginal = (initialDemandIntercept - initialSupplyIntercept) / (1 - (-2));
-  const eqPriceOriginal = demandCurve(eqQuantityOriginal, initialDemandIntercept);
+  const eqPriceOriginal = demandCurve(eqQuantityOriginal);
 
   if (priceCeiling < eqPriceOriginal) {
-    const qSupplyCeiling = priceCeiling - 2;
+    // Quantity supplied at ceiling price
+    const qSupplyCeiling = priceCeiling - initialSupplyIntercept;
+
+    // Quantities and prices for surplus calculation
     const consumerSurplus = 0.5 * qSupplyCeiling * (initialDemandIntercept - priceCeiling);
     const producerSurplus = 0.5 * qSupplyCeiling * (priceCeiling - initialSupplyIntercept);
     const dwl = 0.5 * (eqQuantityOriginal - qSupplyCeiling) * (demandCurve(qSupplyCeiling) - supplyCurve(qSupplyCeiling));
 
-    return {
-      eqPriceOriginal, eqQuantityOriginal, qSupplyCeiling,
-      consumerSurplus, producerSurplus, dwl
-    };
+    return { eqPriceOriginal, eqQuantityOriginal, qSupplyCeiling, consumerSurplus, producerSurplus, dwl };
   } else {
     return { eqPriceOriginal, eqQuantityOriginal, consumerSurplus: null, producerSurplus: null, dwl: null };
   }
@@ -44,7 +44,7 @@ No effect on the market.`;
 
 // Plot function
 function plotPriceCeiling(priceCeiling) {
-  const quantities = Array.from({ length: 100 }, (_, i) => i * 0.1);
+  const quantities = Array.from({ length: 101 }, (_, i) => i * 0.1);
   const demandPrices = quantities.map(q => demandCurve(q));
   const supplyPrices = quantities.map(q => supplyCurve(q));
 
@@ -55,7 +55,6 @@ function plotPriceCeiling(priceCeiling) {
     { x: quantities, y: supplyPrices, mode: 'lines', name: 'Supply Curve', line: { color: 'green' } }
   ];
 
-  // Add price ceiling line if applicable
   if (s.consumerSurplus !== null) {
     traces.push({
       x: [0, s.qSupplyCeiling],
@@ -79,7 +78,8 @@ function plotPriceCeiling(priceCeiling) {
 const slider = document.getElementById('priceCeiling');
 const ceilingValue = document.getElementById('ceilingValue');
 
-slider.value = demandCurve((initialDemandIntercept - initialSupplyIntercept) / (1 - (-2)), initialDemandIntercept).toFixed(1);
+const eqPrice = demandCurve((initialDemandIntercept - initialSupplyIntercept) / (1 - (-2)));
+slider.value = eqPrice.toFixed(1);
 ceilingValue.textContent = slider.value;
 plotPriceCeiling(parseFloat(slider.value));
 
