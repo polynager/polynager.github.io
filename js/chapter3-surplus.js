@@ -53,47 +53,37 @@ function explainShift(shiftType, oldCS, oldPS, newCS, newPS) {
   return "";
 }
 
-// Main plotting function
 function plotShift() {
   const shiftType = document.getElementById("shiftType").value;
   const showOldEq = document.getElementById("showOldEq").checked;
 
-  const quantities = linspace(0, 10, 200);
+  // Base intercepts
   let demandIntercept = initialDemandIntercept;
   let supplyIntercept = initialSupplyIntercept;
-  let shifted = false;
 
-  if (shiftType === "Supply Shift Left") {
-    supplyIntercept += 5;
-    shifted = true;
-  } else if (shiftType === "Supply Shift Right") {
-    supplyIntercept -= 5;
-    shifted = true;
-  } else if (shiftType === "Demand Shift Left") {
-    demandIntercept -= 5;
-    shifted = true;
-  } else if (shiftType === "Demand Shift Right") {
-    demandIntercept += 5;
-    shifted = true;
-  }
+  // Apply shifts
+  if (shiftType === "Supply Shift Left") supplyIntercept += 7;
+  if (shiftType === "Supply Shift Right") supplyIntercept -= 7;
+  if (shiftType === "Demand Shift Left") demandIntercept -= 7;
+  if (shiftType === "Demand Shift Right") demandIntercept += 7;
 
-  // Equilibrium calculations
-  const eqQOriginal = (initialDemandIntercept - initialSupplyIntercept) / (1 - (-2));
+  // Original and shifted equilibria
+  const eqQOriginal = (initialDemandIntercept - initialSupplyIntercept) / 3; // slope diff = 1 - (-2) = 3
   const eqPOriginal = demandCurve(eqQOriginal, initialDemandIntercept);
-
-  const eqQShifted = (demandIntercept - supplyIntercept) / (1 - (-2));
+  const eqQShifted = (demandIntercept - supplyIntercept) / 3;
   const eqPShifted = demandCurve(eqQShifted, demandIntercept);
+
+  // Determine quantity range for plotting
+  const maxQ = Math.max(eqQOriginal, eqQShifted) * 1.2; // add 20% padding
+  const quantities = linspace(0, maxQ, 200);
 
   // Surpluses
   const [oldCS, oldPS] = calculateSurplus(eqQOriginal, eqPOriginal, initialDemandIntercept, initialSupplyIntercept);
-  let newCS = null, newPS = null;
-  if (shifted) {
-    [newCS, newPS] = calculateSurplus(eqQShifted, eqPShifted, demandIntercept, supplyIntercept);
-  }
+  const [newCS, newPS] = calculateSurplus(eqQShifted, eqPShifted, demandIntercept, supplyIntercept);
 
-  // Plot traces
   const traces = [];
 
+  // Original curves
   if (showOldEq) {
     traces.push({
       x: quantities,
@@ -104,7 +94,7 @@ function plotShift() {
     });
     traces.push({
       x: quantities,
-      y: quantities.map(q => supplyCurve(q, initialSupplyIntercept)),
+      y: quantities.map(q => Math.max(0, supplyCurve(q, initialSupplyIntercept))),
       mode: "lines",
       name: "Original Supply",
       line: { dash: "dash", color: "green" }
@@ -113,54 +103,51 @@ function plotShift() {
       x: [eqQOriginal],
       y: [eqPOriginal],
       mode: "markers+text",
-      text: [`Original Eq (Q=${eqQOriginal.toFixed(2)}, P=${eqPOriginal.toFixed(2)})`],
+      text: [`Orig Eq (Q=${eqQOriginal.toFixed(2)}, P=${eqPOriginal.toFixed(2)})`],
       textposition: "top right",
-      name: "Original Eq",
-      marker: { color: "black", size: 8 }
+      marker: { color: "black", size: 8 },
+      name: "Original Eq"
     });
   }
 
-  if (shifted) {
-    traces.push({
-      x: quantities,
-      y: quantities.map(q => demandCurve(q, demandIntercept)),
-      mode: "lines",
-      name: "Shifted Demand",
-      line: { color: "blue" }
-    });
-    traces.push({
-      x: quantities,
-      y: quantities.map(q => supplyCurve(q, supplyIntercept)),
-      mode: "lines",
-      name: "Shifted Supply",
-      line: { color: "green" }
-    });
-    traces.push({
-      x: [eqQShifted],
-      y: [eqPShifted],
-      mode: "markers+text",
-      text: [`Shifted Eq (Q=${eqQShifted.toFixed(2)}, P=${eqPShifted.toFixed(2)})`],
-      textposition: "top right",
-      name: "Shifted Eq",
-      marker: { color: "red", size: 8 }
-    });
-  }
+  // Shifted curves
+  traces.push({
+    x: quantities,
+    y: quantities.map(q => demandCurve(q, demandIntercept)),
+    mode: "lines",
+    name: "Shifted Demand",
+    line: { color: "blue" }
+  });
+  traces.push({
+    x: quantities,
+    y: quantities.map(q => Math.max(0, supplyCurve(q, supplyIntercept))),
+    mode: "lines",
+    name: "Shifted Supply",
+    line: { color: "green" }
+  });
+  traces.push({
+    x: [eqQShifted],
+    y: [eqPShifted],
+    mode: "markers+text",
+    text: [`Shifted Eq (Q=${eqQShifted.toFixed(2)}, P=${eqPShifted.toFixed(2)})`],
+    textposition: "top right",
+    marker: { color: "red", size: 8 },
+    name: "Shifted Eq"
+  });
 
   const layout = {
     title: `Supply and Demand Shift: ${shiftType}`,
     xaxis: { title: "Quantity" },
-    yaxis: { title: "Price" },
+    yaxis: { title: "Price", range: [0, Math.max(eqPOriginal, eqPShifted) * 1.2] },
     legend: { x: 1, y: 1 }
   };
 
   Plotly.newPlot("Surplus-chapter3", traces, layout);
 
-  // Build table
+  // Surplus table
   let tableHTML = "<table border='1' cellpadding='5'><tr><th></th><th>Consumer Surplus</th><th>Producer Surplus</th></tr>";
   tableHTML += `<tr><td>Original</td><td>${oldCS.toFixed(2)}</td><td>${oldPS.toFixed(2)}</td></tr>`;
-  if (shifted) {
-    tableHTML += `<tr><td>Shifted</td><td>${newCS.toFixed(2)}</td><td>${newPS.toFixed(2)}</td></tr>`;
-  }
+  tableHTML += `<tr><td>Shifted</td><td>${newCS.toFixed(2)}</td><td>${newPS.toFixed(2)}</td></tr>`;
   tableHTML += "</table>";
   document.getElementById("table").innerHTML = tableHTML;
 
