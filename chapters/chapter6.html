@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Short-term Production Function</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <h1>Short-term Production Function</h1>
+  
+  <section id="chapter6-diminishing">
+    <h2>Diminishing Marginal Returns</h2>
+    <div id="Diminishing-chapter6" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <section id="chapter6-diminishing">
+    <h2>Diminishing Marginal Returns</h2>
+    <div id="Diminishing-chapter6" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <section id="chapter6-mpl">
+    <h2>Relationship Between MPL and APL in the Short-run</h2>
+    <div id="MPL-chapter6" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <section id="chapter6-longtpr">
+    <h2>Long-term Production Function with Adjustable Capital</h2>
+    <div id="plotlyProduction" style="width:100%;height:600px;"></div>
+    <div>
+    <label for="KSlider">Adjust Capital (K*): </label>
+    <input type="range" id="KSlider" min="1" max="10" value="3" step="0.1" style="width:300px">
+    <span id="KValue">3</span>
+    </div>
+    <div id="explanation"></div>
+  </section>
+
+  <section id="chapter6-isoquant">
+    <h2>Production Isoquants</h2>
+    <div id="Isoquant-chapter6" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <section id="chapter6-cobb">
+    <h2>Cobb-Douglas Isoquants</h2>
+    <div id="Cobb-chapter6" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <section id="chapter6-isoquantoutput">
+    <h2>Isoquants for different Output Levels</h2>
+    <div id="Isoquantoutput-chapter6" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <section id="chapter6-techn">
+  <h2>Cobb-Douglas Production Function & Isoquants</h2>
+    <div>
+        <label>Wage (w): <span id="wVal">1</span></label>
+        <input type="range" id="w" min="0.1" max="5" step="0.1" value="1">
+    </div>
+    <div>
+        <label>Rent (r): <span id="rVal">1</span></label>
+        <input type="range" id="r" min="0.1" max="5" step="0.1" value="1">
+    </div>
+    <div>
+        <label>Alpha (α): <span id="alphaVal">0.5</span></label>
+        <input type="range" id="alpha" min="0.1" max="1.0" step="0.1" value="0.5">
+    </div>
+    <div>
+        <label>Beta (β): <span id="betaVal">0.5</span></label>
+        <input type="range" id="beta" min="0.1" max="1.0" step="0.1" value="0.5">
+    </div>
+    <div>
+        <label>Technology (A): <span id="AVal">1</span></label>
+        <input type="range" id="A" min="0.5" max="3" step="0.1" value="1">
+    </div>
+    <div id="Technology-chapter6" style="width: 1000px; height: 500px;"></div>
+    <p id="techExplanation" style="font-weight:bold;"></p>
+    </section>
+
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <script src="../js/python-runner.js"></script>
+  <script src="../js/chapter6-cobb.js"></script>
+  <script src="../js/chapter6-diminishing.js"></script>
+  <script src="../js/chapter6-isoquant.js"></script>
+  <script src="../js/chapter6-isoquantoutput.js"></script>
+  <script src="../js/chapter6-longtpr.js"></script>
+  <script src="../js/chapter6-mpl.js"></script>
+  <script src="../js/chapter6-techn.js"></script>
+  
+</body>
+</html>
+  
