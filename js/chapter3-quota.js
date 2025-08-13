@@ -53,7 +53,52 @@ function plotQuota(quota) {
             line: { color: 'orange', dash: 'dash' }
         });
     }
+    // Shade original consumer surplus
+traces.push({
+  x: [0, eqQuantityOriginal, 0],
+  y: [oldSurpluses.maxPrice, eqPriceOriginal, eqPriceOriginal],
+  fill: 'toself',
+  fillcolor: 'rgba(0,0,255,0.15)', // lighter blue
+  line: { width: 0 },
+  name: 'Consumer Surplus (Original)',
+  showlegend: true
+});
 
+// Shade original producer surplus
+traces.push({
+  x: [0, eqQuantityOriginal, 0],
+  y: [eqPriceOriginal, eqPriceOriginal, oldSurpluses.minPrice],
+  fill: 'toself',
+  fillcolor: 'rgba(0,128,0,0.15)', // lighter green
+  line: { width: 0 },
+  name: 'Producer Surplus (Original)',
+  showlegend: true
+});
+
+if (shifted) {
+  // Shade shifted consumer surplus
+  traces.push({
+    x: [0, eqQuantityShifted, 0],
+    y: [newSurpluses.maxPrice, eqPriceShifted, eqPriceShifted],
+    fill: 'toself',
+    fillcolor: 'rgba(0,0,255,0.4)', // darker blue
+    line: { width: 0 },
+    name: 'Consumer Surplus (Shifted)',
+    showlegend: true
+  });
+
+  // Shade shifted producer surplus
+  traces.push({
+    x: [0, eqQuantityShifted, 0],
+    y: [eqPriceShifted, eqPriceShifted, newSurpluses.minPrice],
+    fill: 'toself',
+    fillcolor: 'rgba(0,128,0,0.4)', // darker green
+    line: { width: 0 },
+    name: 'Producer Surplus (Shifted)',
+    showlegend: true
+  });
+}
+    
     Plotly.newPlot('Quota-chapter3', traces, {
         title: 'Quota Effect on Supply and Demand',
         xaxis: { title: 'Quantity' },
