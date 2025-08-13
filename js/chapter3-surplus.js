@@ -109,44 +109,43 @@
       showlegend: shifted
     });
 
-    if (shifted) {
-      // Shifted curves
-      traces.push({
-        x: quantities,
-        y: pricesDemandShifted,
-        mode: 'lines',
-        name: 'Shifted Demand Curve',
-        line: { color: 'blue' }
-      });
-      traces.push({
-        x: quantities,
-        y: pricesSupplyShifted,
-        mode: 'lines',
-        name: 'Shifted Supply Curve',
-        line: { color: 'green' }
-      });
+   if (shifted) {
+  // Shifted curves
+  traces.push({
+    x: quantities,
+    y: pricesDemandShifted,
+    mode: 'lines',
+    name: 'Shifted Demand Curve',
+    line: { color: 'blue' }
+  });
+  traces.push({
+    x: quantities,
+    y: pricesSupplyShifted,
+    mode: 'lines',
+    name: 'Shifted Supply Curve',
+    line: { color: 'green' }
+  });
 
-      // Shade shifted consumer surplus
-      traces.push({
-        x: [0, eqQuantityShifted, 0],
-        y: [newSurpluses.maxPrice, eqPriceShifted, eqPriceShifted],
-        fill: 'toself',
-        fillcolor: 'rgba(0,0,255,0.4)',
-        line: { width: 0 },
-        name: 'Consumer Surplus (Shifted)'
-      });
+  // Shade shifted consumer surplus with a new color (orange)
+  traces.push({
+    x: [0, eqQuantityShifted, 0],
+    y: [newSurpluses.maxPrice, eqPriceShifted, eqPriceShifted],
+    fill: 'toself',
+    fillcolor: 'rgba(255,165,0,0.4)',  // orange
+    line: { width: 0 },
+    name: 'Consumer Surplus (Shifted)'
+  });
 
-      // Shade shifted producer surplus
-      traces.push({
-        x: [0, eqQuantityShifted, 0],
-        y: [eqPriceShifted, eqPriceShifted, newSurpluses.minPrice],
-        fill: 'toself',
-        fillcolor: 'rgba(0,128,0,0.4)',
-        line: { width: 0 },
-        name: 'Producer Surplus (Shifted)'
-      });
-    }
-
+  // Shade shifted producer surplus with a new color (purple)
+  traces.push({
+    x: [0, eqQuantityShifted, 0],
+    y: [eqPriceShifted, eqPriceShifted, newSurpluses.minPrice],
+    fill: 'toself',
+    fillcolor: 'rgba(128,0,128,0.4)',  // purple
+    line: { width: 0 },
+    name: 'Producer Surplus (Shifted)'
+  });
+}
     Plotly.newPlot('Surplus-chapter3', traces, {
       title: `Supply and Demand Shift: ${shiftType}`,
       xaxis: { title: 'Quantity' },
