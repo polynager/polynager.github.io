@@ -153,7 +153,7 @@ function plotShift() {
     legend: { x: 1, y: 1 }
   };
 
-  Plotly.newPlot("plot", traces, layout);
+  Plotly.newPlot("Surplus-chapter3", traces, layout);
 
   // Build table
   let tableHTML = "<table border='1' cellpadding='5'><tr><th></th><th>Consumer Surplus</th><th>Producer Surplus</th></tr>";
