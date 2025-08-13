@@ -107,7 +107,7 @@ function plot(elasticity, b) {
     showlegend: true
   };
 
-  Plotly.newPlot('plot', traces, layout);
+  Plotly.newPlot('Elasticity-chapter3', traces, layout);
 
   // Table
   document.getElementById('table').innerHTML =
