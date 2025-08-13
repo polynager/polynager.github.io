@@ -42,7 +42,7 @@
     margin: {t:80, b:60}
   };
 
-  Plotly.newPlot('plotlyProduction', [traceQ, traceMPL], layout);
+  Plotly.newPlot('LongTPr', [traceQ, traceMPL], layout);
 
   // Update function when slider changes
   const KSlider = document.getElementById('KSlider');
