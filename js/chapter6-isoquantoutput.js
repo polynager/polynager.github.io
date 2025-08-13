@@ -60,7 +60,7 @@
                 yaxis: {title: 'Labor (L)'}
             };
 
-            Plotly.newPlot('Isoquant-chapter6', [trace_original, trace_new], layout);
+            Plotly.newPlot('Isoquantoutput-chapter6', [trace_original, trace_new], layout);
 
             // Explanation
             let explanation = '';
