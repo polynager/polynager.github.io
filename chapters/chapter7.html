@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cost Functions Visualization</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<h1>Cost Functions Visualization</h1>
+
+<div id="plot1" class="plot"></div>
+<div id="plot2" class="plot"></div>
+<div id="plot3" class="plot"></div>
+
+<script>
+// === First plot: TC, FC, VC ===
+const Q1 = Array.from({length: 100}, (_, i) => i * 10 / 99); // 0 to 10
+
+function TC(Q) { return Q.map(q => 5 + 3*q + q*q); }
+function FC(Q) { return Q.map(_ => 5); }
+function VC(Q) { return Q.map(q => 3*q + q*q); }
+
+Plotly.newPlot('plot1', [
+  { x: Q1, y: TC(Q1), name: 'Total Cost (TC)', type: 'scatter', line: {color: 'blue', width: 2} },
+  { x: Q1, y: FC(Q1), name: 'Fixed Cost (FC)', type: 'scatter', line: {color: 'green', dash: 'dash', width: 2} },
+  { x: Q1, y: VC(Q1), name: 'Variable Cost (VC)', type: 'scatter', line: {color: 'red', width: 2} }
+], {
+  title: 'Total Cost, Fixed Cost, and Variable Cost',
+  xaxis: {title: 'Quantity (Q)'},
+  yaxis: {title: 'Cost'},
+  legend: {x:0, y:1.1}
+});
+
+// === Second plot: ATC, AFC, AVC, MC ===
+const Q2 = Array.from({length: 100}, (_, i) => 0.1 + i * (9.9 / 99)); // 0.1 to 10
+
+function ATC(Q) { return Q.map(q => 5/q + 3 + q); }
+function AFC(Q) { return Q.map(q => 5/q); }
+function AVC(Q) { return Q.map(q => 3 + q); }
+function MC(Q) { return Q.map(q => 3 + 2*q); }
+
+Plotly.newPlot('plot2', [
+  { x: Q2, y: ATC(Q2), name: 'ATC', type: 'scatter', line: {color: 'blue', width: 2} },
+  { x: Q2, y: AFC(Q2), name: 'AFC', type: 'scatter', line: {color: 'green', dash: 'dash', width: 2} },
+  { x: Q2, y: AVC(Q2), name: 'AVC', type: 'scatter', line: {color: 'red', width: 2} },
+  { x: Q2, y: MC(Q2), name: 'MC', type: 'scatter', line: {color: 'purple', width: 2} }
+], {
+  title: 'Average Costs and Marginal Cost',
+  xaxis: {title: 'Quantity (Q)'},
+  yaxis: {title: 'Cost'},
+  legend: {x:0, y:1.1}
+});
+
+// === Third plot: New TC function ===
+const Q3 = Array.from({length: 100}, (_, i) => 1 + i * (99/99)); // 1 to 100
+
+function TC_new(Q) { return Q.map(q => q**3 - 60*q**2 + 910*q + 11000); }
+function ATC_new(Q) { return TC_new(Q).map((tc,q) => tc/q); }
+function AVC_new(Q) { return Q.map(q => (q**3 - 60*q**2 + 910*q)/q); }
+function MC_new(Q) { return Q.map(q => 3*q**2 - 120*q + 910); }
+
+// Find minima indices
+function argMin(arr) { return arr.indexOf(Math.min(...arr)); }
+const min_atc_idx = argMin(ATC_new(Q3));
+const min_avc_idx = argMin(AVC_new(Q3));
+
+Plotly.newPlot('plot3', [
+  { x: Q3, y: ATC_new(Q3), name: 'ATC', type: 'scatter', line: {color: 'blue', width: 2} },
+  { x: Q3, y: AVC_new(Q3), name: 'AVC', type: 'scatter', line: {color: 'red', dash: 'dash', width: 2} },
+  { x: Q3, y: MC_new(Q3), name: 'MC', type: 'scatter', line: {color: 'green', width: 2} },
+  { x: [Q3[min_atc_idx]], y: [ATC_new(Q3)[min_atc_idx]], mode: 'markers', name: 'Min ATC', marker: {color:'blue', size:8} },
+  { x: [Q3[min_avc_idx]], y: [AVC_new(Q3)[min_avc_idx]], mode: 'markers', name: 'Min AVC', marker: {color:'red', size:8} }
+], {
+  title: 'Average Costs and Marginal Cost with New Function',
+  xaxis: {title: 'Quantity (Q)'},
+  yaxis: {title: 'Cost', range:[-1000,10000]},
+  legend: {x:0, y:1.1}
+});
+</script>
+</body>
+</html>
