@@ -66,7 +66,7 @@ function plotPriceCeiling(priceCeiling) {
     });
   }
 
-  Plotly.newPlot('plot', traces, {
+  Plotly.newPlot('Ceiling-chapter3', traces, {
     title: 'Price Ceiling Effect',
     xaxis: { title: 'Quantity' },
     yaxis: { title: 'Price', range: [0, 22] }
