@@ -78,50 +78,65 @@ No effect on the market.`;
     }
   }
 
-  function plotPriceCeiling(priceCeiling) {
-    const quantities = Array.from({ length: 101 }, (_, i) => i * 0.1);
-    const demandPrices = quantities.map(q => demandCurve(q));
-    const supplyPrices = quantities.map(q => supplyCurve(q));
+function plotPriceCeiling(priceCeiling) {
+  const quantities = Array.from({ length: 101 }, (_, i) => i * 0.1);
+  const demandPrices = quantities.map(q => demandCurve(q));
+  const supplyPrices = quantities.map(q => supplyCurve(q));
 
-    const s = calculateSurplusesAndDWL(priceCeiling);
+  const s = calculateSurplusesAndDWL(priceCeiling);
 
-    const traces = [
-      {
-        x: quantities,
-        y: demandPrices,
-        mode: 'lines',
-        name: 'Demand Curve',
-        line: { color: 'blue' }
-      },
-      {
-        x: quantities,
-        y: supplyPrices,
-        mode: 'lines',
-        name: 'Supply Curve',
-        line: { color: 'green' }
-      }
-    ];
+  // Original equilibrium
+  const eqQuantityOriginal = s.eqQuantityOriginal;
+  const eqPriceOriginal = s.eqPriceOriginal;
 
-    if (s.consumerSurplus !== null) {
-      traces.push({
-        x: [0, s.qSupplyCeiling],
-        y: [priceCeiling, priceCeiling],
-        mode: 'lines',
-        name: 'Price Ceiling',
-        line: { dash: 'dash', color: 'orange' }
-      });
+  const traces = [
+    {
+      x: quantities,
+      y: demandPrices,
+      mode: 'lines',
+      name: 'Demand Curve',
+      line: { color: 'blue' }
+    },
+    {
+      x: quantities,
+      y: supplyPrices,
+      mode: 'lines',
+      name: 'Supply Curve',
+      line: { color: 'green' }
+    },
+    // Red dot for original equilibrium
+    {
+      x: [eqQuantityOriginal],
+      y: [eqPriceOriginal],
+      mode: 'markers+text',
+      name: 'Equilibrium',
+      text: [`Q=${eqQuantityOriginal.toFixed(2)}, P=${eqPriceOriginal.toFixed(2)}`],
+      textposition: 'top right',
+      marker: { color: 'red', size: 8 }
     }
+  ];
 
-    Plotly.newPlot(plotDiv, traces, {
-      title: 'Price Ceiling Effect',
-      xaxis: { title: 'Quantity' },
-      yaxis: { title: 'Price', range: [0, 22] }
+  if (s.consumerSurplus !== null) {
+    traces.push({
+      x: [0, s.qSupplyCeiling],
+      y: [priceCeiling, priceCeiling],
+      mode: 'lines',
+      name: 'Price Ceiling',
+      line: { dash: 'dash', color: 'orange' }
     });
-
-    if (explanationEl) {
-      explanationEl.textContent = explainPriceCeiling(priceCeiling, s);
-    }
   }
+
+  Plotly.newPlot(plotDiv, traces, {
+    title: 'Price Ceiling Effect',
+    xaxis: { title: 'Quantity' },
+    yaxis: { title: 'Price', range: [0, 22] }
+  });
+
+  if (explanationEl) {
+    explanationEl.textContent = explainPriceCeiling(priceCeiling, s);
+  }
+}
+
 
   // ====== INIT ======
   const eqPrice = demandCurve(
