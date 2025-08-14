@@ -49,10 +49,18 @@
   <p id="quotaExplanation"></p>
 </section>
 
-<section id="chapter3-tax">
-  <h2>Impact of Tax on Supply & Demand</h2>
-  <label for="taxSlider">Tax Rate: <span id="taxValue">0</span></label>
-  <input type="range" id="taxSlider" min="0" max="10" step="0.1" value="0" />
+<section id="tax-section">
+  <h2>Tax Incidence with Elasticity</h2>
+  <label for="elasticitySelect">Elasticity:</label>
+  <select id="elasticitySelect">
+    <option value="Perfectly Elastic">Perfectly Elastic</option>
+    <option value="Perfectly Inelastic">Perfectly Inelastic</option>
+    <option value="Variable Elasticity" selected>Variable Elasticity</option>
+  </select>
+  <label for="bSlider" id="bLabel">Slope (b): <span id="bValue">0.5</span></label>
+  <input type="range" id="bSlider" min="0.1" max="5" step="0.1" value="0.5">
+  <label for="taxSlider">Tax: <span id="taxValue">0.0</span></label>
+  <input type="range" id="taxSlider" min="0" max="5" step="0.1" value="0">
   <div id="taxPlot" style="width:100%;height:500px;"></div>
   <div id="results"></div>
 </section>
