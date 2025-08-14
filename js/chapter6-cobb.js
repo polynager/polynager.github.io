@@ -1,3 +1,4 @@
+(function() {        
         const x1 = Array.from({length: 100}, (_, i) => 0.1 + i * 0.099);
         const x2 = Array.from({length: 100}, (_, i) => 0.1 + i * 0.099);
 
@@ -89,3 +90,4 @@
 
         // Initial plot
         plot(parseFloat(alphaSlider.value), parseFloat(betaSlider.value));
+        })();
