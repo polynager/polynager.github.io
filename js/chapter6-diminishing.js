@@ -1,69 +1,66 @@
+// Constants
+const K_fixed = 3;
 const A = 15;
-  const alpha_K = 0.25;
-  const alpha_L = 0.75;
-  const L_values = Array.from({length: 500}, (_, i) => 1 + i * (99/499));
+const alpha_K = 0.25;
+const alpha_L = 0.75;
 
-  const KSlider = document.getElementById('KSlider');
-  const KValue = document.getElementById('KValue');
-  const explanationDiv = document.getElementById('explanation');
+// Production function Q = f(K*, L)
+function shortTermProduction(L, K_fixed){
+    return L.map(l => A * Math.pow(K_fixed, alpha_K) * Math.pow(l, alpha_L));
+}
 
-  function shortTermProduction(L, K) {
-    return A * Math.pow(K, alpha_K) * Math.pow(L, alpha_L);
-  }
+// Marginal Product of Labor (MPL)
+function marginalProductOfLabor(L, K_fixed){
+    return L.map(l => A * Math.pow(K_fixed, alpha_K) * alpha_L * Math.pow(l, alpha_L - 1));
+}
 
-  function marginalProductOfLabour(L, K) {
-    return A * Math.pow(K, alpha_K) * alpha_L * Math.pow(L, alpha_L - 1);
-  }
+// Generate labour values
+const L_values = [];
+const N = 500;
+for(let i=1; i<=N; i++){
+    L_values.push(i * 100 / N); // 1 to 100
+}
 
-  function updatePlots(K) {
-    const Q_values = L_values.map(L => shortTermProduction(L, K));
-    const MPL_values = L_values.map(L => marginalProductOfLabour(L, K));
+// Calculate Q and MPL
+const Q_values = shortTermProduction(L_values, K_fixed);
+const MPL_values = marginalProductOfLabor(L_values, K_fixed);
 
-    // Update production plot
-    Plotly.react('productionPlot', [{
-      x: L_values,
-      y: Q_values,
-      mode: 'lines',
-      name: `Short-term Production Q (K*=${K.toFixed(1)})`,
-      line: { color: 'blue' }
-    }], {
-      title: 'Short-term Production Function',
-      xaxis: { title: 'Labour (L)' },
-      yaxis: { title: 'Output (Q)' }
-    });
+// Plot using Plotly
+const traceQ = {
+    x: L_values,
+    y: Q_values,
+    mode: 'lines',
+    name: 'Short-term Production Function Q = f(K*, L)',
+    line: {color: 'blue'}
+};
 
-    // Update MPL plot
-    Plotly.react('mplPlot', [{
-      x: L_values,
-      y: MPL_values,
-      mode: 'lines',
-      name: `MPL (K*=${K.toFixed(1)})`,
-      line: { color: 'green' }
-    }], {
-      title: 'Marginal Product of Labour',
-      xaxis: { title: 'Labour (L)' },
-      yaxis: { title: 'MPL' }
-    });
+const traceMPL = {
+    x: L_values,
+    y: MPL_values,
+    mode: 'lines',
+    name: 'Marginal Product of Labour (MPL)',
+    line: {color: 'green'}
+};
 
-    // Update explanation dynamically
-    let explanation = "";
-    if (K > 3) {
-      explanation = "Increasing capital (K*) gives more machines/resources per worker, increasing output and MPL.";
-    } else if (K < 3) {
-      explanation = "Decreasing capital (K*) means fewer resources per worker, reducing output and MPL more sharply.";
-    } else {
-      explanation = "Capital fixed at K* = 3 represents the short-run scenario. Adjusting K* shows the effect of more or fewer resources per worker.";
+const layout = {
+    title: 'Short-term Production Function and Marginal Product of Labour',
+    grid: {rows: 2, columns: 1, pattern: 'independent'},
+    xaxis: {title: 'Labour (L)'},
+    yaxis: {title: 'Output (Q)'},
+    xaxis2: {title: 'Labour (L)'},
+    yaxis2: {title: 'MPL'}
+};
+
+const fig = {
+    data: [ {...traceQ, xaxis:'x', yaxis:'y'}, {...traceMPL, xaxis:'x2', yaxis:'y2'} ],
+    layout: {
+        grid: {rows:2, columns:1, pattern:'independent'},
+        title: 'Short-term Production Function and Marginal Product of Labour',
+        xaxis: {title:'Labour (L)'},
+        yaxis: {title:'Output (Q)'},
+        xaxis2: {title:'Labour (L)'},
+        yaxis2: {title:'MPL'}
     }
-    explanationDiv.innerText = explanation;
-  }
+};
 
-  // Initial plot
-  updatePlots(parseFloat(KSlider.value));
-
-  // Slider listener
-  KSlider.addEventListener('input', () => {
-    const K_new = parseFloat(KSlider.value);
-    KValue.innerText = K_new.toFixed(1);
-    updatePlots(K_new);
-  });
-})();
+Plotly.newPlot('Chapter6-productionPlot', fig.data, fig.layout);
