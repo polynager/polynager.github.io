@@ -47,7 +47,7 @@ function updatePlot(shift) {
                       fill: 'toself', fillcolor: 'rgba(255,165,0,0.3)', line: {color:'orange'}, name: 'Producer Surplus', type:'scatter'};
     const opt_q_trace = {x:[Q_star], y:[MC_star], mode:'markers+text', name:'Q*', text:['Q*'], textposition:'top right', marker:{color:'black', size:8}};
 
-    Plotly.newPlot('plot', [mc_trace, atc_trace, price_trace, ps_trace, opt_q_trace], 
+    Plotly.newPlot('Chapter8-plot4', [mc_trace, atc_trace, price_trace, ps_trace, opt_q_trace], 
                    {xaxis:{title:'Quantity'}, yaxis:{title:'Price / Cost', range:[0,20]}, title:'Producer Surplus with Adjustable Total Cost'});
 }
 
