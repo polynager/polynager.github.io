@@ -1,4 +1,4 @@
- function demand(q) { return 20 - q; }
+(function() { function demand(q) { return 20 - q; }
   function marginalRevenue(q) { return 20 - 2*q; }
 
   const MC = 4;
@@ -47,3 +47,5 @@
   };
 
   Plotly.newPlot('graph1', data, layout);
+  })();
+
