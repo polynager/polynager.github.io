@@ -1,133 +1,134 @@
 (() => {
-  const taxRate = 1;
+  const interceptDemand = 5;
+  const interceptSupply = 2;
+  const slopeSupply = 1;
 
-  // ====== ELEMENTS ======
-  const slider = document.getElementById('bSlider');
-  const bValueEl = document.getElementById('bValue');
-  const explanationEl = document.getElementById('explanation');
-  const plotDiv = document.getElementById('Elasticity-chapter3');
-  const tableDiv = document.getElementById('table');
+  const supplyCurve = q => interceptSupply + slopeSupply * q;
+  const supplyCurveWithTax = (q, tax) => interceptSupply + slopeSupply * q + tax;
 
-  if (!slider || !bValueEl || !plotDiv || !tableDiv || !explanationEl) {
-    console.warn("Elasticity module: Required elements not found. Skipping.");
-    return;
-  }
+  const demandCurvePerfectlyElastic = q => Array(q.length).fill(interceptDemand);
+  const demandCurveVariable = (q, b) => interceptDemand - b * q;
 
-  // ====== FUNCTIONS ======
-  function supplyCurve(q) {
-    return 2 + q;
-  }
+  const quantities = Array.from({ length: 101 }, (_, i) => i / 10);
 
-  function demandPerfectlyElastic(q) {
-    return Array(q.length).fill(5);
-  }
+  function calculateTaxIncidence(elasticity, tax, b) {
+    let eqQOriginal, eqPOriginal, eqQTax, eqPConsumer, eqPProducer;
 
-  function demandVariableElasticity(q, b) {
-    return q.map(x => 5 - b * x);
-  }
-
-  function calculateTaxIncidence(elasticity, b = 0.5) {
-    let quantities = Array.from({ length: 500 }, (_, i) => i * 10 / 499);
-    let eqQuantityOriginal, eqPriceOriginal, eqQuantityTax, eqPriceConsumer, eqPriceProducer;
-
-    if (elasticity === 'Perfectly Elastic') {
-      eqQuantityOriginal = 5 - 2;
-      eqPriceOriginal = 5;
-      eqQuantityTax = 5 - (2 + taxRate);
-      eqPriceConsumer = 5;
-      eqPriceProducer = 5 - taxRate;
-    } else if (elasticity === 'Perfectly Inelastic') {
-      eqQuantityOriginal = 4;
-      eqPriceOriginal = 2 + eqQuantityOriginal;
-      eqQuantityTax = eqQuantityOriginal;
-      eqPriceConsumer = eqPriceOriginal + taxRate;
-      eqPriceProducer = eqPriceOriginal;
-    } else {
-      eqQuantityOriginal = (5 - 2) / (1 + b);
-      eqPriceOriginal = 5 - b * eqQuantityOriginal;
-      eqQuantityTax = (5 - (2 + taxRate)) / (1 + b);
-      eqPriceConsumer = 5 - b * eqQuantityTax;
-      eqPriceProducer = supplyCurve(eqQuantityTax);
+    if (elasticity === "Perfectly Elastic") {
+      eqQOriginal = interceptDemand - interceptSupply;
+      eqPOriginal = interceptDemand;
+      eqQTax = interceptDemand - (interceptSupply + tax);
+      eqPConsumer = interceptDemand;
+      eqPProducer = interceptDemand - tax;
+    } 
+    else if (elasticity === "Perfectly Inelastic") {
+      eqQOriginal = 4;
+      eqPOriginal = supplyCurve(eqQOriginal);
+      eqQTax = eqQOriginal;
+      eqPConsumer = eqPOriginal + tax;
+      eqPProducer = eqPOriginal;
+    } 
+    else { // Variable Elasticity
+      eqQOriginal = (interceptDemand - interceptSupply) / (slopeSupply + b);
+      eqPOriginal = interceptDemand - b * eqQOriginal;
+      eqQTax = (interceptDemand - (interceptSupply + tax)) / (slopeSupply + b);
+      eqPConsumer = interceptDemand - b * eqQTax;
+      eqPProducer = eqPConsumer - tax;
     }
 
-    let consumerTaxIncidence = ((eqPriceConsumer - eqPriceOriginal) / taxRate) * 100;
-    let producerTaxIncidence = 100 - consumerTaxIncidence;
+    const consumerTaxIncidence = ((eqPConsumer - eqPOriginal) / tax) * 100 || 0;
+    const producerTaxIncidence = ((tax - (eqPConsumer - eqPOriginal)) / tax) * 100 || 0;
 
-    return {
-      eqPriceOriginal, eqQuantityOriginal,
-      eqQuantityTax, eqPriceConsumer, eqPriceProducer,
-      consumerTaxIncidence, producerTaxIncidence
+    return { eqQOriginal, eqPOriginal, eqQTax, eqPConsumer, eqPProducer, consumerTaxIncidence, producerTaxIncidence };
+  }
+
+  function updateChart() {
+    const elasticity = document.getElementById("elasticitySelect").value;
+    const b = parseFloat(document.getElementById("bSlider").value);
+    const tax = parseFloat(document.getElementById("taxSlider").value);
+
+    document.getElementById("bLabel").style.display = elasticity === "Variable Elasticity" ? "inline" : "none";
+    document.getElementById("taxValue").textContent = tax.toFixed(1);
+    document.getElementById("bValue").textContent = b.toFixed(1);
+
+    const results = calculateTaxIncidence(elasticity, tax, b);
+
+    // Build curves
+    let demandY;
+    if (elasticity === "Perfectly Elastic") {
+      demandY = demandCurvePerfectlyElastic(quantities);
+    } else if (elasticity === "Perfectly Inelastic") {
+      demandY = null; // vertical line
+    } else {
+      demandY = demandCurveVariable(quantities, b);
+    }
+
+    const demandTrace = elasticity === "Perfectly Inelastic" 
+      ? { x: Array(quantities.length).fill(results.eqQOriginal), y: Array.from({length: quantities.length}, (_,i)=>i/10*10), mode: 'lines', name: 'Demand', line: {color: 'blue'} }
+      : { x: quantities, y: demandY, mode: 'lines', name: 'Demand', line: {color: 'blue'} };
+
+    const supplyTrace = { x: quantities, y: quantities.map(supplyCurve), mode: 'lines', name: 'Supply', line: {color: 'green'} };
+    const supplyTaxTrace = { x: quantities, y: quantities.map(q => supplyCurveWithTax(q, tax)), mode: 'lines', name: `Supply + Tax (${tax})`, line: {color: 'red'} };
+
+    // Shading only if not perfectly inelastic
+    let csShade = null, psShade = null, taxShade = null, dwlShade = null;
+    if (elasticity !== "Perfectly Inelastic") {
+      const maxPrice = elasticity === "Perfectly Elastic" ? interceptDemand : Math.max(...demandY);
+      const minPrice = supplyCurve(0);
+      csShade = {
+        x: [0, results.eqQTax, 0],
+        y: [maxPrice, results.eqPConsumer, results.eqPConsumer],
+        fill: 'toself', fillcolor: 'rgba(0,0,255,0.2)', line: {width:0}, name: 'Consumer Surplus'
+      };
+      psShade = {
+        x: [0, results.eqQTax, 0],
+        y: [results.eqPProducer, results.eqPProducer, minPrice],
+        fill: 'toself', fillcolor: 'rgba(0,128,0,0.2)', line: {width:0}, name: 'Producer Surplus'
+      };
+      taxShade = {
+        x: [0, results.eqQTax, results.eqQTax, 0],
+        y: [results.eqPProducer, results.eqPProducer, results.eqPConsumer, results.eqPConsumer],
+        fill: 'toself', fillcolor: 'rgba(255,0,0,0.2)', line: {width:0}, name: 'Tax Revenue'
+      };
+      dwlShade = {
+        x: [results.eqQTax, results.eqQOriginal, results.eqQTax],
+        y: [results.eqPProducer, results.eqPProducer + tax, results.eqPConsumer],
+        fill: 'toself', fillcolor: 'rgba(255,165,0,0.3)', line: {width:0}, name: 'Deadweight Loss'
+      };
+    }
+
+    const eqPoints = {
+      x: [results.eqQOriginal, results.eqQTax],
+      y: [results.eqPOriginal, results.eqPConsumer],
+      mode: 'markers',
+      name: 'Equilibria',
+      marker: { color: 'black', size: 8 }
     };
+
+    const traces = [demandTrace, supplyTrace, supplyTaxTrace];
+    if (csShade) traces.push(csShade, psShade, taxShade, dwlShade);
+    traces.push(eqPoints);
+
+    Plotly.newPlot("taxPlot", traces, {
+      title: 'Tax Incidence with Elasticity',
+      xaxis: { title: 'Quantity' },
+      yaxis: { title: 'Price' },
+      margin: { t: 40 }
+    });
+
+    document.getElementById('results').innerHTML = `
+      <p><strong>Elasticity:</strong> ${elasticity}</p>
+      <p><strong>Tax:</strong> ${tax.toFixed(2)}</p>
+      <p>Original EQ: Q = ${results.eqQOriginal.toFixed(2)}, P = ${results.eqPOriginal.toFixed(2)}</p>
+      <p>With Tax: Q = ${results.eqQTax.toFixed(2)}, P<sub>c</sub> = ${results.eqPConsumer.toFixed(2)}, P<sub>p</sub> = ${results.eqPProducer.toFixed(2)}</p>
+      <p>Consumer Tax Incidence: ${results.consumerTaxIncidence.toFixed(2)}%</p>
+      <p>Producer Tax Incidence: ${results.producerTaxIncidence.toFixed(2)}%</p>
+    `;
   }
 
-  function explainTaxIncidence(elasticity, t) {
-    if (elasticity === 'Perfectly Elastic') {
-      return "With perfectly elastic demand, producers bear the entire tax burden (100%).";
-    } else if (elasticity === 'Perfectly Inelastic') {
-      return "With perfectly inelastic demand, consumers bear the entire tax burden (100%).";
-    } else {
-      return `With variable elasticity, consumers bear ${t.consumerTaxIncidence.toFixed(2)}% and producers bear ${t.producerTaxIncidence.toFixed(2)}% of the tax.`;
-    }
-  }
+  document.getElementById("elasticitySelect").addEventListener("change", updateChart);
+  document.getElementById("bSlider").addEventListener("input", updateChart);
+  document.getElementById("taxSlider").addEventListener("input", updateChart);
 
-  function plot(elasticity, b) {
-    let q = Array.from({ length: 500 }, (_, i) => i * 10 / 499);
-    let t = calculateTaxIncidence(elasticity, b);
-
-    let traces = [];
-    if (elasticity === 'Perfectly Elastic') {
-      traces.push({ x: q, y: demandPerfectlyElastic(q), type: 'scatter', mode: 'lines', name: 'Demand', line: { color: 'blue' } });
-    } else if (elasticity === 'Perfectly Inelastic') {
-      traces.push({ x: [t.eqQuantityOriginal, t.eqQuantityOriginal], y: [0, 10], type: 'scatter', mode: 'lines', name: 'Demand (Perfectly Inelastic)', line: { color: 'blue' } });
-    } else {
-      traces.push({ x: q, y: demandVariableElasticity(q, b), type: 'scatter', mode: 'lines', name: 'Demand', line: { color: 'blue' } });
-    }
-
-    traces.push({ x: q, y: supplyCurve(q), type: 'scatter', mode: 'lines', name: 'Supply (No Tax)', line: { color: 'green' } });
-    traces.push({ x: q, y: q.map(s => s + taxRate + 2), type: 'scatter', mode: 'lines', name: `Supply + Tax (${taxRate})`, line: { color: 'red' } });
-
-    traces.push({
-      x: [t.eqQuantityOriginal], y: [t.eqPriceOriginal],
-      type: 'scatter', mode: 'markers+text', name: 'Original Eq',
-      text: [`Q=${t.eqQuantityOriginal.toFixed(2)}, P=${t.eqPriceOriginal.toFixed(2)}`],
-      textposition: 'top right', marker: { color: 'red', size: 10 }
-    });
-
-    traces.push({
-      x: [t.eqQuantityTax], y: [t.eqPriceConsumer],
-      type: 'scatter', mode: 'markers+text', name: 'New Eq (with tax)',
-      text: [`Q=${t.eqQuantityTax.toFixed(2)}, P₍c₎=${t.eqPriceConsumer.toFixed(2)}, P₍p₎=${t.eqPriceProducer.toFixed(2)}`],
-      textposition: 'top right', marker: { color: 'orange', size: 10 }
-    });
-
-    Plotly.newPlot(plotDiv, traces, {
-      xaxis: { title: 'Quantity', range: [0, 6] },
-      yaxis: { title: 'Price', range: [0, 10] },
-      title: `Tax Incidence (${elasticity})`,
-      showlegend: true
-    });
-
-    tableDiv.innerHTML =
-      `<table border="1" cellpadding="5">
-        <tr><th>Elasticity</th><th>Consumer Tax Incidence (%)</th><th>Producer Tax Incidence (%)</th></tr>
-        <tr><td>${elasticity}</td><td>${t.consumerTaxIncidence.toFixed(2)}</td><td>${t.producerTaxIncidence.toFixed(2)}</td></tr>
-      </table>`;
-
-    explanationEl.textContent = explainTaxIncidence(elasticity, t);
-  }
-
-  // ====== EVENT LISTENERS ======
-  document.querySelectorAll('input[name="elasticity"]').forEach(r => {
-    r.addEventListener('change', () => {
-      plot(document.querySelector('input[name="elasticity"]:checked').value, parseFloat(slider.value));
-    });
-  });
-
-  slider.addEventListener('input', e => {
-    bValueEl.textContent = e.target.value;
-    plot(document.querySelector('input[name="elasticity"]:checked').value, parseFloat(e.target.value));
-  });
-
-  // ====== INITIAL PLOT ======
-  plot('Variable Elasticity', parseFloat(slider.value));
+  updateChart();
 })();
