@@ -11,32 +11,56 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
+  
   <div class="back-home-container">
   <a href="../index.html" class="back-home-button">&larr; Back to Homepage</a>
   </div>
+
+<section id="chapter8-plot1">
+    <h2>Market: Supply and Demand Curves (Equilibrium at $4)</h2>
+    <div id="market-firm-plot" style="width: 100%; height: 500px;"></div>
+</section>
   
-  <h1>Market and Firm-Level Supply/Demand Visualization</h1>
+<section id="chapter8-plot2">
+<h1>Cost Curves with Adjustable AVC</h1>
+<div id="Chapter8-plot2" style="width: 100%; height: 600px;"></div>
+<label for="avcShift">AVC Shift: </label>
+<input type="range" id="avcShift" min="0" max="5" step="0.1" value="0">
+<span id="avcValue">0</span>
+</section>
 
-  <section>
-    <h2>Market Equilibrium</h2>
-    <div id="marketChart" style="width:600px;height:400px;"></div>
-    <label for="demandShift">Shift Demand:</label>
-    <input type="range" id="demandShift" min="-5" max="5" value="0" step="0.5">
-  </section>
+<section id="chapter8-plot3">
+<h1>Short-Run Industry Supply Curve</h1>
+<div>
+  <label><input type="checkbox" id="firmA" checked> Include Firm A</label>
+  <label><input type="checkbox" id="firmB" checked> Include Firm B</label>
+  <label><input type="checkbox" id="firmC" checked> Include Firm C</label>
+  <label><input type="checkbox" id="firmD" checked> Include Firm D</label>
+</div>v
+<div id="Chapter8-plot3" style="width:100%; height:600px;"></div>
+</section>
 
-  <section>
-    <h2>Firm-Level Cost Curves</h2>
-    <div id="firmChart" style="width:600px;height:400px;"></div>
-    <label for="avcShift">Shift AVC:</label>
-    <input type="range" id="avcShift" min="-2" max="2" value="0" step="0.1">
-  </section>
+<section id="chapter8-plot4">
+<h2>Producer Surplus with Adjustable Total Cost</h2>
+<div id="Chapter8-plot4" style="width: 100%; height: 600px;"></div>
+<label for="shift">Total Cost Shift:</label>
+<input type="range" id="shift" min="0" max="5" step="0.1" value="0">
+<span id="shift-value">0</span>
+</section>
 
-  <section>
-    <h2>Industry Supply Aggregation</h2>
-    <div id="industryChart" style="width:600px;height:400px;"></div>
-    <div id="firmCheckboxes"></div>
-  </section>
-
-  <script src="../js/chapter8-script.js"></script>
+<section id="chapter8-plot5">
+<h2>Market Adjustment Simulation with Demand Shift</h2>
+<label for="demandShift">Demand Shift:</label>
+<input type="range" id="demandShift" min="-10000" max="10000" step="100" value="0">
+<span id="demandShiftValue">0</span>
+<div id="Chapter8-plot5" style="width: 100%; height: 800px;"></div>
+</section>
+  
+  
+  <script src="../js/chapter8-plot1.js"></script>
+  <script src="../js/chapter8-plot2.js"></script>
+  <script src="../js/chapter8-plot3.js"></script>
+  <script src="../js/chapter8-plot4.js"></script>
+  <script src="../js/chapter8-plot5.js"></script>
 </body>
 </html>
