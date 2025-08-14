@@ -3,7 +3,7 @@ const firm_quantity5 = 10;
 const initial_industry_quantity5 = 30000 - 50 * LR_price5;
 const initial_firms5 = Math.floor(initial_industry_quantity5 / firm_quantity5);
 
-// Firm-level cost functions
+// Cost functions
 function total_cost5(Q) { return 300*Q - 10*Q**2 + 0.5*Q**3; }
 function marginal_cost5(Q) { return 300 - 20*Q + 1.5*Q**2; }
 function average_total_cost5(Q) { return 300 - 10*Q + 0.5*Q**2; }
@@ -13,20 +13,22 @@ function demand_initial5(P) { return 30000 - 50*P; }
 function demand_adjusted5(P, shift) { return 30000 + shift - 50*P; }
 
 function plotMarket5(demand_shift) {
+    // Prices for plotting demand curves
     const prices = Array.from({length: 500}, (_, i) => 200 + i * (300 - 200) / 499);
-
     const demand_Q_initial = prices.map(p => demand_initial5(p));
     const demand_Q_adjusted = prices.map(p => demand_adjusted5(p, demand_shift));
 
+    // New market quantities
     const new_quantity = demand_adjusted5(LR_price5, demand_shift);
     const new_firm_quantity = new_quantity / initial_firms5;
     const new_firm_price = marginal_cost5(new_firm_quantity);
 
+    // Short-run supply slope
     const Q1 = initial_industry_quantity5, P1 = LR_price5;
     const Q2 = new_quantity, P2 = new_firm_price;
     const slope_sr_supply = (P2 - P1) / (Q2 - Q1);
     const extended_quantities = Array.from({length:500}, (_,i)=>Q1-3000 + i*(Q2+3000-(Q1-3000))/499);
-    const sr_supply_prices = extended_quantities.map(Q => slope_sr_supply * (Q - Q1) + P1);
+    const sr_supply_prices = extended_quantities.map(Q => slope_sr_supply*(Q-Q1)+P1);
 
     // Firm-level curves
     const firm_quantities = Array.from({length:500}, (_,i)=>i*20/499);
@@ -34,18 +36,22 @@ function plotMarket5(demand_shift) {
     const atc_values = firm_quantities.map(average_total_cost5);
 
     const traces = [
+        // Initial Demand
         {x: demand_Q_initial, y: prices, mode: 'lines', name: 'Initial Demand', line: {color: 'blue'}},
-        {x: [initial_industry_quantity5], y: [LR_price5], mode: 'markers', name: 'Initial Equilibrium', marker: {color: 'black', size: 8}},
-        {x: [0, 50000], y: [LR_price5, LR_price5], mode: 'lines', name: 'LR Price', line: {color: 'purple', dash: 'dash'}},
-
+        // Adjusted Demand
         {x: demand_Q_adjusted, y: prices, mode: 'lines', name: 'Adjusted Demand', line: {color: 'red'}},
-        {x: [new_quantity], y: [LR_price5], mode: 'markers', name: 'New Equilibrium', marker: {color: 'red', size: 8}},
-
-        {x: firm_quantities, y: mc_values, mode: 'lines', name: 'MC', line: {color: 'orange'}},
-        {x: firm_quantities, y: atc_values, mode: 'lines', name: 'ATC', line: {color: 'purple'}},
-        {x: [new_firm_quantity], y: [new_firm_price], mode: 'markers', name: 'New Firm Quantity', marker: {color: 'red', size: 8}},
-
-        {x: extended_quantities, y: sr_supply_prices, mode: 'lines', name: 'SR Supply', line: {color: 'green', dash: 'dot'}}
+        // Long-run Price
+        {x: [0, 50000], y: [LR_price5, LR_price5], mode: 'lines', name: 'LR Price', line: {color: 'purple', dash: 'dash'}},
+        // Initial Equilibrium
+        {x: [initial_industry_quantity5], y: [LR_price5], mode: 'markers', name: 'Initial Equilibrium', marker: {color:'black', size:8}},
+        // New Equilibrium
+        {x: [new_quantity], y: [new_firm_price], mode: 'markers', name: 'New Equilibrium', marker: {color:'red', size:8}},
+        // Firm-level MC & ATC
+        {x: firm_quantities, y: mc_values, mode: 'lines', name: 'MC', line: {color:'orange'}},
+        {x: firm_quantities, y: atc_values, mode: 'lines', name: 'ATC', line: {color:'purple'}},
+        {x: [new_firm_quantity], y: [new_firm_price], mode: 'markers', name: 'New Firm Quantity', marker: {color:'red', size:8}},
+        // Short-run supply
+        {x: extended_quantities, y: sr_supply_prices, mode: 'lines', name: 'SR Supply', line: {color:'green', dash:'dot'}}
     ];
 
     const layout = {
@@ -59,15 +65,11 @@ function plotMarket5(demand_shift) {
     Plotly.newPlot('Chapter8-plot5', traces, layout);
 }
 
-// Slider for Plot 5
+// Slider
 const demandShiftSlider5 = document.getElementById('demandShift');
 const demandShiftValue5 = document.getElementById('demandShiftValue');
-
 demandShiftSlider5.addEventListener('input', function() {
     const val = parseFloat(this.value);
     demandShiftValue5.textContent = val;
     plotMarket5(val);
 });
-
-// Initial plot
-plotMarket5(0);
