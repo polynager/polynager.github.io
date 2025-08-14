@@ -1,3 +1,4 @@
+(function() {
 // Functions
 function demandOne(q) { return 10 - 0.5*q; }
 function mrOne(q) { return 10 - q; }
@@ -56,3 +57,4 @@ dropdown.addEventListener('change', function() {
     const dataset = [monopoly, twoFirms, longRun][this.value];
     Plotly.react('graph4', dataset, layout);
 });
+    })();
