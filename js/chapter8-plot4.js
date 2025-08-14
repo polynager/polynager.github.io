@@ -64,7 +64,7 @@ function updatePlot(shift) {
     const traceOptLine = {x: [optimalQuantity, optimalQuantity], y: [0, marketPrice], mode: 'lines', name: 'Optimal Quantity', line: {color: 'black', dash: 'dash'}};
     const traceOptPoint = {x: [optimalQuantity], y: [marginalCost(optimalQuantity, shift)], mode: 'markers', name: 'MC=MR', marker: {color: 'black', size: 8}};
 
-    Plotly.newPlot('plot', [traceMC, traceATC, tracePrice, traceOptLine, traceOptPoint, surplusFill], {
+    Plotly.newPlot('Chapter8-plot4', [traceMC, traceATC, tracePrice, traceOptLine, traceOptPoint, surplusFill], {
         title: 'Producer Surplus with Adjustable Total Cost',
         xaxis: {title: 'Quantity (Q)'},
         yaxis: {title: 'Price / Cost', range: [0, 20]},
