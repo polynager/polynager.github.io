@@ -16,7 +16,7 @@ function average_total_cost4(shift) {
     return quantities4.map(q => (base_total_cost4(q) + shift * q) / q);
 }
 
-// Find optimal quantity (MC = P) using simple numeric search
+// Find optimal quantity (MC = P)
 function find_optimal_quantity4(shift) {
     for (let i = 0; i < quantities4.length; i++) {
         if (marginal_cost4(quantities4[i], shift) >= market_price4) {
@@ -34,14 +34,14 @@ function updatePlot4(shift) {
     const Q_star = find_optimal_quantity4(shift);
     const MC_star = marginal_cost4(Q_star, shift);
 
-    // Producer surplus area: polygon from MC up to market price
+    // Producer surplus polygon: go along price, then MC back
     const ps_quantities = quantities4.filter(q => q <= Q_star);
-    const ps_mc = ps_quantities.map(q => marginal_cost4(q, shift));
-    const ps_price = ps_quantities.map(_ => market_price4);
+    const ps_price = ps_quantities.map(_ => market_price4); // top line
+    const ps_mc = ps_quantities.map(q => marginal_cost4(q, shift)); // bottom line
 
-    // Construct polygon for filling: go along MC, then back along price
-    const ps_x = ps_quantities.concat(ps_quantities.slice().reverse());
-    const ps_y = ps_mc.concat(ps_price.slice().reverse());
+    // Include axes for textbook-style closure
+    const ps_x = [0, ...ps_quantities, Q_star, ...ps_quantities.slice().reverse(), 0];
+    const ps_y = [market_price4, ...ps_price, MC_star, ...ps_mc.slice().reverse(), 0];
 
     const mc_trace = {x: quantities4, y: mc_values, mode: 'lines', name: 'MC', line: {color: 'red'}};
     const atc_trace = {x: quantities4, y: atc_values, mode: 'lines', name: 'ATC', line: {color: 'purple'}};
