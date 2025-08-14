@@ -24,7 +24,7 @@
         const [Lgrid, Kgrid] = meshgrid(L, K);
 
         // Isoquant levels
-        const isoLevels = [0.5, 1, 2, 4];
+        const isoLevels = [0.5, 1, 2, 4, 8];
 
         // Create traces for each production function
         function createTraces(prodFunc, name) {
@@ -36,7 +36,8 @@
                 contours: {start: level, end: level, coloring: 'lines'},
                 line: {width: 2},
                 name: `${name} Q=${level}`,
-                visible: name === "Cobb-Douglas" // only show CD by default
+                visible: name === "Cobb-Douglas", 
+                 showlegend: false
             }));
         }
 
@@ -67,6 +68,7 @@
 
         const layout = {
             title: "Cobb-Douglas Isoquants",
+            showlegend: false,
             xaxis: {title: 'Labor (L)'},
             yaxis: {title: 'Capital (K)'},
             updatemenus: [{
