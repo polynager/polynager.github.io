@@ -34,24 +34,41 @@ function updatePlot4(shift) {
     const Q_star = find_optimal_quantity4(shift);
     const MC_star = marginal_cost4(Q_star, shift);
 
-    // Producer surplus area points
+    // Producer surplus area: polygon from MC up to market price
     const ps_quantities = quantities4.filter(q => q <= Q_star);
     const ps_mc = ps_quantities.map(q => marginal_cost4(q, shift));
     const ps_price = ps_quantities.map(_ => market_price4);
 
+    // Construct polygon for filling: go along MC, then back along price
+    const ps_x = ps_quantities.concat(ps_quantities.slice().reverse());
+    const ps_y = ps_mc.concat(ps_price.slice().reverse());
+
     const mc_trace = {x: quantities4, y: mc_values, mode: 'lines', name: 'MC', line: {color: 'red'}};
     const atc_trace = {x: quantities4, y: atc_values, mode: 'lines', name: 'ATC', line: {color: 'purple'}};
     const price_trace = {x: quantities4, y: market_price_line, mode: 'lines', name: 'Market Price', line: {color: 'blue', dash: 'dash'}};
+    
     const ps_trace = {
-        x: ps_quantities.concat(ps_quantities.reverse()), 
-        y: ps_price.concat(ps_mc.reverse()), 
-        fill: 'toself', fillcolor: 'rgba(255,165,0,0.3)', line: {color: 'orange'}, 
-        name: 'Producer Surplus', type: 'scatter'
+        x: ps_x,
+        y: ps_y,
+        fill: 'toself',
+        fillcolor: 'rgba(255,165,0,0.3)',
+        line: {color: 'orange'},
+        name: 'Producer Surplus',
+        type: 'scatter'
     };
-    const opt_q_trace = {x:[Q_star], y:[MC_star], mode:'markers+text', name:'Q*', text:['Q*'], textposition:'top right', marker:{color:'black', size:8}};
+
+    const opt_q_trace = {
+        x:[Q_star], y:[MC_star], 
+        mode:'markers+text', 
+        name:'Q*', 
+        text:['Q*'], 
+        textposition:'top right', 
+        marker:{color:'black', size:8}
+    };
 
     Plotly.newPlot('Chapter8-plot4', [mc_trace, atc_trace, price_trace, ps_trace, opt_q_trace], 
-                   {xaxis:{title:'Quantity'}, yaxis:{title:'Price / Cost', range:[0,20]}, title:'Producer Surplus with Adjustable Total Cost'});
+                   {xaxis:{title:'Quantity'}, yaxis:{title:'Price / Cost', range:[0,20]}, 
+                    title:'Producer Surplus with Adjustable Total Cost'});
 }
 
 // Slider for Plot 4
