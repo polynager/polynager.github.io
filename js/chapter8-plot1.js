@@ -1,5 +1,5 @@
 // Market-level parameters
-
+(function() {
 const demandIntercept = 8;
 const demandSlope = -0.008;
 const supplySlope = 0.008;
@@ -69,3 +69,5 @@ Plotly.newPlot('market-firm-plot',
     ], 
     layout
 );
+})();
+
