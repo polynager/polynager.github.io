@@ -93,6 +93,6 @@ updatePlot(0);
 // Slider event
 document.getElementById('shift').addEventListener('input', (e) => {
     const val = parseFloat(e.target.value);
-    document.getElementById('shiftValue').textContent = val;
+    document.getElementById('shift-value').textContent = val;
     updatePlot(val);
 });
