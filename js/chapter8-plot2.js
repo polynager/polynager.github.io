@@ -74,7 +74,7 @@ function plotAVCShift(shift) {
         showlegend: true
     };
 
-    Plotly.newPlot('plot', data, layout);
+    Plotly.newPlot('Chapter8-plot2', data, layout);
 }
 
 // Initial plot
