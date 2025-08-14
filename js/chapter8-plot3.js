@@ -1,4 +1,5 @@
-const prices = Array.from({length: 100}, (_, i) => 0.1 + i * (10 - 0.1)/99);
+(function() {
+    const prices = Array.from({length: 100}, (_, i) => 0.1 + i * (10 - 0.1)/99);
 
 // Marginal cost functions
 function mcA(q) { return 3*q*q - 4*q + 1.1; }
@@ -94,3 +95,5 @@ plotSupply();
 ["firmA","firmB","firmC","firmD"].forEach(id=>{
     document.getElementById(id).addEventListener("change", plotSupply);
 });
+})();
+
