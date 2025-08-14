@@ -39,7 +39,7 @@
             y: L,
             type: 'contour',
             contours: {start: outputLevel, end: outputLevel, coloring: 'lines'},
-            line: {color: 'blue', dash: 'dash'},
+            line: {color: 'blue', dash: 'dash', width:4},
             name: 'Original Isoquant (A=1)',
             showscale: false
         };
@@ -50,7 +50,7 @@
             y: L,
             type: 'contour',
             contours: {start: outputLevel, end: outputLevel, coloring: 'lines'},
-            line: {color: 'red'},
+            line: {color: 'red', width:4},
             name: `New Isoquant (A=${A.toFixed(2)})`,
             showscale: false
         };
