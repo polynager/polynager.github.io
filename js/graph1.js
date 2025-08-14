@@ -1,58 +1,49 @@
-// Collusion vs Cheating Interactive Graph
-const q = Array.from({length: 101}, (_, i) => i * 0.2); // 0 to 20
+ function demand(q) { return 20 - q; }
+  function marginalRevenue(q) { return 20 - 2*q; }
 
-function updateGraph(q_collusion=8, q_cheating=9) {
-    const demand = q.map(qi => 20 - qi);
-    const mr = q.map(qi => 20 - 2 * qi);
-    const MC = Array(q.length).fill(4);
+  const MC = 4;
 
-    const collusion = {x: [q_collusion], y: [20 - q_collusion], text: [`Collusion (Q=${q_collusion}, P=${20-q_collusion})`]};
-    const cheating = {x: [q_cheating], y: [20 - q_cheating], text: [`Cheating (Q=${q_cheating}, P=${20-q_cheating})`]};
+  // Collusion and cheating points
+  const qCollusion = 8;
+  const pCollusion = demand(qCollusion);
 
-    const trace1 = {x: q, y: demand, type: 'scatter', mode: 'lines', name: 'Demand', line: {color: 'blue'}};
-    const trace2 = {x: q, y: mr, type: 'scatter', mode: 'lines', name: 'Marginal Revenue', line: {color: 'purple'}};
-    const trace3 = {x: q, y: MC, type: 'scatter', mode: 'lines', name: 'MC = $4', line: {color: 'red'}};
-    const trace4 = {x: collusion.x, y: collusion.y, mode:'markers+text', name:'Collusion', text: collusion.text, textposition: 'top center', marker: {color: 'black', size:8}};
-    const trace5 = {x: cheating.x, y: cheating.y, mode:'markers+text', name:'Cheating', text: cheating.text, textposition: 'top center', marker: {color: 'black', size:8}};
+  const qCheating = 9;
+  const pCheating = demand(qCheating);
 
-    const layout = {
-        title: 'Collusion and Cheating in Oligopoly',
-        xaxis: {title: 'Quantity', range: [0,20]},
-        yaxis: {title: 'Price ($/unit)', range: [0,20]},
-        showlegend: true,
-        sliders: [
-            {
-                pad: {t: 30},
-                currentvalue: {prefix: "Collusion Q: "},
-                steps: q.map(val => ({label: val.toFixed(1), method:'update', args:[{x:[val], y:[20-val]}, {title:'Updated Collusion Q'}]}))
-            }
-        ]
-    };
+  // Generate data points
+  const q = Array.from({length: 100}, (_, i) => i * 20 / 99);
+  const p = q.map(demand);
+  const mr = q.map(marginalRevenue);
 
-    Plotly.newPlot('graph1', [trace1, trace2, trace3, trace4, trace5], layout);
-}
+  // Traces
+  const traceDemand = {x: q, y: p, type: 'scatter', mode: 'lines', name: 'D (Demand Curve)', line: {color: 'blue'}};
+  const traceMR = {x: q, y: mr, type: 'scatter', mode: 'lines', name: 'MR (Marginal Revenue)', line: {color: 'purple'}};
+  const traceMC = {x: [0, 20], y: [MC, MC], type: 'scatter', mode: 'lines', name: `MC = $${MC}`, line: {color: 'red'}};
 
-// Initial graph
-updateGraph();
+  // Collusion point and dashed lines
+  const traceCollusion = {
+    x: [qCollusion], y: [pCollusion], type: 'scatter', mode: 'markers',
+    name: `Collusion (Q=${qCollusion}, P=$${pCollusion})`, marker: {color: 'black', size: 8}
+  };
+  const collusionVline = {x: [qCollusion, qCollusion], y: [0, pCollusion], mode:'lines', line:{dash:'dash', color:'gray'}, type:'scatter', showlegend:false};
+  const collusionHline = {x: [0, qCollusion], y: [pCollusion, pCollusion], mode:'lines', line:{dash:'dash', color:'gray'}, type:'scatter', showlegend:false};
 
-// Optional: create HTML sliders separately for finer control
-const container = document.getElementById('graph1');
-const sliderCollusion = document.createElement('input');
-sliderCollusion.type = 'range';
-sliderCollusion.min = 0;
-sliderCollusion.max = 20;
-sliderCollusion.step = 0.1;
-sliderCollusion.value = 8;
-sliderCollusion.style.width = '300px';
-sliderCollusion.oninput = () => updateGraph(parseFloat(sliderCollusion.value), parseFloat(sliderCheating.value));
-container.appendChild(sliderCollusion);
+  // Cheating point and dashed lines
+  const traceCheating = {
+    x: [qCheating], y: [pCheating], type: 'scatter', mode: 'markers',
+    name: `Cheating (Q=${qCheating}, P=$${pCheating})`, marker: {color: 'black', size: 8}
+  };
+  const cheatingVline = {x: [qCheating, qCheating], y: [0, pCheating], mode:'lines', line:{dash:'dash', color:'gray'}, type:'scatter', showlegend:false};
+  const cheatingHline = {x: [0, qCheating], y: [pCheating, pCheating], mode:'lines', line:{dash:'dash', color:'gray'}, type:'scatter', showlegend:false};
 
-const sliderCheating = document.createElement('input');
-sliderCheating.type = 'range';
-sliderCheating.min = 0;
-sliderCheating.max = 20;
-sliderCheating.step = 0.1;
-sliderCheating.value = 9;
-sliderCheating.style.width = '300px';
-sliderCheating.oninput = () => updateGraph(parseFloat(sliderCollusion.value), parseFloat(sliderCheating.value));
-container.appendChild(sliderCheating);
+  const data = [traceDemand, traceMR, traceMC, traceCollusion, collusionVline, collusionHline, traceCheating, cheatingVline, cheatingHline];
+
+  const layout = {
+    title: 'Collusion and Cheating in Oligopoly',
+    xaxis: {title: 'Quantity', range: [0, 20]},
+    yaxis: {title: 'Price ($/unit)', range: [0, 20]},
+    legend: {x: 0.7, y: 1},
+    grid: {rows: 1, columns: 1},
+  };
+
+  Plotly.newPlot('graph1', data, layout);
