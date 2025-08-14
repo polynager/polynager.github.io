@@ -1,3 +1,4 @@
+(function() {
 const quantities = Array.from({length: 100}, (_, i) => 0.1 + i * (5 - 0.1)/99);
 
 // Market price
@@ -89,3 +90,5 @@ slider.addEventListener("input", () => {
     display.textContent = value.toFixed(1);
     plotAVCShift(value);
 });
+})();
+
