@@ -37,7 +37,7 @@
                 yaxis: {title:'Output (Q)'},
                 xaxis2: {title:'Labour (L)', anchor:'y2'},
                 yaxis2: {title:'MPL', anchor:'x2'},
-                height:600
+                height:450
             }
         };
         Plotly.newPlot('longTermPlot', fig.data, fig.layout);
