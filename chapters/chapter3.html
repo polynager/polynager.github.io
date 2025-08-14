@@ -72,129 +72,26 @@
     <div class="tab" data-tab="surplus-tab">Surplus & Deadweight Loss</div>
   </div>
 
-  <!-- Tab Contents -->
-  <div id="elasticity-tab" class="tab-content" style="display:block;">
-    <label for="elasticitySelect">Elasticity:</label>
-    <select id="elasticitySelect">
-      <option value="Perfectly Elastic">Perfectly Elastic</option>
-      <option value="Perfectly Inelastic">Perfectly Inelastic</option>
-      <option value="Variable Elasticity" selected>Variable Elasticity</option>
-    </select>
-    <label for="bSlider" id="bLabel">Slope (b): <span id="bValue">0.5</span></label>
-    <input type="range" id="bSlider" min="0.1" max="5" step="0.1" value="0.5">
-    <div id="plotElasticity" style="width:100%;height:500px;"></div>
-    <div id="tableElasticity"></div>
-    <div id="explanationElasticity"></div>
-  </div>
-
-  <div id="surplus-tab" class="tab-content">
-    <label for="taxRange">Select Tax Amount:</label>
-    <input type="range" id="taxRange" min="0" max="10" step="0.1" value="0">
-    <span id="tax_val">0</span>
-    <div id="plotSurplus" style="width:100%;height:500px;"></div>
-    <div id="tableSurplus"></div>
-    <div id="explanationSurplusDWL"></div>
-  </div>
+<section id="chapter3-elasticity">
+  <h2>Tax Incidence with Elasticity</h2>
+  <label for="elasticitySelect">Elasticity:</label>
+  <select id="elasticitySelect">
+    <option value="Perfectly Elastic">Perfectly Elastic</option>
+    <option value="Perfectly Inelastic">Perfectly Inelastic</option>
+    <option value="Variable Elasticity" selected>Variable Elasticity</option>
+  </select>
+  <label for="bSlider" id="bLabel">Slope (b): <span id="bValue">0.5</span></label>
+  <input type="range" id="bSlider" min="0.1" max="5" step="0.1" value="0.5">
+  <div id="plotElasticity" style="width:100%;height:500px;"></div>
+  <div id="tableElasticity"></div>
+  <div id="explanationElasticity"></div>
 </section>
 
 <!-- Scripts -->
 <script src="../js/chapter3-surplus.js"></script>
 <script src="../js/chapter3-ceiling.js"></script>
+<script src="../js/chapter3-elasticity.js"></script>
 <script src="../js/chapter3-quota.js"></script>
 <script src="../js/chapter3-tax.js"></script>
-
-<!-- Elasticity & Surplus Scripts -->
-<script>
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).style.display = 'block';
-    });
-});
-
-// --- Elasticity JS ---
-const taxRate = 1;
-function supply(q){ return q.map(x => x + 2); }
-function demandPerfectlyElastic(q){ return q.map(_ => 5); }
-function demandVariable(q,b){ return q.map(x => 5 - b*x); }
-function calculateTaxIncidence(elasticity,b=0.5){
-    let eqQOrig, eqPOrig, eqQTax, eqPConsumer, eqPProducer;
-    if(elasticity === 'Perfectly Elastic'){
-        eqQOrig = 3; eqPOrig = 5; eqQTax = 2; eqPConsumer = 5; eqPProducer = 4;
-    } else if(elasticity === 'Perfectly Inelastic'){
-        eqQOrig = 4; eqPOrig = 6; eqQTax = 4; eqPConsumer = 7; eqPProducer = 6;
-    } else {
-        eqQOrig = (5-2)/(1+b); eqPOrig = 5-b*eqQOrig;
-        eqQTax = (5-(2+taxRate))/(1+b); eqPConsumer = 5-b*eqQTax; eqPProducer = 2+eqQTax;
-    }
-    let consumerInc = ((eqPConsumer-eqPOrig)/taxRate)*100;
-    let producerInc = 100-consumerInc;
-    return {eqQOrig,eqPOrig,eqQTax,eqPConsumer,eqPProducer,consumerInc,producerInc};
-}
-
-function plotElasticityFunc(){
-    const elasticity = document.getElementById('elasticitySelect').value;
-    const b = parseFloat(document.getElementById('bSlider').value);
-    document.getElementById('bValue').textContent = b;
-    const quantities = Array.from({length:500},(_,i)=>i*6/500);
-    let demand = elasticity==='Perfectly Elastic'? demandPerfectlyElastic(quantities) : elasticity==='Perfectly Inelastic'? quantities.map(_=>null) : demandVariable(quantities,b);
-    const incidence = calculateTaxIncidence(elasticity,b);
-    let traces = [
-        {x:quantities, y:supply(quantities), type:'scatter', name:'Supply (No Tax)', line:{color:'green'}},
-        {x:quantities, y:supply(quantities).map(y=>y+taxRate), type:'scatter', name:'Supply (With Tax)', line:{color:'red'}},
-        {x:quantities, y:demand, type:'scatter', name:'Demand', line:{color:'blue'}},
-        {x:[incidence.eqQOrig], y:[incidence.eqPOrig], type:'scatter', mode:'markers+text', text:['Original Eq'], textposition:'top right', marker:{color:'black',size:8}},
-        {x:[incidence.eqQTax], y:[incidence.eqPConsumer], type:'scatter', mode:'markers+text', text:['New Eq'], textposition:'top right', marker:{color:'orange',size:8}}
-    ];
-    Plotly.newPlot('plotElasticity', traces, {xaxis:{title:'Quantity', range:[0,6]}, yaxis:{title:'Price', range:[0,10]}, title:'Tax Incidence'});
-    document.getElementById('tableElasticity').innerHTML = `<table border="1"><tr><th>Elasticity</th><th>Consumer Incidence (%)</th><th>Producer Incidence (%)</th></tr>
-        <tr><td>${elasticity}</td><td>${incidence.consumerInc.toFixed(2)}</td><td>${incidence.producerInc.toFixed(2)}</td></tr></table>`;
-    let explanation = elasticity==='Perfectly Elastic'?'Consumers pay nothing; producers bear all tax.':
-                      elasticity==='Perfectly Inelastic'?'Consumers bear all tax; producers pay nothing.':
-                      `Variable elasticity: consumer incidence ${incidence.consumerInc.toFixed(2)}%, producer incidence ${incidence.producerInc.toFixed(2)}%.`;
-    document.getElementById('explanationElasticity').textContent = explanation;
-}
-
-document.getElementById('elasticitySelect').addEventListener('change', plotElasticityFunc);
-document.getElementById('bSlider').addEventListener('input', plotElasticityFunc);
-plotElasticityFunc();
-
-// --- Surplus/DWL JS ---
-function demandFunc(q){ return q.map(x => 20-2*x); }
-function supplyFunc(q){ return q.map(x => 2+x); }
-function calculateSurplus(tax){
-    let eqQOrig = (20-2)/3;
-    let eqPOrig = 20-2*eqQOrig;
-    let eqQTax = (20-(2+tax))/3;
-    let eqPConsumer = 20-2*eqQTax;
-    let eqPProducer = 2+eqQTax;
-    let cs = 0.5*eqQTax*(20-eqPConsumer);
-    let ps = 0.5*eqQTax*(eqPProducer-2);
-    let revenue = eqQTax*tax;
-    let dwl = 0.5*(eqQOrig-eqQTax)*tax;
-    return {cs, ps, revenue, dwl, eqQTax, eqPConsumer, eqPProducer};
-}
-
-function plotSurplusFunc(){
-    const tax = parseFloat(document.getElementById('taxRange').value);
-    document.getElementById('tax_val').textContent = tax.toFixed(1);
-    const q = Array.from({length:500},(_,i)=>i*10/500);
-    const traces = [
-        {x:q, y:demandFunc(q), type:'scatter', name:'Demand'},
-        {x:q, y:supplyFunc(q), type:'scatter', name:'Supply'},
-        {x:[0,tax], y:[0,0], visible:false}
-    ];
-    Plotly.newPlot('plotSurplus', traces, {title:'Surplus and DWL', xaxis:{title:'Quantity'}, yaxis:{title:'Price'}});
-    const s = calculateSurplus(tax);
-    document.getElementById('tableSurplus').innerHTML = `<table border="1"><tr><th>CS</th><th>PS</th><th>Tax Revenue</th><th>DWL</th></tr>
-        <tr><td>${s.cs.toFixed(2)}</td><td>${s.ps.toFixed(2)}</td><td>${s.revenue.toFixed(2)}</td><td>${s.dwl.toFixed(2)}</td></tr></table>`;
-    document.getElementById('explanationSurplusDWL').textContent = `Deadweight loss occurs as quantity falls from ${calculateSurplus(0).eqQTax.toFixed(2)} to ${s.eqQTax.toFixed(2)} due to tax.`;
-}
-document.getElementById('taxRange').addEventListener('input', plotSurplusFunc);
-plotSurplusFunc();
-</script>
-
 </body>
 </html>
