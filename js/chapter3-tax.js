@@ -98,7 +98,7 @@
       name: 'Deadweight Loss'
     };
 
-    Plotly.newPlot('Chapter6-taxPlot', 
+    Plotly.newPlot('Chapter3-taxPlot', 
       [demandTrace, supplyTrace, taxTrace, csShade, psShade, taxShade, dwlShade, eqPoints], 
       {
         title: 'Tax Impact with Surplus & DWL Shading',
