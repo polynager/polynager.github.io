@@ -1,36 +1,33 @@
-// Reaction Curves Interactive Graph
-const p_K_values = Array.from({length:101}, (_, i) => 200 + i); // 200 to 300
+// Reaction curves
+  function burtonReaction(pK) { return 333.33 + 0.5 * pK; }
+  function k2Reaction(pK) { return 8 * pK - 1600; }
 
-function updateGraph(p_K_inter=257.78, p_B_inter=462.22){
-    function burton_reaction(p_K){ return 333.33 + 0.5*p_K; }
-    function k2_reaction(p_K){ return 8*p_K - 1600; }
+  // Range for pK
+  const pK = Array.from({length: 500}, (_, i) => 200 + i * (300 - 200) / 499);
 
-    const traceBurton = {x: p_K_values, y: p_K_values.map(burton_reaction), type:'scatter', mode:'lines', name:"Burton's Reaction Curve", line:{color:'blue'}};
-    const traceK2 = {x: p_K_values, y: p_K_values.map(k2_reaction), type:'scatter', mode:'lines', name:"K2's Reaction Curve", line:{color:'green'}};
-    const intersection = {x:[p_K_inter], y:[p_B_inter], mode:'markers+text', text:['Intersection'], textposition:'top center', marker:{color:'red', size:8}};
+  // Calculate pB values
+  const pB_burton = pK.map(burtonReaction);
+  const pB_k2 = pK.map(k2Reaction);
 
-    const layout = {
-        title:'Reaction Curves and Nash Equilibrium',
-        xaxis:{title:"K2's Price", range:[200,300]},
-        yaxis:{title:"Burton's Price", range:[300,500]}
-    };
+  // Intersection point
+  const pK_intersection = 257.78;
+  const pB_intersection = 462.22;
 
-    Plotly.newPlot('graph3',[traceBurton, traceK2, intersection], layout);
-}
+  const traces = [
+    {x: pK, y: pB_burton, type: 'scatter', mode: 'lines', name: "Burton's Reaction Curve (p_B = 333.33 + 0.5p_K)", line: {color: 'blue'}},
+    {x: pK, y: pB_k2, type: 'scatter', mode: 'lines', name: "K2's Reaction Curve (p_B = 8p_K - 1600)", line: {color: 'green'}},
+    {x: [pK_intersection], y: [pB_intersection], type: 'scatter', mode: 'markers', name: "Intersection (p_B=462.22, p_K=257.78)", marker: {color: 'red', size: 8}},
+    // Dashed lines for equilibrium
+    {x: [pK[0], pK_intersection], y: [pB_intersection, pB_intersection], mode:'lines', line:{dash:'dash', color:'gray'}, type:'scatter', showlegend:false},
+    {x: [pK_intersection, pK_intersection], y: [pB_burton[0], pB_intersection], mode:'lines', line:{dash:'dash', color:'gray'}, type:'scatter', showlegend:false}
+  ];
 
-// Initial plot
-updateGraph();
+  const layout = {
+    title: "Reaction Curves and Nash Equilibrium",
+    xaxis: {title: "K2's Price (p_K)", range: [200, 300]},
+    yaxis: {title: "Burton's Price (p_B)", range: [300, 500]},
+    legend: {x: 0.5, y: 1},
+    grid: {rows:1, columns:1}
+  };
 
-// Slider controls
-const container3 = document.getElementById('graph3');
-
-const sliderPK = document.createElement('input');
-sliderPK.type='range'; sliderPK.min=200; sliderPK.max=300; sliderPK.step=1; sliderPK.value=257.78; sliderPK.style.width='300px';
-const sliderPB = document.createElement('input');
-sliderPB.type='range'; sliderPB.min=300; sliderPB.max=500; sliderPB.step=1; sliderPB.value=462.22; sliderPB.style.width='300px';
-
-sliderPK.oninput = () => updateGraph(parseFloat(sliderPK.value), parseFloat(sliderPB.value));
-sliderPB.oninput = () => updateGraph(parseFloat(sliderPK.value), parseFloat(sliderPB.value));
-
-container3.appendChild(sliderPK);
-container3.appendChild(sliderPB);
+  Plotly.newPlot('graph3', traces, layout);
