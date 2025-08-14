@@ -1,3 +1,4 @@
+(function() {
 // Reaction curves
   function burtonReaction(pK) { return 333.33 + 0.5 * pK; }
   function k2Reaction(pK) { return 8 * pK - 1600; }
@@ -31,3 +32,5 @@
   };
 
   Plotly.newPlot('graph3', traces, layout);
+  })();
+  
