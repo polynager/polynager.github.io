@@ -39,15 +39,32 @@
     <div id="Isoquant-chapter6" style="width: 100%; height: 500px;"></div>
   </section>
 
-  <section id="chapter6-cobb">
-    <h2>Cobb-Douglas Isoquants</h2>
-    <div id="Cobb-chapter6" style="width: 100%; height: 500px;"></div>
-  </section>
+<section id="chapter6-cobb">
+  <h2>Cobb-Douglas Isoquants</h2>
+  <div>
+    <label for="alpha">Alpha (α): </label>
+    <input type="range" id="alpha" min="0.1" max="1" step="0.1" value="0.5">
+    <span id="alphaVal">0.5</span>
+  </div>
+  <div>
+    <label for="beta">Beta (β): </label>
+    <input type="range" id="beta" min="0.1" max="1" step="0.1" value="0.5">
+    <span id="betaVal">0.5</span>
+  </div>
+  <div id="Cobb-chapter6" style="width: 100%; height: 500px;"></div>
+  <p id="returns"></p>
+</section>
 
-  <section id="chapter6-isoquantoutput">
-    <h2>Isoquants for different Output Levels</h2>
-    <div id="Isoquantoutput-chapter6" style="width: 100%; height: 500px;"></div>
-  </section>
+<section id="chapter6-isoquantoutput">
+  <h2>Isoquants for Different Output Levels</h2>
+  <div>
+    <label for="A">Technology (A): </label>
+    <input type="range" id="A" min="0.5" max="2" step="0.1" value="1">
+    <span id="AVal">1</span>
+  </div>
+  <div id="Isoquantoutput-chapter6" style="width: 100%; height: 500px;"></div>
+  <p id="explanation"></p>
+</section>
 
 <section id="chapter6-cd-isoquants">
   <h2>Cobb-Douglas Isoquants and Total Cost</h2>
