@@ -32,8 +32,8 @@
 
     function updatePlots() {
       const demandShift = parseFloat(document.getElementById("demandShift").value);
-      document.getElementById("shiftValue").innerText = demandShift;
-
+      document.getElementById("demandShiftValue").innerText = demandShift;
+      document.getElementById('demandShift').addEventListener('input', updatePlots);
       const prices = linspace(200, 300, 500);
       const firm_quantities = linspace(0, 20, 500);
 
