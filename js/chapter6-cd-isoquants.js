@@ -1,52 +1,59 @@
-// Cobb-Douglas production function
 function productionFunction(K, L, alpha, beta) {
-    return K.map((k,i) => K.map((_,j) => Math.pow(k, alpha) * Math.pow(L[j], beta)));
+    return Math.pow(K, alpha) * Math.pow(L, beta);
 }
 
-// Tangency condition: optimal input mix (approximation)
 function optimalInputMix(Y, w, r, alpha, beta) {
-    const L_star = Math.pow(Y / Math.pow((w/r), alpha/beta), 1/(alpha+beta));
+    const L_star = Math.pow(Y / Math.pow(w/r, alpha/beta), 1/(alpha+beta));
     const K_star = (L_star * (w/r)) * (beta/alpha);
     return [K_star, L_star];
 }
 
-// Total cost
 function totalCost(K, L, w, r) {
     return r*K + w*L;
 }
 
-// Plot function
 function plotIsoquantsAndCost(w, r, alpha, beta) {
     const Y_values = Array.from({length:10}, (_,i)=>1 + i*(10-1)/9);
-    const K = Array.from({length:100}, (_,i)=>0.1 + i*(10-0.1)/99);
-    const L = Array.from({length:100}, (_,i)=>0.1 + i*(10-0.1)/99);
+    const K_grid = Array.from({length:50}, (_,i)=>0.1 + i*(10-0.1)/49);
+    const L_grid = Array.from({length:50}, (_,i)=>0.1 + i*(10-0.1)/49);
 
-    // Isoquants
+    // Isoquants traces
     const isoquantsTraces = Y_values.map(Y=>{
-        const Z = K.map(k => L.map(l => Math.pow(k, alpha) * Math.pow(l, beta)));
-        return {x:K, y:L, z:Z, type:'contour', contours:{showlabels:true}, showscale:false, name:`Y=${Y}`};
+        const Z = K_grid.map(k => L_grid.map(l => productionFunction(k,l,alpha,beta)));
+        return {x:K_grid, y:L_grid, z:Z, type:'contour', contours:{showlabels:true}, showscale:false, name:`Y=${Y}`};
     });
 
     // Optimal points and total costs
-    const optimal_K = [];
-    const optimal_L = [];
-    const total_costs = [];
+    const optimal_K = [], optimal_L = [], total_costs = [];
     Y_values.forEach(Y=>{
-        const [K_star,L_star] = optimalInputMix(Y,w,r,alpha,beta);
+        const [K_star, L_star] = optimalInputMix(Y, w, r, alpha, beta);
         optimal_K.push(K_star);
         optimal_L.push(L_star);
-        total_costs.push(totalCost(K_star,L_star,w,r));
-        isoquantsTraces.push({x:[K_star], y:[L_star], mode:'markers+text', text:[`Y=${Y.toFixed(1)}, C=${totalCost(K_star,L_star,w,r).toFixed(1)}`], textposition:'top right', marker:{color:'red', size:8}, name:`Optimal Y=${Y}`});
+        total_costs.push(totalCost(K_star, L_star, w, r));
+        isoquantsTraces.push({
+            x:[K_star], y:[L_star], mode:'markers+text',
+            text:[`Y=${Y.toFixed(1)}, C=${totalCost(K_star,L_star,w,r).toFixed(1)}`],
+            textposition:'top right', marker:{color:'red', size:8}, name:`Optimal Y=${Y}`
+        });
     });
 
-    // Plot isoquants
-    const layout = {title:'Isoquants and Optimal Input Combinations', xaxis:{title:'Capital (K)'}, yaxis:{title:'Labor (L)'}};
-    Plotly.newPlot('isoquantsPlot', isoquantsTraces, layout);
+    // Total cost trace
+    const totalCostTrace = {
+        x:Y_values, y:total_costs, mode:'lines+markers',
+        name:'Total Cost', line:{color:'green'}
+    };
 
-    // Total cost curve
-    const totalCostTrace = {x:Y_values, y:total_costs, mode:'lines+markers', name:'Total Cost', line:{color:'green'}};
-    const totalCostLayout = {title:'Total Cost Curve', xaxis:{title:'Output (Y)'}, yaxis:{title:'Total Cost (C)'}};
-    Plotly.newPlot('isoquantsPlot', [totalCostTrace], totalCostLayout);
+    // Layout with two subplots
+    const layout = {
+        grid:{rows:1, columns:2, pattern:'independent'},
+        title:'Cobb-Douglas Isoquants and Total Cost Curve',
+        xaxis:{title:'Capital (K)'}, yaxis:{title:'Labor (L)'},
+        xaxis2:{title:'Output (Y)'}, yaxis2:{title:'Total Cost (C)'}
+    };
+
+    Plotly.newPlot('plotContainer', [...isoquantsTraces.map(trace => ({...trace, xaxis:'x1', yaxis:'y1'})),
+                                   {...totalCostTrace, xaxis:'x2', yaxis:'y2'}],
+                   layout);
 }
 
 // Initial plot
