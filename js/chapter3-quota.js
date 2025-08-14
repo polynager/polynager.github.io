@@ -27,24 +27,50 @@ function calculateSurplusesAndDWL(quota) {
     return { eqPrice, eqQuantity, consumerSurplus: null, producerSurplus: null, dwl: null };
 }
 
-// Plot with Plotly
 function plotQuota(quota) {
     const quantities = Array.from({ length: 500 }, (_, i) => i * 0.02);
-    const surpluses = calculateSurplusesAndDWL(quota);
 
+    // 1️⃣ Calculate the original equilibrium (no quota)
+    const initialDemandIntercept = 20;
+    const initialSupplyIntercept = 2;
+    const eqQuantityOriginal = (initialDemandIntercept - initialSupplyIntercept) / (1 - (-2)); 
+    const eqPriceOriginal = demandCurve(eqQuantityOriginal, initialDemandIntercept);
+
+    const oldSurpluses = {
+        maxPrice: demandCurve(0, initialDemandIntercept), // intercept on price axis
+        minPrice: supplyCurve(0, initialSupplyIntercept)  // supply intercept on price axis
+    };
+
+    // 2️⃣ Calculate restricted/quota case
+    const surpluses = calculateSurplusesAndDWL(quota);
+    const priceAtQuota = surpluses.priceAtQuota || eqPriceOriginal;
+
+    // "Shifted" means quota is binding
+    const shifted = quota < eqQuantityOriginal;
+    let eqQuantityShifted = null, eqPriceShifted = null, newSurpluses = null;
+
+    if (shifted) {
+        eqQuantityShifted = quota;
+        eqPriceShifted = priceAtQuota;
+        newSurpluses = {
+            maxPrice: oldSurpluses.maxPrice,
+            minPrice: supplyCurve(quota, initialSupplyIntercept)
+        };
+    }
+
+    // Demand & supply curves
     const demand = quantities.map(q => demandCurve(q));
     const supply = quantities.map(q => supplyCurve(q));
 
     let traces = [
         { x: quantities, y: demand, mode: 'lines', name: 'Demand', line: { color: 'blue' } },
         { x: quantities, y: supply, mode: 'lines', name: 'Supply', line: { color: 'green' } },
-        { x: [surpluses.eqQuantity], y: [surpluses.eqPrice], mode: 'markers+text', name: 'Equilibrium', 
-          text: [`Eq (Q=${surpluses.eqQuantity.toFixed(2)}, P=${surpluses.eqPrice.toFixed(2)})`], textposition: 'top right',
+        { x: [eqQuantityOriginal], y: [eqPriceOriginal], mode: 'markers+text', name: 'Equilibrium',
+          text: [`Eq (Q=${eqQuantityOriginal.toFixed(2)}, P=${eqPriceOriginal.toFixed(2)})`], textposition: 'top right',
           marker: { color: 'red', size: 8 } }
     ];
 
-    if (surpluses.consumerSurplus !== null) {
-        // Quota line
+    if (shifted) {
         traces.push({
             x: [quota, quota],
             y: [0, demandCurve(quota)],
@@ -53,52 +79,53 @@ function plotQuota(quota) {
             line: { color: 'orange', dash: 'dash' }
         });
     }
+
     // Shade original consumer surplus
-traces.push({
-  x: [0, eqQuantityOriginal, 0],
-  y: [oldSurpluses.maxPrice, eqPriceOriginal, eqPriceOriginal],
-  fill: 'toself',
-  fillcolor: 'rgba(0,0,255,0.15)', // lighter blue
-  line: { width: 0 },
-  name: 'Consumer Surplus (Original)',
-  showlegend: true
-});
+    traces.push({
+        x: [0, eqQuantityOriginal, 0],
+        y: [oldSurpluses.maxPrice, eqPriceOriginal, eqPriceOriginal],
+        fill: 'toself',
+        fillcolor: 'rgba(0,0,255,0.15)',
+        line: { width: 0 },
+        name: 'Consumer Surplus (Original)',
+        showlegend: true
+    });
 
-// Shade original producer surplus
-traces.push({
-  x: [0, eqQuantityOriginal, 0],
-  y: [eqPriceOriginal, eqPriceOriginal, oldSurpluses.minPrice],
-  fill: 'toself',
-  fillcolor: 'rgba(0,128,0,0.15)', // lighter green
-  line: { width: 0 },
-  name: 'Producer Surplus (Original)',
-  showlegend: true
-});
+    // Shade original producer surplus
+    traces.push({
+        x: [0, eqQuantityOriginal, 0],
+        y: [eqPriceOriginal, eqPriceOriginal, oldSurpluses.minPrice],
+        fill: 'toself',
+        fillcolor: 'rgba(0,128,0,0.15)',
+        line: { width: 0 },
+        name: 'Producer Surplus (Original)',
+        showlegend: true
+    });
 
-if (shifted) {
-  // Shade shifted consumer surplus
-  traces.push({
-    x: [0, eqQuantityShifted, 0],
-    y: [newSurpluses.maxPrice, eqPriceShifted, eqPriceShifted],
-    fill: 'toself',
-    fillcolor: 'rgba(0,0,255,0.4)', // darker blue
-    line: { width: 0 },
-    name: 'Consumer Surplus (Shifted)',
-    showlegend: true
-  });
+    if (shifted) {
+        // Shade shifted consumer surplus
+        traces.push({
+            x: [0, eqQuantityShifted, 0],
+            y: [newSurpluses.maxPrice, eqPriceShifted, eqPriceShifted],
+            fill: 'toself',
+            fillcolor: 'rgba(0,0,255,0.4)',
+            line: { width: 0 },
+            name: 'Consumer Surplus (Shifted)',
+            showlegend: true
+        });
 
-  // Shade shifted producer surplus
-  traces.push({
-    x: [0, eqQuantityShifted, 0],
-    y: [eqPriceShifted, eqPriceShifted, newSurpluses.minPrice],
-    fill: 'toself',
-    fillcolor: 'rgba(0,128,0,0.4)', // darker green
-    line: { width: 0 },
-    name: 'Producer Surplus (Shifted)',
-    showlegend: true
-  });
-}
-    
+        // Shade shifted producer surplus
+        traces.push({
+            x: [0, eqQuantityShifted, 0],
+            y: [eqPriceShifted, eqPriceShifted, newSurpluses.minPrice],
+            fill: 'toself',
+            fillcolor: 'rgba(0,128,0,0.4)',
+            line: { width: 0 },
+            name: 'Producer Surplus (Shifted)',
+            showlegend: true
+        });
+    }
+
     Plotly.newPlot('Quota-chapter3', traces, {
         title: 'Quota Effect on Supply and Demand',
         xaxis: { title: 'Quantity' },
@@ -106,10 +133,10 @@ if (shifted) {
         showlegend: true
     });
 
-    // Show explanation
+    // Explanation
     let explanation = '';
     if (surpluses.consumerSurplus !== null) {
-        explanation = `Quota restricts quantity to ${quota}, raising price to ${surpluses.priceAtQuota.toFixed(2)}. 
+        explanation = `Quota restricts quantity to ${quota}, raising price to ${priceAtQuota.toFixed(2)}. 
         DWL = ${surpluses.dwl.toFixed(2)}.`;
     } else {
         explanation = `Quota of ${quota} does not impact the market.`;
