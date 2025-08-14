@@ -1,3 +1,4 @@
+(function() {
 // Residual demand curves
   function residualDemand1(qS) { return 200 - 3*qS - 30; }  // q_I = 10
   function residualDemand2(qS) { return 200 - 3*qS - 90; }  // q_I = 30
@@ -48,4 +49,6 @@
     grid: {rows:1, columns:1}
   };
 
-  Plotly.newPlot('graph2', traces, layout);
+  Plotly.newPlot('graph2', traces, layout); 
+  })();
+
