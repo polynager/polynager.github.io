@@ -1,61 +1,75 @@
-// Monopoly, Two Firms, N Firms Interactive Graph
-const q_vals = Array.from({length:500}, (_, i) => 1 + i*0.038); // 1 to 20
+function demandOne(q) { return 10 - 0.5*q; }
+  function mrOne(q) { return 10 - q; }
+  function demandTwo(q) { return 8 - 0.4*q; }
+  function mrTwo(q) { return 8 - 0.8*q; }
+  function demandN(q) { return 6 - 0.3*q; }
+  function mrN(q) { return 6 - 0.6*q; }
+  function mc(q) { return 2 + 0.1*q; }
+  function atc(q, fixedCost=5) { return mc(q) + fixedCost/q; }
 
-function updateGraph(q_one=8, q_two=6, q_n=4){
-    function demand_one(q){ return 10 - 0.5*q; }
-    function mr_one(q){ return 10 - q; }
-    function demand_two(q){ return 8 - 0.4*q; }
-    function mr_two(q){ return 8 - 0.8*q; }
-    function demand_n(q){ return 6 - 0.3*q; }
-    function mr_n(q){ return 6 - 0.6*q; }
-    function mc(q){ return 2 + 0.1*q; }
-    function atc(q, fixed_cost=5){ return mc(q) + fixed_cost/q; }
+  // Quantities
+  const q = Array.from({length:500}, (_,i) => 1 + i*(20-1)/499);
 
-    // Monopoly traces
-    const traceMonDemand = {x:q_vals, y:q_vals.map(demand_one), type:'scatter', mode:'lines', name:'Monopoly Demand', line:{color:'blue'}};
-    const traceMonMR = {x:q_vals, y:q_vals.map(mr_one), type:'scatter', mode:'lines', name:'MR', line:{color:'purple'}};
-    const traceMC = {x:q_vals, y:q_vals.map(mc), type:'scatter', mode:'lines', name:'MC', line:{color:'red'}};
-    const traceATC = {x:q_vals, y:q_vals.map(atc), type:'scatter', mode:'lines', name:'ATC', line:{color:'skyblue'}};
-    const eqMon = {x:[q_one], y:[demand_one(q_one)], mode:'markers+text', text:['Monopoly Eq'], textposition:'top center', marker:{color:'black', size:8}};
+  // ---------- Monopoly ----------
+  const monopolyTraces = [
+    {x:q, y:q.map(demandOne), type:'scatter', mode:'lines', name:'DONE (Demand)', line:{color:'blue'}},
+    {x:q, y:q.map(mrOne), type:'scatter', mode:'lines', name:'MRONE', line:{color:'purple'}},
+    {x:q, y:q.map(mc), type:'scatter', mode:'lines', name:'MC', line:{color:'red'}},
+    {x:q, y:q.map(atc), type:'scatter', mode:'lines', name:'ATC', line:{color:'skyblue'}},
+    {x:[8], y:[demandOne(8)], type:'scatter', mode:'markers', name:'Equilibrium (Q*ONE, P*ONE)', marker:{color:'black', size:8}},
+    {x:[8,8], y:[0,demandOne(8)], type:'scatter', mode:'lines', line:{dash:'dash', color:'gray'}, showlegend:false},
+    {x:[0,8], y:[demandOne(8),demandOne(8)], type:'scatter', mode:'lines', line:{dash:'dash', color:'gray'}, showlegend:false}
+  ];
 
-    // Two firms traces
-    const traceTwoDemand = {x:q_vals, y:q_vals.map(demand_two), type:'scatter', mode:'lines', name:'Two Firms Demand', line:{color:'blue', dash:'dot'}};
-    const traceTwoMR = {x:q_vals, y:q_vals.map(mr_two), type:'scatter', mode:'lines', name:'Two Firms MR', line:{color:'purple', dash:'dot'}};
-    const eqTwo = {x:[q_two], y:[demand_two(q_two)], mode:'markers+text', text:['Two Firms Eq'], textposition:'top center', marker:{color:'black', size:8}};
+  const layoutMonopoly = {
+    title:'Monopoly: Single Firm in the Market',
+    xaxis:{title:'Quantity of meals (Q)'},
+    yaxis:{title:'Price and cost ($)', range:[0,12]},
+    legend:{font:{size:10}},
+    grid:{rows:1, columns:1}
+  };
 
-    // N firms traces
-    const traceNDemand = {x:q_vals, y:q_vals.map(demand_n), type:'scatter', mode:'lines', name:'N Firms Demand', line:{color:'blue', dash:'dash'}};
-    const traceNMR = {x:q_vals, y:q_vals.map(mr_n), type:'scatter', mode:'lines', name:'N Firms MR', line:{color:'purple', dash:'dash'}};
-    const eqN = {x:[q_n], y:[demand_n(q_n)], mode:'markers+text', text:['N Firms Eq'], textposition:'top center', marker:{color:'black', size:8}};
+  Plotly.newPlot('monopoly', monopolyTraces, layoutMonopoly);
 
-    const layout = {
-        title:'Monopoly → Two Firms → N Firms',
-        xaxis:{title:'Quantity Q', range:[0,20]},
-        yaxis:{title:'Price/Cost ($)', range:[0,12]}
-    };
+  // ---------- Two Firms ----------
+  const twoFirmsTraces = [
+    {x:q, y:q.map(demandOne), type:'scatter', mode:'lines', name:'DONE (Initial Demand)', line:{color:'blue', dash:'dash'}},
+    {x:q, y:q.map(mrOne), type:'scatter', mode:'lines', name:'MRONE (Initial MR)', line:{color:'purple', dash:'dash'}},
+    {x:q, y:q.map(demandTwo), type:'scatter', mode:'lines', name:'DTWO (Residual Demand)', line:{color:'blue'}},
+    {x:q, y:q.map(mrTwo), type:'scatter', mode:'lines', name:'MRTWO (Residual MR)', line:{color:'purple'}},
+    {x:q, y:q.map(mc), type:'scatter', mode:'lines', name:'MC', line:{color:'red'}},
+    {x:q, y:q.map(atc), type:'scatter', mode:'lines', name:'ATC', line:{color:'skyblue'}},
+    {x:[6], y:[demandTwo(6)], type:'scatter', mode:'markers', name:'Equilibrium (Q*TWO, P*TWO)', marker:{color:'black', size:8}},
+    {x:[6,6], y:[0,demandTwo(6)], type:'scatter', mode:'lines', line:{dash:'dash', color:'gray'}, showlegend:false},
+    {x:[0,6], y:[demandTwo(6),demandTwo(6)], type:'scatter', mode:'lines', line:{dash:'dash', color:'gray'}, showlegend:false}
+  ];
 
-    Plotly.newPlot('graph4',[traceMonDemand, traceMonMR, traceMC, traceATC, eqMon,
-                             traceTwoDemand, traceTwoMR, eqTwo,
-                             traceNDemand, traceNMR, eqN], layout);
-}
+  const layoutTwoFirms = {
+    title:'Two Firms in the Market',
+    xaxis:{title:'Quantity of meals (Q)'},
+    yaxis:{title:'Price and cost ($)', range:[0,12]},
+    legend:{font:{size:10}}
+  };
 
-// Initial plot
-updateGraph();
+  Plotly.newPlot('two-firms', twoFirmsTraces, layoutTwoFirms);
 
-// Slider controls
-const container4 = document.getElementById('graph4');
+  // ---------- Long-Run Equilibrium ----------
+  const longRunTraces = [
+    {x:q, y:q.map(demandN), type:'scatter', mode:'lines', name:'DN (Demand)', line:{color:'blue'}},
+    {x:q, y:q.map(mrN), type:'scatter', mode:'lines', name:'MRN', line:{color:'purple'}},
+    {x:q, y:q.map(mc), type:'scatter', mode:'lines', name:'MC', line:{color:'red'}},
+    {x:q, y:q.map(atc), type:'scatter', mode:'lines', name:'ATC', line:{color:'skyblue'}},
+    {x:[4], y:[demandN(4)], type:'scatter', mode:'markers', name:'Equilibrium (Q*N, P*N)', marker:{color:'black', size:8}},
+    {x:[4,4], y:[0,demandN(4)], type:'scatter', mode:'lines', line:{dash:'dash', color:'gray'}, showlegend:false},
+    {x:[0,4], y:[demandN(4),demandN(4)], type:'scatter', mode:'lines', line:{dash:'dash', color:'gray'}, showlegend:false}
+  ];
 
-const sliderQ1 = document.createElement('input');
-sliderQ1.type='range'; sliderQ1.min=1; sliderQ1.max=20; sliderQ1.step=0.1; sliderQ1.value=8; sliderQ1.style.width='300px';
-const sliderQ2 = document.createElement('input');
-sliderQ2.type='range'; sliderQ2.min=1; sliderQ2.max=20; sliderQ2.step=0.1; sliderQ2.value=6; sliderQ2.style.width='300px';
-const sliderQN = document.createElement('input');
-sliderQN.type='range'; sliderQN.min=1; sliderQN.max=20; sliderQN.step=0.1; sliderQN.value=4; sliderQN.style.width='300px';
+  const layoutLongRun = {
+    title:'Long-Run Equilibrium with N Firms',
+    xaxis:{title:'Quantity of meals (Q)'},
+    yaxis:{title:'Price and cost ($)', range:[0,12]},
+    legend:{font:{size:10}}
+  };
 
-sliderQ1.oninput = () => updateGraph(parseFloat(sliderQ1.value), parseFloat(sliderQ2.value), parseFloat(sliderQN.value));
-sliderQ2.oninput = () => updateGraph(parseFloat(sliderQ1.value), parseFloat(sliderQ2.value), parseFloat(sliderQN.value));
-sliderQN.oninput = () => updateGraph(parseFloat(sliderQ1.value), parseFloat(sliderQ2.value), parseFloat(sliderQN.value));
-
-container4.appendChild(sliderQ1);
-container4.appendChild(sliderQ2);
-container4.appendChild(sliderQN);
+  Plotly.newPlot('long-run', longRunTraces, layoutLongRun);
+</script>
