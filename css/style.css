@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #064e3b; /* Dark green background */
+  background-color: #0f9d58; /* Medium green */
   color: #ffffff;
 }
 
@@ -14,7 +14,7 @@ body {
   justify-content: center;
   height: 100vh; /* Full screen */
   text-align: center;
-  background-color: #064e3b;
+  background-color: #0f9d58; /* Medium green */
 }
 .hero h1 {
   font-size: 3rem;
@@ -25,12 +25,12 @@ body {
 /* Chapters Section */
 .chapters {
   padding: 50px 20px;
-  background-color: #0f766e; /* Slightly lighter green */
+  background-color: #1eaf70; /* Slightly lighter green */
   text-align: center;
 }
 .chapters h2 {
   font-size: 2.5rem;
-  color: #fbbf24;
+  color: #fbbf24; /* Gold */
   margin-bottom: 40px;
 }
 
@@ -43,35 +43,36 @@ body {
 
 /* Chapter Cards */
 .chapter-card {
-  background-color: #065f46;
-  border: 2px solid #fbbf24;
+  background-color: #1a875f; /* Darker green for cards */
+  border: 2px solid #fbbf24; /* Gold border */
   border-radius: 15px;
   padding: 25px 20px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .chapter-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
-
 .chapter-card h3 {
-  color: #fbbf24;
+  color: #fbbf24; /* Gold */
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
+.chapter-card p {
+  color: #ffffff;
+}
 
+/* Buttons */
 .btn-small {
   display: inline-block;
   padding: 10px 18px;
-  background-color: #fbbf24;
-  color: #064e3b;
+  background-color: #fbbf24; /* Gold */
+  color: #0f9d58; /* Green text */
   border-radius: 12px;
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.2s;
 }
-
 .btn-small:hover {
   background-color: #ddb02c;
 }
@@ -89,369 +90,39 @@ body {
   }
 }
 
-/* Headings */
-h1, h2 {
-  color: #343a40;
-  margin-bottom: 1rem;
-}
-
-/* Section */
-section {
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-/* Labels + Sliders */
-label {
-  display: block;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
-}
-
-#text-area {
-  flex: 1;
-  line-height: 1.5;
-}
-
-ul {
-  margin-left: 20px;
-}
-
-input[type="range"] {
-  width: 250px;
-  margin-left: 1rem;
-  vertical-align: middle;
-}
-
-/* Sliders grouped horizontally */
-label + label {
-  margin-top: 0.5rem;
-}
-
-/* Plot container */
-#leontiefBundlePlot {
-  margin-top: 2rem;
-}
-
-/* Optional: Style text inside slider labels */
-input[type="range"]::-webkit-slider-thumb {
-  background-color: #318925;
-}
-
-/* Homepage Container */
-.homepage {
-  background-color: #fdfdfd;
-  border-radius: 12px;
-  padding: 3rem 3.5rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* Header */
-.homepage h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #2c2c2c;
-}
-
-/* Welcome text */
-.homepage p {
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
-  color: #555;
-}
-
-/* Chapter list */
-.homepage ul {
-  list-style: none;
-  padding: 0;
-}
-
-.homepage li {
-  margin: 1.5rem 0;
-}
-
-/* Chapter link as styled button */
-.homepage a,
-.back-home-button {
-  display: inline-block;
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 0.75rem 1.75rem;
-  background-color: #318925;
-  color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-  transition: background-color 0.25s ease, transform 0.2s ease;
-}
-
-.homepage a:hover,
-.back-home-button:hover {
-  background-color: #256d1a;
-  transform: translateY(-2px);
-}
-
-.back-home-container {
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
-.quiz-section {
-  background: #fff8f4;
-  border: 1px solid #e1cfc5;
-  border-radius: 12px;
-  padding: 2rem;
-  margin-top: 3rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.question {
-  margin-bottom: 2rem;
-}
-
-.option-label {
-  display: block;
-  margin: 0.5rem 0;
-  cursor: pointer;
-}
-
-.correct {
-  color: #2e7d32;
-  font-weight: bold;
-}
-
-.incorrect {
-  color: #c62828;
-  font-weight: bold;
-}
-
-.submit-button {
-  background-color: #e2725b;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.submit-button:hover {
-  background-color: #cf5a42;
-}
-
-#container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  max-width: 900px;
-  margin: auto;
-}
-
-.text-box {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-/* Python plot section */
-#python-plot {
-  background-color: #fffaf5;
-  border: 1px solid #e1cfc2;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  margin-top: 2rem;
-}
-
-#python-code {
-  width: 100%;
-  height: 180px;
-  font-family: monospace;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem;
-  background-color: #fefefe;
-}
-
-.run-python-button {
-  padding: 0.6rem 1.25rem;
-  font-size: 1rem;
-  background-color: #b65a38;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.run-python-button:hover {
-  background-color: #93432d;
-}
-
-.plot-output img {
-  max-width: 100%;
-  margin-top: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-.code-editor-container {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
-}
-
+/* Keep your previous content styling, just adjust colors */
+.homepage,
+section,
+.text-box,
+#python-plot,
+.quiz-section,
+#container,
+.modal-content,
+.modal-right,
+#modalEditor,
+#modalOutput,
 .CodeMirror {
-  height: auto;
-  border: 1px solid #ddd;
-  font-size: 14px;
+  background-color: #1eaf70; /* consistent green */
+  color: #ffffff;
+  border-color: #fbbf24; /* gold borders */
 }
 
-#codeModal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
+/* Slider thumbs */
+input[type="range"]::-webkit-slider-thumb {
+  background-color: #fbbf24;
 }
 
-#codeModal .modal-content {
-  background: #ffffff;
-  width: 95%;
-  max-width: 1200px;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
-}
-
-/* Header */
-#codeModal header {
-  padding: 10px;
-  background: #f0f0f0;
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Body splits editor + output side-by-side */
-.modal-body {
-  flex: 1;
-  display: flex;
-  flex-direction: row; /* THIS makes side-by-side layout */
-  overflow: hidden;
-}
-
-#modalEditor {
-  width: 40%;
-  height: 100%;
-  overflow: auto;
-  border-right: 1px solid #ccc;
-  display: flex;
-  flex-direction: column;
-}
+/* Buttons inside modals, Python, etc. */
+.run-python-button,
+.see-code-button,
+.modal-right button,
 #modalEditor button {
-  margin-top: 10px;
-  align-self: flex-start; /* aligns button left */
-  padding: 0.6rem 1.2rem;
-  background-color: #318925;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  background-color: #fbbf24;
+  color: #0f9d58;
 }
+.run-python-button:hover,
+.see-code-button:hover,
+.modal-right button:hover,
 #modalEditor button:hover {
-  background-color: #256d1a;
+  background-color: #ddb02c;
 }
-
-/* Output and run button on right */
-.modal-right {
-  width: 60%;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#modalOutput {
-  flex: 1;
-  overflow: auto;
-  padding: 10px;
-  background: #fefefe;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-}
-
-#modalOutput img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-}
-
-.modal-right button {
-  align-self: flex-end;
-  padding: 0.6rem 1.2rem;
-  background-color: #318925;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.modal-right button:hover {
-  background-color: #256d1a;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.see-code-button {
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-  background-color: #b65a38;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.see-code-button:hover {
-  background-color: #b65a38;
-}
-.run-button-container {
-  padding: 10px 12px 0;
-  background-color: #f0f0f0;
-  border-top: 1px solid #ccc;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.explanation-text {
-  margin-top: 0;       /* Removes extra space above text */
-  margin-bottom: 40px; /* Adds space below the text (and graph) */
-}
-
