@@ -6,6 +6,14 @@
   <title>Market and Firm-Level Supply/Demand Visualization</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      }
+    };
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
   <link rel="stylesheet" href="../css/style.css" />
@@ -13,10 +21,11 @@
 <body>
   
   <div class="back-home-container">
-  <a href="../index.html" class="back-home-button">&larr; Back to Homepage</a>
+    <a href="../index.html" class="back-home-button">&larr; Back to Homepage</a>
   </div>
-<div class="text-box">
-  <h1>Chapter 8.1: Market Structures and Perfect Competition in the Short Run</h1>
+
+  <div class="text-box">
+    <h1>Chapter 8.1: Market Structures and Perfect Competition in the Short Run</h1>
 
     <p>This chapter introduces <strong>four types of market structures</strong>: perfect competition, monopolistic competition, oligopoly, and monopoly. Market structures are classified based on three main characteristics:</p>
     <ul>
@@ -43,59 +52,52 @@
     </div>
 
     <p>This model is rare in real-world markets but provides an important baseline for understanding efficiency and firm behavior in competitive environments.</p>
-</div>
-<section id="chapter8-plot1">
-    <h2>Market: Supply and Demand Curves (Equilibrium at $4)</h2>
-    <div id="market-firm-plot" style="width: 100%; height: 500px;"></div>
-</section>
-<div class="text-box">
-  <h1>Chapter 8.2: Profit Maximization in a Perfectly Competitive Market</h1>
+  </div>
 
-    <p>In a perfectly competitive market, firms maximize profit by selecting the quantity of output where the <strong>marginal cost (MC)</strong> of production equals the market price (P), which is also their <strong>marginal revenue (MR)</strong>. Since perfectly competitive firms are <strong>price takers</strong>, they can only decide how much to produce, not the price at which they sell.</p>
+  <section id="chapter8-plot1">
+    <h2>Market: Supply and Demand Curves (Equilibrium at \(4\))</h2>
+    <div id="market-firm-plot" style="width: 100%; height: 500px;"></div>
+  </section>
+
+  <div class="text-box">
+    <h1>Chapter 8.2: Profit Maximization in a Perfectly Competitive Market</h1>
+
+    <p>In a perfectly competitive market, firms maximize profit by selecting the quantity of output where the <strong>marginal cost (MC)</strong> of production equals the market price (\(P\)), which is also their <strong>marginal revenue (MR)</strong>. Since perfectly competitive firms are <strong>price takers</strong>, they can only decide how much to produce, not the price at which they sell.</p>
 
     <h2>Key Concepts</h2>
     <ul>
-        <li><strong>Profit Maximization:</strong> A firm maximizes profit by choosing output where <code>MC = MR = P</code>. Producing beyond this point increases costs more than revenue, while producing less reduces potential revenue without lowering costs enough to increase profit.</li>
-        <li><strong>Total Revenue and Total Cost:</strong> Profit is the difference between total revenue (<code>TR = P × Q</code>) and total cost (<code>TC</code>).
+        <li><strong>Profit Maximization:</strong> A firm maximizes profit by choosing output where \(MC = MR = P\). Producing beyond this point increases costs more than revenue, while producing less reduces potential revenue without lowering costs enough to increase profit.</li>
+        <li><strong>Total Revenue and Total Cost:</strong> Profit is the difference between total revenue (\(TR = P \times Q\)) and total cost (\(TC\)).
             <ul>
                 <li>The demand (MR) curve is a horizontal line at the market price.</li>
                 <li>The total revenue curve is a straight line from the origin, as each unit of output adds the same revenue.</li>
             </ul>
         </li>
-        <li><strong>Profit Calculation:</strong> Profit at the optimal output <code>Q*</code> can be calculated as:
-            <br><code>Profit = (P - ATC) × Q*</code>, where <code>ATC</code> is the average total cost at <code>Q*</code>.
+        <li><strong>Profit Calculation:</strong> Profit at the optimal output \(Q^*\) can be calculated as:
+            \[
+            \text{Profit} = (P - ATC) \times Q^*
+            \]
+            where \(ATC\) is the average total cost at \(Q^*\).
         </li>
-        <li><strong>Output Decisions with Price Changes:</strong> If market price changes, the firm adjusts output until <code>MC = P</code> again. Higher prices lead to higher output, lower prices lead to lower output.</li>
+        <li><strong>Output Decisions with Price Changes:</strong> If market price changes, the firm adjusts output until \(MC = P\) again. Higher prices lead to higher output, lower prices lead to lower output.</li>
     </ul>
-
-    <h2>Profit Maximization Mechanism in a Competitive Market</h2>
-    <div class="key-point">
-        <ul>
-            <li><strong>Firms produce until MC = P:</strong> The profit-maximizing point occurs when the cost of producing an additional unit equals the revenue it generates.</li>
-            <li><strong>If MC &gt; P:</strong> Producing more reduces profit, so the firm stops increasing output.</li>
-            <li><strong>If MC &lt; P:</strong> Producing more increases profit, so the firm continues producing until MC = P.</li>
-        </ul>
-    </div>
-    <p>In summary, firms in a perfectly competitive market adjust output until <strong>marginal cost matches the market price</strong>, ensuring they neither overproduce (incurring losses) nor underproduce (missing potential profit).</p>
-</div>
+  </div>
   
-<section id="chapter8-plot2">
-<h1>Cost Curves with Adjustable AVC</h1>
-<div id="Chapter8-plot2" style="width: 100%; height: 600px;"></div>
-<label for="avcShift">AVC Shift: </label>
-<input type="range" id="avcShift" min="0" max="5" step="0.1" value="0">
-<span id="avcValue">0</span>
-</section>
+  <section id="chapter8-plot2">
+    <h1>Cost Curves with Adjustable AVC</h1>
+    <div id="Chapter8-plot2" style="width: 100%; height: 600px;"></div>
+    <label for="avcShift">AVC Shift: </label>
+    <input type="range" id="avcShift" min="0" max="5" step="0.1" value="0">
+    <span id="avcValue">0</span>
+  </section>
 
   <div class="text-box">
-<h1>Chapter 8.3: Perfect Competition in the Short Run</h1>
+    <h1>Chapter 8.3: Perfect Competition in the Short Run</h1>
 
     <h2>Constructing the Short-Run Supply Curve for a Perfectly Competitive Industry</h2>
-
     <p>In a <strong>perfectly competitive market</strong>, each firm’s decision on output does not influence the overall market price individually. However, the <strong>combined output of all firms</strong> determines the <strong>industry supply curve</strong>. This aggregation is not a coordinated action by firms but reflects the <strong>sum of individual supply decisions</strong>. Firms base their output on their own costs and the market price, and summing these quantities across firms produces the total market supply.</p>
 
     <h3>The Industry Supply Curve as a Horizontal Sum of Firm-Level Supply Curves</h3>
-
     <p>To construct the industry supply curve:</p>
     <ol>
         <li><strong>Aggregate individual firm supply curves:</strong> For each price level, calculate the output each firm would supply, then sum these quantities across all firms.</li>
@@ -110,145 +112,119 @@
     <div class="example">
         <strong>Example:</strong> A market has 100 identical firms:
         <ul>
-            <li>If price &lt; $1, no firm operates (price does not cover AVC).</li>
-            <li>If $1 ≤ price &lt; $2, each firm supplies 1 unit → industry supply = 100 × 1 = 100 units.</li>
-            <li>If price ≥ $2, each firm supplies 2 units → industry supply = 100 × 2 = 200 units.</li>
+            <li>If \(P < 1\), no firm operates (price does not cover AVC).</li>
+            <li>If \(1 \leq P < 2\), each firm supplies 1 unit → industry supply = \(100 \times 1 = 100\) units.</li>
+            <li>If \(P \geq 2\), each firm supplies 2 units → industry supply = \(100 \times 2 = 200\) units.</li>
         </ul>
     </div>
   </div>
   
-<section id="chapter8-plot3">
-  <h1>Short-Run Industry Supply Curve</h1>
-  <div>
-    <label><input type="checkbox" id="firmA" checked> Include Firm A</label>
-    <label><input type="checkbox" id="firmB" checked> Include Firm B</label>
-    <label><input type="checkbox" id="firmC" checked> Include Firm C</label>
-    <label><input type="checkbox" id="firmD" checked> Include Firm D</label>
-  </div>
-  <div id="Chapter8-plot3" style="width:100%; height:600px;"></div>
-</section>
+  <section id="chapter8-plot3">
+    <h1>Short-Run Industry Supply Curve</h1>
+    <div>
+      <label><input type="checkbox" id="firmA" checked> Include Firm A</label>
+      <label><input type="checkbox" id="firmB" checked> Include Firm B</label>
+      <label><input type="checkbox" id="firmC" checked> Include Firm C</label>
+      <label><input type="checkbox" id="firmD" checked> Include Firm D</label>
+    </div>
+    <div id="Chapter8-plot3" style="width:100%; height:600px;"></div>
+  </section>
 
-<section id="chapter8-plot4">
-<h2>Producer Surplus with Adjustable Total Cost</h2>
-  <div class="slider-container">
-    <label for="shift">ATC Shift: <span id="shift-value">0</span></label>
-    <input type="range" id="shift" min="-5" max="5" step="0.1" value="0">
-  </div>
-  <div id="Chapter8-plot4" style="width:100%;height:400px;"></div>
-  <div id="output"></div>
-</section>
+  <section id="chapter8-plot4">
+    <h2>Producer Surplus with Adjustable Total Cost</h2>
+    <div class="slider-container">
+      <label for="shift">ATC Shift: <span id="shift-value">0</span></label>
+      <input type="range" id="shift" min="-5" max="5" step="0.1" value="0">
+    </div>
+    <div id="Chapter8-plot4" style="width:100%;height:400px;"></div>
+    <div id="output"></div>
+  </section>
 
-<section id="chapter8-plot5">
- <h2>Market Simulation with Demand Shift</h2>
-  <div class="slider-container">
-    <label for="demandShift">Demand Shift: <span id="demandShiftValue">0</span></label>
-    <input type="range" id="demandShift" min="-5000" max="5000" step="100" value="0">
-  </div>
-  <div id="Chapter8-plot5" style="width:100%;height:400px;"></div>
-</section>
+  <section id="chapter8-plot5">
+    <h2>Market Simulation with Demand Shift</h2>
+    <div class="slider-container">
+      <label for="demandShift">Demand Shift: <span id="demandShiftValue">0</span></label>
+      <input type="range" id="demandShift" min="-5000" max="5000" step="100" value="0">
+    </div>
+    <div id="Chapter8-plot5" style="width:100%;height:400px;"></div>
+  </section>
 
-<div class="text-box">
-  <h1>Step-by-Step Explanation of the Market Dynamics</h1>
-
-    <p>In this interactive visualization, we explore the adjustments in a perfectly competitive market with free entry and exit in response to an increase in demand. We examine the <strong>initial market equilibrium</strong>, <strong>short-run effects of demand change</strong>, <strong>individual firm adjustments</strong>, and the <strong>return to long-run equilibrium</strong>.</p>
+  <div class="text-box">
+    <h1>Step-by-Step Explanation of the Market Dynamics</h1>
 
     <h2>Initial Market State</h2>
     <ol>
-        <li>
-            <strong>Demand and Supply in the Long Run:</strong>
-            <div class="equation">
-                Q_{D1} = 30000 - 50P
-            </div>
-            <p>Long-run supply price:</p>
-            <div class="equation">
-                P_{LR} = 250
-            </div>
-            <p>Industry quantity in initial equilibrium:</p>
-            <div class="equation">
-                Q_{initial} = Q_{D1}(P=250) = 30000 - 50 \cdot 250 = 17500
-            </div>
-        </li>
-        <li>
-            <strong>Firm-Level Details:</strong>
-            <div class="equation">
-                TC = 300Q - 10Q^2 + 0.5Q^3
-            </div>
-            <div class="equation">
-                MC = 300 - 20Q + 1.5Q^2
-            </div>
-            <div class="equation">
-                ATC = 300 - 10Q + 0.5Q^2
-            </div>
-            <p>Long-run firm output:</p>
-            <div class="equation">
-                Q_{firm} = 10
-            </div>
-        </li>
-        <li>
-            <strong>Equilibrium Point:</strong>
-            <p>At P = 250, industry quantity = 17500, firm quantity = 10. This establishes the initial long-run equilibrium.</p>
-        </li>
+      <li>
+        <strong>Demand and Supply in the Long Run:</strong>
+        \[ Q_{D1} = 30000 - 50P \]
+        <p>Long-run supply price:</p>
+        \[ P_{LR} = 250 \]
+        <p>Industry quantity in initial equilibrium:</p>
+        \[ Q_{initial} = Q_{D1}(P=250) = 30000 - 50 \cdot 250 = 17500 \]
+      </li>
+      <li>
+        <strong>Firm-Level Details:</strong>
+        \[ TC = 300Q - 10Q^2 + 0.5Q^3 \]
+        \[ MC = 300 - 20Q + 1.5Q^2 \]
+        \[ ATC = 300 - 10Q + 0.5Q^2 \]
+        <p>Long-run firm output:</p>
+        \[ Q_{firm} = 10 \]
+      </li>
+      <li>
+        <strong>Equilibrium Point:</strong>
+        <p>At \(P = 250\), industry quantity = 17500, firm quantity = 10. This establishes the initial long-run equilibrium.</p>
+      </li>
     </ol>
 
     <h2>Effect of Demand Shift on Market Equilibrium</h2>
     <ol>
-        <li>
-            <strong>Demand Shift:</strong>
-            <div class="equation">
-                Q_{D2} = (30000 + \text{demand shift}) - 50P
-            </div>
-            <p>New quantity demanded at P = 250:</p>
-            <div class="equation">
-                Q_{new} = Q_{D2}(P=250)
-            </div>
-        </li>
-        <li>
-            <strong>New Short-Run Equilibrium:</strong>
-            <p>Price rises to meet increased demand. The new intersection of demand with short-run supply occurs at a higher price.</p>
-        </li>
+      <li>
+        <strong>Demand Shift:</strong>
+        \[ Q_{D2} = (30000 + \text{demand shift}) - 50P \]
+        <p>New quantity demanded at \(P = 250\):</p>
+        \[ Q_{new} = Q_{D2}(P=250) \]
+      </li>
+      <li>
+        <strong>New Short-Run Equilibrium:</strong>
+        <p>Price rises to meet increased demand. The new intersection of demand with short-run supply occurs at a higher price.</p>
+      </li>
     </ol>
 
     <h2>Firm-Level Adjustment in the Short Run</h2>
     <ol>
-        <li>
-            <strong>New Quantity per Firm:</strong>
-            <div class="equation">
-                Q_{firm}^{SR} = \frac{Q_{new}}{\text{initial number of firms}}
-            </div>
-        </li>
-        <li>
-            <strong>Short-Run Production Price:</strong>
-            <div class="equation">
-                P_{new} = MC(Q_{firm}^{SR})
-            </div>
-            <p>This price and quantity mark the firm-level adjustment in the short run.</p>
-        </li>
+      <li>
+        <strong>New Quantity per Firm:</strong>
+        \[ Q_{firm}^{SR} = \frac{Q_{new}}{\text{initial number of firms}} \]
+      </li>
+      <li>
+        <strong>Short-Run Production Price:</strong>
+        \[ P_{new} = MC(Q_{firm}^{SR}) \]
+        <p>This price and quantity mark the firm-level adjustment in the short run.</p>
+      </li>
     </ol>
 
     <h2>Short-Run Market Adjustment with Temporary Supply Curve</h2>
     <ol>
-        <li>
-            <strong>Short-Run Supply Curve:</strong>
-            <p>The slope of the short-run supply curve:</p>
-            <div class="equation">
-                m = \frac{P_2 - P_1}{Q_2 - Q_1}
-            </div>
-            <p>Extended line shows the short-run supply curve.</p>
-        </li>
+      <li>
+        <strong>Short-Run Supply Curve:</strong>
+        <p>The slope of the short-run supply curve:</p>
+        \[ m = \frac{P_2 - P_1}{Q_2 - Q_1} \]
+        <p>Extended line shows the short-run supply curve.</p>
+      </li>
     </ol>
 
     <h2>Long-Run Return to Equilibrium</h2>
     <ol>
-        <li>
-            <strong>Entry of New Firms:</strong>
-            <p>Higher prices attract new firms, increasing industry supply and lowering the price back toward P_{LR} = 250.</p>
-        </li>
-        <li>
-            <strong>New Long-Run Quantity:</strong>
-            <p>The market reaches a new long-run equilibrium with the same price but higher industry quantity.</p>
-        </li>
+      <li>
+        <strong>Entry of New Firms:</strong>
+        <p>Higher prices attract new firms, increasing industry supply and lowering the price back toward \(P_{LR} = 250\).</p>
+      </li>
+      <li>
+        <strong>New Long-Run Quantity:</strong>
+        <p>The market reaches a new long-run equilibrium with the same price but higher industry quantity.</p>
+      </li>
     </ol>
-</div>
+  </div>
   
   <script src="../js/chapter8-plot1.js"></script>
   <script src="../js/chapter8-plot2.js"></script>
