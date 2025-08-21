@@ -3,139 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 1: Introduction</title>
+<title>Chapter 1</title>
 <style>
 /* General body */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #064e3b;
-  line-height: 1.6;
-}
-
-/* Header with main page gradient */
-.header {
-  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
+  background-color: #064e3b; /* Dark green base */
   color: #ffffff;
-  padding: 80px 20px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-.header h1 {
-  font-size: 3rem;
-  margin: 0;
-}
-
-/* Content container */
-.content {
-  max-width: 900px;
-  margin: 40px auto;
+/* Container for chapter layout */
+.chapter-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr; /* left, center, right */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
   padding: 20px;
   position: relative;
+  overflow: hidden;
 }
 
-/* Headings */
-.content h2, .content h3 {
-  color: #0b6b50;
-  margin-top: 30px;
+/* Side circles */
+.side {
+  position: relative;
+}
+.side::before, .side::after {
+  content: '';
+  position: absolute;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: moveCircles 20s linear infinite;
+}
+.side::after {
+  width: 60px;
+  height: 60px;
+  animation-duration: 30s;
 }
 
-/* Paragraphs */
-.content p {
-  margin-bottom: 1.2rem;
-  font-size: 1.1rem;
+@keyframes moveCircles {
+  0% { transform: translate(-50%, -50%) rotate(0deg);}
+  50% { transform: translate(-50%, -50%) rotate(180deg);}
+  100% { transform: translate(-50%, -50%) rotate(360deg);}
 }
 
-/* Back button */
-.back-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 18px;
-  background-color: #064e3b;
+/* Center content */
+.center-content {
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.center-content h2 {
+  margin-top: 0;
   color: #ffffff;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: bold;
-  transition: background-color 0.2s;
 }
 
-.back-button:hover {
+.center-content p {
+  color: #e0f7e5;
+}
+
+/* Graph / plot area */
+.plot {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: rgba(15,118,80,0.6);
+  border-radius: 12px;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Back home button */
+.back-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #064e3b;
+  padding: 12px 20px;
+  color: #ffffff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 2;
+}
+.back-home:hover {
   background-color: #0b6b50;
+}
+
+/* Quiz section */
+.quiz {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(15,118,80,0.7);
+  border-radius: 12px;
+}
+
+.quiz h3 {
+  margin-top: 0;
 }
 
 /* Sliders */
 .slider-container {
-  margin: 30px 0;
+  margin: 20px 0;
 }
-
-.slider-container label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
 input[type="range"] {
   width: 100%;
-}
-
-/* Graph/plot section */
-.plot-container {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #e6f2eb;
-  border-radius: 12px;
-  text-align: center;
-  border: 1px solid #064e3b;
-}
-
-/* Optional moving rings background */
-.content::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle, rgba(128,0,128,0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: -1;
 }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<section class="header">
-  <h1>Chapter 1: Introduction</h1>
-</section>
+<a href="../index.html#chapters" class="back-home">← Back to Chapters</a>
 
-<!-- Content -->
-<div class="content">
-  <p>Welcome to the first chapter of your Microeconomics book. Explore the foundations of economic thinking and the key concepts that guide market analysis.</p>
+<div class="chapter-container">
 
-  <h2>Supply and Demand Example</h2>
-  <p>Adjust the slider to see how changes in demand affect equilibrium price.</p>
+  <!-- Left side circles -->
+  <div class="side"></div>
 
-  <div class="slider-container">
-    <label for="demandSlider">Demand Shift:</label>
-    <input type="range" id="demandSlider" min="-50" max="50" value="0">
+  <!-- Center content -->
+  <div class="center-content">
+    <h2>Chapter 1: Supply and Demand</h2>
+    <p>Adjust the demand curve to see how equilibrium price changes:</p>
+    
+    <div class="slider-container">
+      <label for="demandSlider">Demand Shift:</label>
+      <input type="range" id="demandSlider" min="-50" max="50" value="0">
+    </div>
+
+    <div class="plot" id="plot">Equilibrium Price: <span id="price">100</span></div>
+
+    <div class="quiz">
+      <h3>Quick Quiz</h3>
+      <p>What happens to price if demand increases?</p>
+      <label><input type="radio" name="q1" value="rise"> Price rises</label>
+      <label><input type="radio" name="q1" value="fall"> Price falls</label>
+    </div>
   </div>
 
-  <div class="plot-container" id="plot">
-    <p>Equilibrium price: <span id="price">100</span></p>
-  </div>
+  <!-- Right side circles -->
+  <div class="side"></div>
 
-  <h2>Key Concept: Opportunity Cost</h2>
-  <p>Opportunity cost is the value of the next best alternative forgone when making a decision.</p>
-
-  <h3>Example:</h3>
-  <p>If you spend 1 hour studying Microeconomics, you lose the chance to spend that hour on leisure or another subject. That lost value is the opportunity cost.</p>
-
-  <a href="../index.html#chapters" class="back-button">← Back to Chapters</a>
 </div>
 
 <script>
-// Example slider functionality
+// Slider functionality
 const demandSlider = document.getElementById('demandSlider');
 const priceDisplay = document.getElementById('price');
 
