@@ -14,7 +14,67 @@
   <a href="../index.html" class="back-home-button">&larr; Back to Homepage</a>
 </div>
 <h1>Using Supply and Demand to Analyze Markets</h1>
+<section class="chapter-section">
+  <h2>Market Equilibrium and Surplus</h2>
+  <p>
+    In microeconomics, we often use supply and demand curves to analyze market behavior. 
+    These curves help us visualize how much consumers are willing to buy at different prices 
+    (<strong>demand curve</strong>) and how much producers are willing to sell 
+    (<strong>supply curve</strong>).
+  </p>
 
+  <h3>Demand Function</h3>
+  <p>
+    The demand function is:
+    $$ P_D = 20 - 2Q $$
+    where \( P_D \) is the price consumers are willing to pay and \( Q \) is the quantity demanded.
+  </p>
+
+  <h3>Supply Function</h3>
+  <p>
+    The supply function is:
+    $$ P_S = 2 + Q $$
+    where \( P_S \) is the price producers are willing to accept and \( Q \) is the quantity supplied.
+  </p>
+
+  <h3>Equilibrium</h3>
+  <p>
+    At equilibrium, quantity demanded equals quantity supplied:
+    $$ 20 - 2Q = 2 + Q $$
+    Solving gives:
+    $$ Q^* = 6, \quad P^* = 8 $$
+  </p>
+
+  <h3>Consumer Surplus</h3>
+  <p>
+    Consumer surplus is the area above equilibrium price and below the demand curve:
+    $$
+    \text{CS} = \tfrac{1}{2} \times Q^* \times (P_{\text{max}} - P^*) 
+    = \tfrac{1}{2} \times 6 \times (20 - 8) = 36
+    $$
+  </p>
+
+  <h3>Producer Surplus</h3>
+  <p>
+    Producer surplus is the area below equilibrium price and above the supply curve:
+    $$
+    \text{PS} = \tfrac{1}{2} \times Q^* \times (P^* - P_{\text{min}}) 
+    = \tfrac{1}{2} \times 6 \times (8 - 2) = 18
+    $$
+  </p>
+
+  <h3>Shifts and Welfare</h3>
+  <ul>
+    <li>A leftward shift in <strong>supply</strong> (e.g., higher costs) reduces producer surplus.</li>
+    <li>A rightward shift in <strong>demand</strong> (e.g., stronger preferences) increases both surpluses.</li>
+  </ul>
+</section>
+
+<!-- MathJax Rendering -->
+<script>
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+  
 <section id="chapter3-surplus">
   <h2>Changes in Surplus Due to Shifts</h2>
   <label for="shiftType">Shift Type:</label>
@@ -33,6 +93,155 @@
   <p id="explanationSurplus"></p>
 </section>
 
+<div class="text-box">
+  <h2>Economic Meaning of Changes in Consumer and Producer Surplus</h2>
+  <p>
+    In economics, <strong>consumer surplus</strong> and <strong>producer surplus</strong> 
+    measure welfare. They represent the gains consumers and producers receive from 
+    participating in the market. Changes in these surpluses signal shifts in market welfare.
+  </p>
+
+  <h3>Consumer Surplus</h3>
+  <p>
+    Consumer surplus is the difference between the maximum amount a consumer is willing to 
+    pay and the actual price they pay. A change in consumer surplus typically reflects 
+    shifts in demand or supply.
+  </p>
+  <ul>
+    <li>
+      <strong>Increase in Consumer Surplus:</strong> A rightward demand shift 
+      (e.g., stronger preferences) increases equilibrium quantity and price.  
+      $$ \text{Demand shift right → higher Q, higher P → ↑ Consumer Surplus} $$
+    </li>
+    <li>
+      <strong>Decrease in Consumer Surplus:</strong> A leftward supply shift 
+      (e.g., higher costs) reduces quantity and raises price.  
+      $$ \text{Supply shift left → lower Q, higher P → ↓ Consumer Surplus} $$
+    </li>
+  </ul>
+
+  <h3>Producer Surplus</h3>
+  <p>
+    Producer surplus is the difference between the price producers receive and the minimum 
+    they are willing to accept.
+  </p>
+  <ul>
+    <li>
+      <strong>Increase in Producer Surplus:</strong> A rightward demand shift 
+      boosts both equilibrium price and quantity.  
+      $$ \text{Demand shift right → higher Q, higher P → ↑ Producer Surplus} $$
+    </li>
+    <li>
+      <strong>Decrease in Producer Surplus:</strong> A leftward supply shift 
+      raises costs, reduces sales, and lowers profitability.  
+      $$ \text{Supply shift left → lower Q, higher P → ↓ Producer Surplus} $$
+    </li>
+  </ul>
+
+  <h3>Why Surplus Changes Matter</h3>
+  <ul>
+    <li>
+      <strong>Government Policies:</strong>  
+      - A price ceiling (e.g., rent control) reduces producer surplus.  
+      - A price floor (e.g., minimum wage) reduces consumer surplus.  
+    </li>
+    <li>
+      <strong>Market Interventions:</strong>  
+      - A tax reduces both consumer and producer surplus and creates deadweight loss.  
+      - A subsidy increases both surpluses by lowering prices for consumers and raising 
+        effective prices for producers.
+    </li>
+  </ul>
+
+  <h3>Example from Lecture Notes</h3>
+  <p>
+    When supply shifts left due to higher costs:
+  </p>
+  <ul>
+    <li><strong>Consumer Surplus:</strong> Higher price + smaller quantity → ↓ surplus.</li>
+    <li><strong>Producer Surplus:</strong> Higher costs + fewer sales → ↓ surplus.</li>
+  </ul>
+</section>
+
+<!-- MathJax Rendering -->
+<script>
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+</div>
+  <div class="text-box">
+  <h2>Understanding Price Ceilings</h2>
+
+  <p>
+    A <strong>price ceiling</strong> is a government-imposed limit on how high a price can be charged 
+    for a product. Price ceilings are typically imposed to protect consumers from excessively high 
+    prices in markets where supply is limited. When a price ceiling is set below the natural 
+    equilibrium price, it creates several effects on the market.
+  </p>
+
+  <h3>Effects of a Price Ceiling</h3>
+  <p>
+    When the government imposes a price ceiling below the equilibrium price ($P^*$), the following occurs:
+  </p>
+  <ul>
+    <li><strong>Quantity demanded</strong> increases because consumers are willing to purchase more at a lower price.</li>
+    <li><strong>Quantity supplied</strong> decreases because producers are less willing to supply the good at the lower price.</li>
+  </ul>
+  <p>
+    As a result, a <strong>shortage</strong> occurs, where the quantity demanded exceeds the quantity supplied.
+  </p>
+
+  <h3>Consumer Surplus and Producer Surplus</h3>
+  <p>
+    In the absence of a price ceiling, the <strong>consumer surplus</strong> and <strong>producer surplus</strong> 
+    are maximized. 
+  </p>
+  <p>
+    - <strong>Consumer surplus</strong>: area between the demand curve and the price consumers pay. <br>
+    - <strong>Producer surplus</strong>: area between the supply curve and the price producers receive.
+  </p>
+  <p>
+    When a price ceiling is imposed below the equilibrium price:
+  </p>
+  <ul>
+    <li>The <strong>new consumer surplus</strong> includes a larger area above the ceiling price plus part of the original surplus.</li>
+    <li>The <strong>new producer surplus</strong> is smaller, reflecting the lower price producers receive.</li>
+  </ul>
+
+  <h3>Deadweight Loss</h3>
+  <p>
+    <strong>Deadweight loss (DWL)</strong> represents the loss of total surplus due to the inefficiencies created by the price ceiling. 
+    It is the area of potential trades that no longer occur due to the shortage.
+  </p>
+  <p>
+    Mathematically:
+  </p>
+  <p>
+    $$
+    \text{DWL} = \tfrac{1}{2} \times (Q^* - Q_{\text{ceiling}}) \times (P_{\text{demand}} - P_{\text{supply}})
+    $$
+  </p>
+  <p>
+    where:
+    <ul>
+      <li>$Q_{\text{ceiling}}$ = quantity supplied at the ceiling price</li>
+      <li>$P_{\text{demand}}$ = price consumers are willing to pay at $Q_{\text{ceiling}}$</li>
+      <li>$P_{\text{supply}}$ = price producers are willing to accept at $Q_{\text{ceiling}}$</li>
+    </ul>
+  </p>
+
+  <h3>Summary</h3>
+  <p>
+    A price ceiling below equilibrium benefits some consumers who can still purchase at the lower price, 
+    but it creates a <strong>shortage</strong> and reduces both consumer and producer surpluses. 
+    The <strong>deadweight loss</strong> represents lost welfare due to inefficient allocation of resources.
+  </p>
+</div>
+
+<!-- MathJax rendering -->
+<script>
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+
 <section id="chapter3-ceiling">
   <h2>Price Ceiling Effect on Supply & Demand</h2>
   <label for="priceCeiling">Price Ceiling: </label>
@@ -42,6 +251,80 @@
   <p id="explanation"></p>
 </section>
 
+<div class="text-box">
+  <h2>Understanding Quotas</h2>
+
+  <p>
+    A <strong>quota</strong> is a government-imposed limit on the quantity of a good that can be 
+    produced or sold in the market. Quotas are typically used to control the supply of certain 
+    goods, such as imports or agricultural products, to prevent overproduction or protect 
+    domestic industries. When a quota is set below the natural equilibrium quantity, it restricts 
+    the quantity that can be supplied, creating inefficiencies in the market.
+  </p>
+
+  <h3>Effects of a Quota</h3>
+  <p>
+    When the government imposes a quota below the equilibrium quantity ($Q^*$), the following occurs:
+  </p>
+  <ul>
+    <li><strong>Quantity supplied</strong> decreases because producers are restricted from selling beyond a certain amount.</li>
+    <li><strong>Price</strong> increases due to the limited supply, as consumers are willing to pay more for the reduced quantity of the good.</li>
+  </ul>
+  <p>
+    As a result, a <strong>shortage</strong> occurs because the quota restricts supply below the market’s natural level. 
+    This leads to higher prices and market inefficiencies.
+  </p>
+
+  <h3>Consumer Surplus and Producer Surplus</h3>
+  <p>
+    In the absence of a quota, both <strong>consumer surplus</strong> and <strong>producer surplus</strong> 
+    are maximized.
+  </p>
+  <p>
+    When a quota is imposed below equilibrium:
+  </p>
+  <ul>
+    <li>The <strong>new consumer surplus</strong> is smaller because consumers face higher prices and a reduced quantity of goods.</li>
+    <li>The <strong>new producer surplus</strong> is mixed: some producers may benefit from higher prices, but overall surplus falls due to restricted sales.</li>
+  </ul>
+
+  <h3>Deadweight Loss</h3>
+  <p>
+    <strong>Deadweight loss (DWL)</strong> represents the loss of total surplus caused by the quota. 
+    It reflects the value of potential trades that no longer occur because the quota prevents 
+    the market from reaching its natural equilibrium.
+  </p>
+  <p>
+    Mathematically:
+  </p>
+  <p>
+    $$
+    \text{DWL} = \tfrac{1}{2} \times (Q^* - Q_{\text{quota}}) \times (P_{\text{demand}} - P_{\text{supply}})
+    $$
+  </p>
+  <p>
+    where:
+  </p>
+  <ul>
+    <li>$Q_{\text{quota}}$ = quantity allowed under the quota</li>
+    <li>$P_{\text{demand}}$ = price consumers are willing to pay at $Q_{\text{quota}}$</li>
+    <li>$P_{\text{supply}}$ = price producers are willing to accept at $Q_{\text{quota}}$</li>
+  </ul>
+
+  <h3>Summary</h3>
+  <p>
+    A quota below equilibrium reduces the amount of the good sold, leading to higher prices and 
+    smaller consumer and producer surpluses. The <strong>deadweight loss</strong> represents the 
+    inefficiency and lost welfare caused by the quota. While some producers may benefit from 
+    higher prices, overall market efficiency declines.
+  </p>
+</div>
+  
+<!-- MathJax rendering -->
+<script>
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+  
 <section id="chapter3-quota">
   <h2>Quota Effect Graph</h2>
   <label>Quota: <span id="quotaValue">4</span></label>
@@ -58,6 +341,81 @@
   <div id="results"></div>
 </section>
 
+<div class="text-box">
+  <h2>Understanding Tax Incidence with Different Elasticities of Demand</h2>
+
+  <h3>Supply Function</h3>
+  <p>
+    In this analysis, we assume a linear supply function given by:
+  </p>
+  <p>
+    $$ P = 2 + Q $$
+  </p>
+  <p>
+    This function indicates that as the quantity supplied increases, the price also increases 
+    linearly. While this supply function is not strictly unit elastic (which would require the 
+    percentage change in quantity supplied to equal the percentage change in price), it provides 
+    a simple linear relationship for examining tax incidence with different demand elasticities.
+  </p>
+
+  <h3>Demand Functions</h3>
+  <p>We explore three different demand scenarios:</p>
+  <ol>
+    <li>
+      <strong>Perfectly Elastic Demand</strong>: The demand curve is horizontal at 
+      $$ P = 5 $$. Consumers are highly sensitive to price changes, and they will only accept this price. 
+      If the price rises, demand drops to zero.
+    </li>
+    <li>
+      <strong>Perfectly Inelastic Demand</strong>: The demand curve is vertical at 
+      $$ Q = 4 $$. Consumers are completely insensitive to price changes and purchase the same quantity regardless of price.
+    </li>
+    <li>
+      <strong>Variable Elasticity</strong>: The demand curve is 
+      $$ P = 5 - bQ $$, where $b$ is a variable slope parameter. A larger $b$ makes the curve steeper 
+      (more inelastic), while a smaller $b$ makes it flatter (more elastic).
+    </li>
+  </ol>
+
+  <h3>Tax Incidence and Elasticity</h3>
+  <ul>
+    <li>
+      <strong>Perfectly Elastic Demand</strong>:  
+      Producers cannot pass any tax onto consumers. The entire tax burden falls on producers (100% incidence on producers).
+    </li>
+    <li>
+      <strong>Perfectly Inelastic Demand</strong>:  
+      Producers pass the entire tax onto consumers. The price consumers pay rises by the full amount of the tax 
+      (100% incidence on consumers).
+    </li>
+    <li>
+      <strong>Variable Elasticity</strong>:  
+      The tax burden is shared between consumers and producers.  
+      <ul>
+        <li>If demand is relatively inelastic (large $b$), consumers bear most of the burden.</li>
+        <li>If demand is relatively elastic (small $b$), producers bear most of the burden.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Summary</h3>
+  <p>
+    The elasticity of demand is key to determining tax incidence.  
+    <ul>
+      <li>With perfectly elastic demand, the entire burden falls on producers.</li>
+      <li>With perfectly inelastic demand, the entire burden falls on consumers.</li>
+      <li>With variable elasticity, the burden is shared depending on the relative elasticities of demand and supply.</li>
+    </ul>
+    This framework explains why policymakers consider elasticity when predicting the real-world effects of taxation.
+  </p>
+      </div>
+
+<!-- MathJax rendering -->
+<script>
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+  
 <section id="chapter3-elasticity">
   <h2>Tax Incidence with Elasticity</h2>
   <label for="elasticitySelect">Elasticity:</label>
@@ -72,6 +430,61 @@
   <div id="tableElasticity"></div>
   <div id="explanationElasticity"></div>
 </section>
+
+  <div class="text-box">
+  <h2>Summary of Market Equilibrium, Surplus, Price Ceilings, Quotas, and Taxes</h2>
+
+  <h3>1. Market Equilibrium</h3>
+  <ul>
+    <li><strong>Market Equilibrium</strong> occurs where the quantity demanded equals the quantity supplied, at the intersection of the supply and demand curves.</li>
+    <li>The <strong>equilibrium price</strong> ensures no shortage or surplus, as buyers and sellers agree on the same quantity.</li>
+    <li>In visualizations, the equilibrium is highlighted as the intersection point of the supply and demand curves.</li>
+  </ul>
+
+  <h3>2. Consumer and Producer Surplus</h3>
+  <ul>
+    <li><strong>Consumer Surplus</strong>: The difference between what consumers are willing to pay and what they actually pay. Graphically, it’s the area above the price and below the demand curve up to equilibrium.</li>
+    <li><strong>Producer Surplus</strong>: The difference between what producers are willing to accept and what they actually receive. Graphically, it’s the area below the price and above the supply curve up to equilibrium.</li>
+    <li>Surpluses change with shifts in supply or demand, as shown in the interactive tools.</li>
+  </ul>
+
+  <h3>3. Price Ceilings</h3>
+  <ul>
+    <li><strong>Price Ceiling</strong>: A government-imposed maximum price, usually set below equilibrium to make goods more affordable.</li>
+    <li>Below equilibrium, it causes <strong>shortages</strong>, as demand exceeds supply at the capped price.</li>
+    <li>Creates <strong>Deadweight Loss (DWL)</strong>: the lost efficiency because equilibrium cannot be reached.</li>
+    <li>Visualizations illustrated ceilings with sliders, highlighting consumer surplus, producer surplus, and DWL regions.</li>
+  </ul>
+
+  <h3>4. Quotas</h3>
+  <ul>
+    <li><strong>Quota</strong>: A government-imposed restriction on quantity supplied, regardless of price.</li>
+    <li>Quotas below equilibrium reduce traded quantity and often raise prices.</li>
+    <li>Cause <strong>Deadweight Loss</strong> since fewer mutually beneficial trades occur.</li>
+    <li>Visualizations represented quotas as vertical cutoffs, adjusting shaded areas for surpluses and DWL.</li>
+  </ul>
+
+  <h3>5. Taxes and Tax Incidence</h3>
+  <ul>
+    <li><strong>Taxes</strong> shift the supply (upward) or demand (downward) curve depending on who is taxed.</li>
+    <li>The new equilibrium features lower traded quantity, higher consumer prices, and lower net producer receipts.</li>
+    <li><strong>Tax Incidence</strong> (who bears the burden):</li>
+    <ul>
+      <li>With <em>perfectly elastic demand</em>, producers bear the full tax.</li>
+      <li>With <em>perfectly inelastic demand</em>, consumers bear the full tax.</li>
+      <li>With <em>variable elasticity</em>, the burden is shared depending on relative elasticities.</li>
+    </ul>
+    <li>Visualizations used dashed lines and labels to show incidence splits and surplus shifts.</li>
+  </ul>
+
+  <h3>Conclusion</h3>
+  <p>
+    Market tools—equilibrium, surpluses, ceilings, quotas, and taxes—demonstrate how prices and quantities adjust.  
+    Government interventions often create <strong>deadweight loss</strong> and redistribute surpluses, showing the trade-offs of policy choices.  
+    Interactive visualizations help reveal these dynamics clearly, making abstract economic principles more intuitive.
+  </p>
+  </div>
+
 
 <!-- Scripts -->
 <script src="../js/chapter3-surplus.js"></script>
