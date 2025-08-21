@@ -14,6 +14,13 @@ body {
   scroll-behavior: smooth;
 }
 
+/* CSS variable for dynamic gradient color */
+:root {
+  --hero-color1: #064e3b;
+  --hero-color2: #0b6b50;
+  --hero-color3: #0f766e;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
@@ -22,7 +29,7 @@ body {
   justify-content: center;
   height: 100vh;
   text-align: center;
-  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
+  background: linear-gradient(135deg, var(--hero-color1), var(--hero-color2), var(--hero-color3));
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }
@@ -34,46 +41,26 @@ body {
   padding: 0 20px;
 }
 
+/* Animate gradient */
 @keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Scroll-down arrow */
+/* Down arrow like ↓ */
 .scroll-down {
   position: absolute;
   bottom: 20px;
+  font-size: 3rem;
+  cursor: pointer;
+  color: #ffffff;
   left: 50%;
   transform: translateX(-50%);
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-}
-.scroll-down::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 4px;
-  height: 20px;
-  background: #ffffff;
-  transform: translateX(-50%) rotate(45deg);
-}
-.scroll-down::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 4px;
-  height: 20px;
-  background: #ffffff;
-  transform: translateX(-50%) rotate(-45deg);
 }
 
 /* Chapters Section */
 .chapters {
-  position: relative;
   min-height: 100vh;
   padding: 60px 20px;
   background-color: #ffffff;
@@ -132,16 +119,17 @@ body {
   margin: 0 auto;
 }
 
-/* Chapter Cards */
+/* Chapter Cards: use CSS variable for dynamic hero color */
 .chapter-card {
-  background-color: #064e3b; /* dark green hero color */
+  background: linear-gradient(135deg, var(--hero-color1), var(--hero-color2), var(--hero-color3));
   border-radius: 15px;
   padding: 25px 20px;
   text-align: center;
+  color: #ffffff;
+  transition: background 0.5s;
 }
 
 .chapter-card h3 {
-  color: #ffffff;
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
@@ -149,7 +137,7 @@ body {
 .btn-small {
   display: inline-block;
   padding: 10px 18px;
-  background-color: #0b6b50;
+  background-color: rgba(15,118,110,0.9);
   color: #ffffff;
   border-radius: 12px;
   text-decoration: none;
@@ -157,7 +145,7 @@ body {
 }
 
 .btn-small:hover {
-  background-color: #064e3b;
+  background-color: rgba(11,107,80,0.9);
 }
 
 /* Responsive */
@@ -172,7 +160,7 @@ body {
 <!-- Hero Section -->
 <section class="hero">
   <h1>Microeconomics</h1>
-  <div class="scroll-down" onclick="document.getElementById('chapters').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="scroll-down" onclick="document.getElementById('chapters').scrollIntoView({behavior:'smooth'})">↓</div>
 </section>
 
 <!-- Chapters Section -->
@@ -191,9 +179,26 @@ body {
       <h3>Chapter 3: Consumer Choice</h3>
       <a href="chapters/chapter3.html" class="btn-small">Read</a>
     </div>
-    <!-- Add more chapters here -->
   </div>
 </section>
+
+<script>
+// Animate CSS variables dynamically to match hero gradient
+const root = document.documentElement;
+let hue = 150; // greenish start
+
+function updateGradient() {
+  const color1 = `hsl(${hue}, 70%, 30%)`;
+  const color2 = `hsl(${(hue+30)%360}, 65%, 35%)`;
+  const color3 = `hsl(${(hue+60)%360}, 60%, 40%)`;
+  root.style.setProperty('--hero-color1', color1);
+  root.style.setProperty('--hero-color2', color2);
+  root.style.setProperty('--hero-color3', color3);
+  hue = (hue + 0.3) % 360; // slowly animate
+  requestAnimationFrame(updateGradient);
+}
+updateGradient();
+</script>
 
 </body>
 </html>
