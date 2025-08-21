@@ -100,34 +100,26 @@ body {
 .chapters .circle {
   position: absolute;
   border-radius: 50%;
-  border: 2px solid rgba(128,0,128,0.5);
+  border: 2px solid;
   background-color: transparent;
-  animation: float 30s linear infinite;
+  animation: float 40s linear infinite;
 }
 
-.chapters .circle:nth-child(1) {
-  width: 30px;
-  height: 30px;
-  top: 10%;
-  left: 5%;
-  border-color: rgba(128,0,128,0.7);
-}
-
-.chapters .circle:nth-child(2) {
-  width: 40px;
-  height: 40px;
-  top: 50%;
-  left: 80%;
-  border-color: rgba(218,165,32,0.6);
-}
-
-.chapters .circle:nth-child(3) {
-  width: 25px;
-  height: 25px;
-  top: 70%;
-  left: 30%;
-  border-color: rgba(128,0,128,0.5);
-}
+.chapters .circle:nth-child(1) { width: 20px; height: 20px; top: 10%; left: 5%; border-color: rgba(128,0,128,0.7); animation-duration: 35s; }
+.chapters .circle:nth-child(2) { width: 25px; height: 25px; top: 50%; left: 80%; border-color: rgba(218,165,32,0.6); animation-duration: 45s; }
+.chapters .circle:nth-child(3) { width: 15px; height: 15px; top: 70%; left: 30%; border-color: rgba(128,0,128,0.5); animation-duration: 38s; }
+.chapters .circle:nth-child(4) { width: 18px; height: 18px; top: 20%; left: 50%; border-color: rgba(218,165,32,0.5); animation-duration: 42s; }
+.chapters .circle:nth-child(5) { width: 12px; height: 12px; top: 60%; left: 15%; border-color: rgba(128,0,128,0.6); animation-duration: 36s; }
+.chapters .circle:nth-child(6) { width: 22px; height: 22px; top: 40%; left: 70%; border-color: rgba(218,165,32,0.5); animation-duration: 40s; }
+.chapters .circle:nth-child(7) { width: 16px; height: 16px; top: 80%; left: 25%; border-color: rgba(128,0,128,0.6); animation-duration: 44s; }
+.chapters .circle:nth-child(8) { width: 14px; height: 14px; top: 30%; left: 60%; border-color: rgba(218,165,32,0.6); animation-duration: 37s; }
+.chapters .circle:nth-child(9) { width: 19px; height: 19px; top: 75%; left: 85%; border-color: rgba(128,0,128,0.5); animation-duration: 41s; }
+.chapters .circle:nth-child(10){ width: 17px; height: 17px; top: 55%; left: 35%; border-color: rgba(218,165,32,0.5); animation-duration: 39s; }
+.chapters .circle:nth-child(11){ width: 21px; height: 21px; top: 15%; left: 75%; border-color: rgba(128,0,128,0.7); animation-duration: 43s; }
+.chapters .circle:nth-child(12){ width: 13px; height: 13px; top: 65%; left: 45%; border-color: rgba(218,165,32,0.6); animation-duration: 46s; }
+.chapters .circle:nth-child(13){ width: 18px; height: 18px; top: 35%; left: 20%; border-color: rgba(128,0,128,0.6); animation-duration: 37s; }
+.chapters .circle:nth-child(14){ width: 20px; height: 20px; top: 85%; left: 55%; border-color: rgba(218,165,32,0.5); animation-duration: 42s; }
+.chapters .circle:nth-child(15){ width: 15px; height: 15px; top: 25%; left: 40%; border-color: rgba(128,0,128,0.7); animation-duration: 38s; }
 
 @keyframes float {
   0% { transform: translate(0,0); }
@@ -193,7 +185,19 @@ body {
 
 <!-- Chapters Section -->
 <section class="chapters" id="chapters">
-  <!-- Circles -->
+  <!-- 15 Moving Rings -->
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
@@ -212,7 +216,6 @@ body {
       <h3>Chapter 3</h3>
       <a href="chapters/chapter3.html" class="btn-small">Read</a>
     </div>
-    <!-- Add more chapters as needed -->
   </div>
 </section>
 
