@@ -3,218 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Book</title>
+<title>Microeconomics Book</title>
 <style>
-/* ===== General ===== */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  scroll-behavior: smooth;
-}
+  /* General */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #064e3b;
+    scroll-behavior: smooth;
+  }
 
-/* ===== Hero Section ===== */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-}
+  /* Chapters Section */
+  .chapters {
+    position: relative;
+    min-height: 100vh;
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden;
+  }
 
-.hero h1 {
-  font-size: 4rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-  padding: 0 20px;
-}
+  .chapters h2 {
+    font-size: 2.5rem;
+    color: #0b6b50; /* dark green */
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+  }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
+  /* Chapter Grid */
+  .chapter-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-/* Scroll-down arrow */
-.scroll-down {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  cursor: pointer;
-}
+  .chapter-card {
+    background-color: #064e3b; /* dark green */
+    border-radius: 15px;
+    padding: 25px 20px;
+    text-align: center;
+  }
 
-.scroll-down span {
-  display: block;
-  width: 4px;
-  height: 20px;
-  border-radius: 2px;
-  background: #ffffff;
-  animation: bounce 2s infinite;
-}
+  .chapter-card h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+  }
 
-.scroll-down span::before,
-.scroll-down span::after {
-  content: '';
-  display: block;
-  width: 4px;
-  height: 20px;
-  border-radius: 2px;
-  background: #ffffff;
-  position: absolute;
-  left: 0;
-}
+  .btn-small {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #0b6b50;
+    color: #ffffff;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-.scroll-down span::before { top: -12px; animation-delay: 0.2s; }
-.scroll-down span::after  { top: 12px; animation-delay: 0.4s; }
+  .btn-small:hover {
+    background-color: #064e3b;
+  }
 
-@keyframes bounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
-  40% { transform: translateY(10px); opacity: 1; }
-}
+  /* Animated background: small hollow rings */
+  .chapters::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(128,0,128,0.3) 1px, transparent 2px),
+                radial-gradient(circle, rgba(218,165,32,0.2) 1px, transparent 2px);
+    background-size: 40px 40px, 60px 60px;
+    animation: moveBackground 40s linear infinite;
+    z-index: 1;
+  }
 
-/* ===== Chapters Section ===== */
-.chapters {
-  position: relative;
-  min-height: 100vh;
-  padding: 60px 20px;
-  background-color: #ffffff;
-  text-align: center;
-  overflow: hidden;
-}
+  @keyframes moveBackground {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(50px, -50px); }
+    100% { transform: translate(0,0); }
+  }
 
-.chapters h2 {
-  font-size: 2.5rem;
-  color: #064e3b;
-  margin-bottom: 40px;
-}
+  /* Faint supply & demand curve lines */
+  .curve-line {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(128,0,128,0.1) 0px,
+      rgba(128,0,128,0.1) 1px,
+      transparent 2px,
+      transparent 5px
+    );
+    animation: floatCurve 50s linear infinite;
+    z-index: 0;
+  }
 
-/* ===== Moving Rings ===== */
-.chapters .circle {
-  position: absolute;
-  border-radius: 50%;
-  border: 2px solid;
-  background-color: transparent;
-  animation: float 40s linear infinite;
-}
+  @keyframes floatCurve {
+    0% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(-50px,50px) rotate(180deg); }
+    100% { transform: translate(0,0) rotate(360deg); }
+  }
 
-.chapters .circle:nth-child(1) { width: 20px; height: 20px; top: 10%; left: 5%; border-color: rgba(128,0,128,0.7); animation-duration: 35s; }
-.chapters .circle:nth-child(2) { width: 25px; height: 25px; top: 50%; left: 80%; border-color: rgba(218,165,32,0.6); animation-duration: 45s; }
-.chapters .circle:nth-child(3) { width: 15px; height: 15px; top: 70%; left: 30%; border-color: rgba(128,0,128,0.5); animation-duration: 38s; }
-.chapters .circle:nth-child(4) { width: 18px; height: 18px; top: 20%; left: 50%; border-color: rgba(218,165,32,0.5); animation-duration: 42s; }
-.chapters .circle:nth-child(5) { width: 12px; height: 12px; top: 60%; left: 15%; border-color: rgba(128,0,128,0.6); animation-duration: 36s; }
-.chapters .circle:nth-child(6) { width: 22px; height: 22px; top: 40%; left: 70%; border-color: rgba(218,165,32,0.5); animation-duration: 40s; }
-.chapters .circle:nth-child(7) { width: 16px; height: 16px; top: 80%; left: 25%; border-color: rgba(128,0,128,0.6); animation-duration: 44s; }
-.chapters .circle:nth-child(8) { width: 14px; height: 14px; top: 30%; left: 60%; border-color: rgba(218,165,32,0.6); animation-duration: 37s; }
-.chapters .circle:nth-child(9) { width: 19px; height: 19px; top: 75%; left: 85%; border-color: rgba(128,0,128,0.5); animation-duration: 41s; }
-.chapters .circle:nth-child(10){ width: 17px; height: 17px; top: 55%; left: 35%; border-color: rgba(218,165,32,0.5); animation-duration: 39s; }
-.chapters .circle:nth-child(11){ width: 21px; height: 21px; top: 15%; left: 75%; border-color: rgba(128,0,128,0.7); animation-duration: 43s; }
-.chapters .circle:nth-child(12){ width: 13px; height: 13px; top: 65%; left: 45%; border-color: rgba(218,165,32,0.6); animation-duration: 46s; }
-.chapters .circle:nth-child(13){ width: 18px; height: 18px; top: 35%; left: 20%; border-color: rgba(128,0,128,0.6); animation-duration: 37s; }
-.chapters .circle:nth-child(14){ width: 20px; height: 20px; top: 85%; left: 55%; border-color: rgba(218,165,32,0.5); animation-duration: 42s; }
-.chapters .circle:nth-child(15){ width: 15px; height: 15px; top: 25%; left: 40%; border-color: rgba(128,0,128,0.7); animation-duration: 38s; }
-
-@keyframes float {
-  0% { transform: translate(0,0); }
-  50% { transform: translate(30px, -30px); }
-  100% { transform: translate(0,0); }
-}
-
-/* ===== Chapter Grid ===== */
-.chapter-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.chapter-card {
-  background-color: #064e3b;
-  border-radius: 15px;
-  padding: 25px 20px;
-  text-align: center;
-}
-
-.chapter-card h3 {
-  color: #ffffff;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.btn-small {
-  display: inline-block;
-  padding: 10px 18px;
-  background-color: rgba(15,118,110,0.9);
-  color: #ffffff;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.btn-small:hover {
-  background-color: rgba(11,107,80,0.9);
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 600px) {
-  .hero h1 { font-size: 2.5rem; }
-  .chapters h2 { font-size: 2rem; }
-  .chapter-card h3 { font-size: 1rem; }
-}
+  /* Responsive */
+  @media (max-width: 600px) {
+    .chapters h2 { font-size: 2rem; }
+    .chapter-card h3 { font-size: 1rem; }
+  }
 </style>
 </head>
-<body class="homepage-body">
+<body>
 
-<!-- Hero Section -->
-<section class="hero">
-  <h1>My Book Title</h1>
-  <div class="scroll-down" onclick="document.querySelector('#chapters').scrollIntoView({behavior:'smooth'})">
-    <span></span>
-  </div>
-</section>
-
-<!-- Chapters Section -->
 <section class="chapters" id="chapters">
-  <!-- 15 Moving Rings -->
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-
   <h2>Chapters</h2>
+  <div class="curve-line"></div>
   <div class="chapter-grid">
     <div class="chapter-card">
-      <h3>Chapter 1</h3>
-      <a href="chapters/chapter1.html" class="btn-small">Read</a>
+      <h3>Chapter 1: Introduction</h3>
+      <a href="chapter1.html" class="btn-small">Read</a>
     </div>
     <div class="chapter-card">
-      <h3>Chapter 2</h3>
-      <a href="chapters/chapter2.html" class="btn-small">Read</a>
+      <h3>Chapter 2: Supply & Demand</h3>
+      <a href="chapter2.html" class="btn-small">Read</a>
     </div>
     <div class="chapter-card">
-      <h3>Chapter 3</h3>
-      <a href="chapters/chapter3.html" class="btn-small">Read</a>
+      <h3>Chapter 3: Consumer Choice</h3>
+      <a href="chapter3.html" class="btn-small">Read</a>
+    </div>
+    <div class="chapter-card">
+      <h3>Chapter 4: Production & Costs</h3>
+      <a href="chapter4.html" class="btn-small">Read</a>
     </div>
   </div>
 </section>
