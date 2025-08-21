@@ -609,7 +609,253 @@ plt.xlim(0, 2000)
 plt.ylim(0, 3500)
 plt.grid(True)
 plt.legend()
-plt.show() `
+plt.show() `,chapter2.1:`import numpy as np
+import matplotlib.pyplot as plt
+
+# Updated demand curve function to fit the new conditions
+def basic_demand_curve(p, a=100, b=10):
+    return a - b * p
+
+# Generate a range of prices
+prices = np.linspace(0, 15, 100)
+quantities = basic_demand_curve(prices)
+
+# Create the plot
+plt.plot(quantities, prices, label="Demand Curve")
+plt.xlabel("Quantity")
+plt.ylabel("Price")
+plt.title("Basic Demand Curve")
+plt.xlim(0, 150)  # Set the quantity range from 0 to 150
+plt.ylim(0, 15)   # Set the price range from 0 to 15
+plt.grid(True)
+plt.legend()
+plt.show()`, chapter2.2:`import ipywidgets as widgets
+from ipywidgets import interact
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Updated demand curve function
+def basic_demand_curve(p, a=100, b=10):
+    return a - b * p
+
+# Generate price range
+prices = np.linspace(0, 15, 100)
+
+# Shift function for the demand curve
+def demand_shift(change_in_preference=False, price_of_substitute=False):
+    shift = 0
+    explanation = "No change in demand."
+
+    # Adjust shift based on selected factors
+    if change_in_preference:
+        shift += 30  # Scaled to match the new intercept of 100
+        explanation = (
+            "Consumer preference for the good has increased. This means that consumers are willing to pay "
+            "higher prices at every quantity level, reflecting an increase in demand. The maximum price consumers "
+            "are willing to pay for the first unit has risen, causing the entire demand curve to shift to the right."
+        )
+
+    if price_of_substitute:
+        shift += -20  # Scaled to match the new intercept of 100
+        explanation = (
+            "The price of a substitute good has decreased. As consumers find the substitute cheaper, they are less "
+            "willing to purchase the original good at the same price. As a result, demand for the original good falls, "
+            "leading to a leftward shift in the demand curve. Consumers now require a lower price to buy the same quantities."
+        )
+
+    # Original and shifted demand curves
+    original_quantities = basic_demand_curve(prices)
+    shifted_quantities = basic_demand_curve(prices, a=100 + shift)
+
+    # Plot the curves
+    plt.figure(figsize=(8, 6))
+    plt.plot(original_quantities, prices, label="Original Demand")
+    plt.plot(shifted_quantities, prices, label="Shifted Demand", linestyle='--')
+    plt.xlabel("Quantity")
+    plt.ylabel("Price")
+    plt.title("Impact of Demand Shifts")
+    plt.xlim(0, 150)  # Adjust x-axis range for quantity
+    plt.ylim(0, 15)   # Adjust y-axis range for price
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+`, chapter2.3:`import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the supply curve function
+def basic_supply_curve(p, c=10, d=0):
+    """Basic supply curve with a slope that fits the new price and quantity ranges."""
+    return c * p - d  # c is the slope, d is the intercept
+
+# Define price range from 0 to 15 (as per the demand curve space)
+prices = np.linspace(0, 15, 100)
+quantities_supplied = basic_supply_curve(prices, c=10, d=0)
+
+# Filter to show only the positive quantities (i.e., quantities >= 0 and prices >= 0)
+positive_quantities = quantities_supplied[quantities_supplied >= 0]
+positive_prices = prices[:len(positive_quantities)]
+
+# Plot the supply curve
+plt.figure(figsize=(8, 6))
+plt.plot(positive_quantities, positive_prices, label="Supply Curve")
+plt.xlim(0, 150)  # Adjust quantity limit to match the demand function
+plt.ylim(0, 15)   # Adjust price limit to match the demand function
+plt.xlabel("Quantity")
+plt.ylabel("Price")
+plt.title("Basic Supply Curve")
+
+# Show grid and legend
+plt.grid(True)
+plt.legend()
+plt.show()
+`, chapter2.4:`import numpy as np
+import matplotlib.pyplot as plt
+import ipywidgets as widgets
+
+# Define the basic supply curve function
+def basic_supply_curve(p, c=10, d=0):
+    """Supply curve function with slope and intercept."""
+    return c * p - d
+
+# Shift function for the supply curve
+def supply_shift(change_in_technology=False, production_costs=False):
+    shift = 0
+    explanation = "No change in supply."
+
+    # Adjust shift based on selected factors
+    if change_in_technology:
+        shift -= 30  # Scaled shift for improved technology
+        explanation = (
+            "Supply increased due to better technology. New technologies allow firms to produce goods more efficiently, "
+            "lowering production costs and enabling them to supply more at every price level. This shifts the supply curve to the right."
+        )
+
+    if production_costs:
+        shift -= 20  # Scaled shift for lower production costs
+        explanation = (
+            "Supply increased due to lower production costs. A decrease in the cost of inputs such as labor or raw materials allows firms "
+            "to produce more at the same price level. As a result, firms can offer higher quantities at any given price, shifting the supply curve to the right."
+        )
+
+    # Define price range from 0 to 15 (as per the supply curve space)
+    prices = np.linspace(0, 15, 100)
+    
+    # Original and shifted supply curves
+    original_supply = basic_supply_curve(prices)
+    shifted_supply = basic_supply_curve(prices, d=0 + shift)  # Adjust intercept based on shift
+
+    # Filter to show only positive quantities (i.e., quantities >= 0 and prices >= 0)
+    positive_original_supply = original_supply[original_supply >= 0]
+    positive_prices_original = prices[:len(positive_original_supply)]
+    
+    positive_shifted_supply = shifted_supply[shifted_supply >= 0]
+    positive_prices_shifted = prices[:len(positive_shifted_supply)]
+
+    # Plot the curves
+    plt.figure(figsize=(8, 6))
+    plt.plot(positive_original_supply, positive_prices_original, label="Original Supply")
+    plt.plot(positive_shifted_supply, positive_prices_shifted, label="Shifted Supply", linestyle='--')
+    plt.xlim(0, 150)  # Adjust quantity range to match the demand function
+    plt.ylim(0, 15)   # Adjust price range to match the demand function
+    plt.xlabel("Quantity")
+    plt.ylabel("Price")
+    plt.title("Impact of Supply Shifts")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+`, chapter2.5:`import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import fsolve
+from ipywidgets import interact, FloatSlider, Checkbox
+
+# Define the demand and supply functions with shifts
+def demand_curve(p, slope_d=10, shift_d=0):
+    """Demand curve with shift."""
+    return 100 - slope_d * p + shift_d  # Adjusted for larger price and quantity ranges
+
+def supply_curve(p, slope_s=10, shift_s=0):
+    """Supply curve with shift."""
+    return slope_s * p - 50 + shift_s  # Adjusted for larger price and quantity ranges
+
+# Function to solve for equilibrium
+def equilibrium_system(p, slope_d, slope_s, shift_d, shift_s):
+    return demand_curve(p, slope_d, shift_d) - supply_curve(p, slope_s, shift_s)
+
+# Function to dynamically explain why equilibrium changes
+def equilibrium_explanation(change_in_preferences, consumer_preference_shift, change_in_production_costs, production_cost_shift):
+    explanation = "The equilibrium point has changed due to the following reasons:\n"
+    
+    if change_in_preferences and consumer_preference_shift != 0:
+        if consumer_preference_shift > 0:
+            explanation += f"- The demand curve shifted **upward** by {consumer_preference_shift}, reflecting an increase in consumer preferences, which increased the quantity demanded at each price level.\n"
+        else:
+            explanation += f"- The demand curve shifted **downward** by {abs(consumer_preference_shift)}, reflecting a decrease in consumer preferences, which decreased the quantity demanded at each price level.\n"
+    
+    if change_in_production_costs and production_cost_shift != 0:
+        if production_cost_shift > 0:
+            explanation += f"- The supply curve shifted **downward** by {production_cost_shift}, reflecting a decrease in production costs, which increased the quantity supplied at each price level.\n"
+        else:
+            explanation += f"- The supply curve shifted **upward**, reflecting an increase in production costs, which decreased the quantity supplied at each price level.\n"
+    
+    if explanation == "The equilibrium point has changed due to the following reasons:\n":
+        explanation += "- No changes were made to demand or supply curves."
+    
+    return explanation
+
+# Function to plot supply, demand, and equilibrium with interactive shifts and explanation
+def plot_supply_demand_equilibrium(change_in_preferences=False, consumer_preference_shift=0,
+                                   change_in_production_costs=False, production_cost_shift=0,
+                                   slope_d=10, slope_s=10):
+    prices = np.linspace(0, 15, 100)  # Adjusted price range
+    
+    # Apply shifts only if the checkboxes are checked
+    demand_shift_value = consumer_preference_shift if change_in_preferences else 0
+    supply_shift_value = -production_cost_shift if change_in_production_costs else 0
+    
+    # Original curves (no shifts)
+    original_demand = demand_curve(prices, slope_d, 0)
+    original_supply = supply_curve(prices, slope_s, 0)
+    
+    # Shifted curves
+    shifted_demand = demand_curve(prices, slope_d, demand_shift_value)
+    shifted_supply = supply_curve(prices, slope_s, supply_shift_value)
+    
+    # Solve for original equilibrium price and quantity
+    original_eq_price = fsolve(equilibrium_system, 1, args=(slope_d, slope_s, 0, 0))[0]
+    original_eq_quantity = demand_curve(original_eq_price, slope_d, 0)
+    
+    # Solve for new equilibrium price and quantity
+    shifted_eq_price = fsolve(equilibrium_system, 1, args=(slope_d, slope_s, demand_shift_value, supply_shift_value))[0]
+    shifted_eq_quantity = demand_curve(shifted_eq_price, slope_d, demand_shift_value)
+
+    # Plot original and shifted demand and supply curves
+    plt.figure(figsize=(8, 6))
+    
+    # Plot original demand and supply curves
+    plt.plot(original_demand, prices, label="Original Demand", linestyle='--')
+    plt.plot(original_supply, prices, label="Original Supply", linestyle='--')
+    
+    # Plot shifted demand and supply curves
+    plt.plot(shifted_demand, prices, label="Shifted Demand")
+    plt.plot(shifted_supply, prices, label="Shifted Supply")
+    
+    # Plot original and new equilibrium points
+    plt.scatter(original_eq_quantity, original_eq_price, color='blue', zorder=5, label="Original Equilibrium")
+    plt.text(original_eq_quantity, original_eq_price, f"P={original_eq_price:.2f}, Q={original_eq_quantity:.2f}", color="blue")
+    
+    plt.scatter(shifted_eq_quantity, shifted_eq_price, color='red', zorder=5, label="Shifted Equilibrium")
+    plt.text(shifted_eq_quantity, shifted_eq_price, f"P={shifted_eq_price:.2f}, Q={shifted_eq_quantity:.2f}", color="red")
+    
+    # Labels and plot settings
+    plt.xlabel("Quantity")
+    plt.ylabel("Price")
+    plt.title(f"Market Equilibrium: Original vs. Shifted")
+    plt.xlim(0, 150)  # Adjusted for quantity range
+    plt.ylim(0, 15)   # Adjusted for price range
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+`
 };
 
 let currentEditor = null;
