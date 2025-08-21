@@ -82,50 +82,44 @@
       40% { transform: translateY(10px); opacity: 1; }
     }
 
-    /* Chapters Section with moving circles background */
-    .chapters {
-      position: relative;
-      min-height: 100vh;
-      padding: 60px 20px;
-      background-color: #ffffff;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    /* Moving circles */
-    .chapters .circle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 30s linear infinite;
-    }
-    .chapters .circle:nth-child(1) {
-      width: 150px;
-      height: 150px;
-      background-color: rgba(75,0,130,0.2);
-      top: 10%;
-      left: 5%;
-    }
-    .chapters .circle:nth-child(2) {
-      width: 100px;
-      height: 100px;
-      background-color: rgba(218,165,32,0.15);
-      top: 50%;
-      left: 80%;
-    }
-    .chapters .circle:nth-child(3) {
-      width: 200px;
-      height: 200px;
-      background-color: rgba(75,0,130,0.1);
-      top: 70%;
-      left: 30%;
-    }
-
-    @keyframes float {
-      0% { transform: translate(0,0); }
-      50% { transform: translate(50px, -50px); }
-      100% { transform: translate(0,0); }
-    }
+    /* Moving rings */
+  .chapters .circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(128,0,128,0.5); /* hollow ring, brighter */
+    background-color: transparent; /* hollow */
+    animation: float 30s linear infinite;
+  }
+  
+  .chapters .circle:nth-child(1) {
+    width: 30px;
+    height: 30px;
+    top: 10%;
+    left: 5%;
+    border-color: rgba(128,0,128,0.7); /* bright dark purple */
+  }
+  
+  .chapters .circle:nth-child(2) {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 80%;
+    border-color: rgba(218,165,32,0.6); /* bright gold */
+  }
+  
+  .chapters .circle:nth-child(3) {
+    width: 25px;
+    height: 25px;
+    top: 70%;
+    left: 30%;
+    border-color: rgba(128,0,128,0.5);
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(30px, -30px); }
+    100% { transform: translate(0,0); }
+  }
 
     /* Chapter Grid stays above background */
     .chapter-grid {
