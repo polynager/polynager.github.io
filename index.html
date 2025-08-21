@@ -106,25 +106,45 @@ body {
   position: relative;
 }
 
-/* Many small hollow rings background */
-.chapters::before {
+/* Moving rings background - multiple layers for chaotic effect */
+.chapters::before,
+.chapters::after {
   content: '';
   position: absolute;
-  top: 0; left: 0;
+  top: -50%;
+  left: -50%;
   width: 200%;
   height: 200%;
-  background:
+  background: 
     radial-gradient(circle, rgba(128,0,128,0.3) 1px, transparent 1px),
     radial-gradient(circle, rgba(218,165,32,0.2) 1px, transparent 1px);
   background-size: 20px 20px, 30px 30px;
-  animation: moveBackground 40s linear infinite;
   z-index: 0;
 }
 
-@keyframes moveBackground {
-  0% { transform: translate(0,0); }
-  50% { transform: translate(40px, -40px); }
-  100% { transform: translate(0,0); }
+.chapters::after {
+  background-size: 50px 50px, 80px 80px;
+  background-position: 100px 50px, 200px 150px;
+}
+
+@keyframes moveBackgroundSmall {
+  0% { transform: translate(0,0) rotate(0deg); }
+  50% { transform: translate(40px, -40px) rotate(180deg); }
+  100% { transform: translate(0,0) rotate(360deg); }
+}
+
+@keyframes moveBackgroundLarge {
+  0% { transform: translate(0,0) rotate(0deg); }
+  50% { transform: translate(-60px, 50px) rotate(180deg); }
+  100% { transform: translate(0,0) rotate(360deg); }
+}
+
+.chapters::before {
+  animation: moveBackgroundSmall 40s linear infinite;
+}
+
+.chapters::after {
+  animation: moveBackgroundLarge 60s linear infinite;
 }
 
 /* Chapter Grid */
