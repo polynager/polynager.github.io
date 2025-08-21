@@ -1,36 +1,47 @@
-/* Homepage / Main page only */
+/* General */
 body.homepage-body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #0f9d58; /* medium green */
   color: #ffffff;
+  scroll-behavior: smooth;
 }
 
-/* Hero Section */
+/* Hero Section with gradient */
 .hero {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh; /* full screen */
   text-align: center;
-  background-color: #0f9d58;
+  background: linear-gradient(135deg, #0f9d58, #34a853, #0f766e);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
 }
+
 .hero h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   color: #fbbf24; /* gold */
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
   padding: 0 20px;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
 /* Chapters Section */
 .chapters {
-  padding: 50px 20px;
-  background-color: #1eaf70; /* slightly lighter green */
+  min-height: 100vh;
+  padding: 60px 20px;
+  background-color: #1eaf70; /* lighter green */
   text-align: center;
 }
 .chapters h2 {
   font-size: 2.5rem;
-  color: #fbbf24;
+  color: #fbbf24; /* gold */
   margin-bottom: 40px;
 }
 
@@ -61,11 +72,6 @@ body.homepage-body {
   font-size: 1.2rem;
 }
 
-.chapter-card p {
-  color: #ffffff;
-}
-
-/* Buttons */
 .btn-small {
   display: inline-block;
   padding: 10px 18px;
@@ -81,7 +87,7 @@ body.homepage-body {
 
 /* Responsive */
 @media (max-width: 600px) {
-  .hero h1 { font-size: 2rem; }
+  .hero h1 { font-size: 2.5rem; }
   .chapters h2 { font-size: 2rem; }
   .chapter-card h3 { font-size: 1rem; }
 }
