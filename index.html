@@ -14,7 +14,7 @@ body {
   scroll-behavior: smooth;
 }
 
-/* CSS variable for dynamic gradient color */
+/* CSS variable for dynamic green gradient */
 :root {
   --hero-color1: #064e3b;
   --hero-color2: #0b6b50;
@@ -41,14 +41,13 @@ body {
   padding: 0 20px;
 }
 
-/* Animate gradient */
 @keyframes gradientBG {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Down arrow like ↓ */
+/* Arrow like ↓, clickable */
 .scroll-down {
   position: absolute;
   bottom: 20px;
@@ -57,18 +56,23 @@ body {
   color: #ffffff;
   left: 50%;
   transform: translateX(-50%);
+  transition: transform 0.2s;
+}
+.scroll-down:hover {
+  transform: translateX(-50%) translateY(5px);
 }
 
 /* Chapters Section */
 .chapters {
   min-height: 100vh;
   padding: 60px 20px;
-  background-color: #ffffff;
+  background-color: #ffffff; /* white background */
   text-align: center;
   overflow: hidden;
+  position: relative;
 }
 
-/* Moving hollow rings */
+/* Moving hollow rings in chapters */
 .chapters::before,
 .chapters::after {
   content: '';
@@ -77,23 +81,18 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: 
-    radial-gradient(circle, rgba(128,0,128,0.4) 1px, transparent 1px),
-    radial-gradient(circle, rgba(218,165,32,0.3) 1px, transparent 1px);
-  background-size: 20px 20px, 30px 30px;
   z-index: 0;
 }
 
-.chapters::after {
-  background-size: 50px 50px, 80px 80px;
-  background-position: 100px 50px, 200px 150px;
-}
-
 .chapters::before {
+  background: radial-gradient(circle, rgba(128,0,128,0.4) 1px, transparent 1px);
+  background-size: 20px 20px;
   animation: moveBackgroundSmall 40s linear infinite;
 }
 
 .chapters::after {
+  background: radial-gradient(circle, rgba(15,118,110,0.3) 2px, transparent 2px);
+  background-size: 50px 50px;
   animation: moveBackgroundLarge 60s linear infinite;
 }
 
@@ -119,9 +118,9 @@ body {
   margin: 0 auto;
 }
 
-/* Chapter Cards: use CSS variable for dynamic hero color */
+/* Chapter Cards: same green palette as hero */
 .chapter-card {
-  background: linear-gradient(135deg, var(--hero-color1), var(--hero-color2), var(--hero-color3));
+  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
   border-radius: 15px;
   padding: 25px 20px;
   text-align: center;
@@ -181,24 +180,6 @@ body {
     </div>
   </div>
 </section>
-
-<script>
-// Animate CSS variables dynamically to match hero gradient
-const root = document.documentElement;
-let hue = 150; // greenish start
-
-function updateGradient() {
-  const color1 = `hsl(${hue}, 70%, 30%)`;
-  const color2 = `hsl(${(hue+30)%360}, 65%, 35%)`;
-  const color3 = `hsl(${(hue+60)%360}, 60%, 40%)`;
-  root.style.setProperty('--hero-color1', color1);
-  root.style.setProperty('--hero-color2', color2);
-  root.style.setProperty('--hero-color3', color3);
-  hue = (hue + 0.3) % 360; // slowly animate
-  requestAnimationFrame(updateGradient);
-}
-updateGradient();
-</script>
 
 </body>
 </html>
