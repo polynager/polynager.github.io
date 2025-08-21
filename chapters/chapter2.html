@@ -65,6 +65,7 @@
   
   <section id="demand-shift">
    <h2>Impact of Demand Shifts</h2>
+    <button class="see-code-button" onclick="openModal('chapter2.1')">See & Edit Code</button>
   <div>
     <label><input type="checkbox" id="prefCheckbox"> Increase in Consumer Pref.</label>
     <label><input type="checkbox" id="subCheckbox"> Price of Substitute Decreased</label>
@@ -99,6 +100,7 @@
   
   <section id="supply-curve">
     <h2>Basic Supply Curve</h2>
+    <button class="see-code-button" onclick="openModal('chapter2.2')">See & Edit Code</button>
     <div id="supplyCurvePlot" style="width:100%; height:500px;"></div>
   </section>
 
@@ -125,6 +127,7 @@
     
   <section id="supply-shift">
   <h2>Impact of Supply Shifts</h2>
+    <button class="see-code-button" onclick="openModal('chapter2.3')">See & Edit Code</button>
     <div>
       <label><input type="checkbox" id="techChange"> Improved Technology</label>
       <label><input type="checkbox" id="lowCosts"> Lower Production Costs</label>
@@ -150,6 +153,7 @@
   </div>
   <section id="equilibrium">
     <h2>Market Equilibrium: Original vs. Shifted</h2>
+    <button class="see-code-button" onclick="openModal('chapter2.4')">See & Edit Code</button>
     <div>
       <label><input type="checkbox" id="changePref"> Change in Consumer Preferences</label>
       <input type="range" id="prefShift" min="-50" max="50" step="5" value="0">
@@ -284,6 +288,7 @@
   </div>
 <section id="price-elasticity">
   <h2>Demand Elasticity Interactive Plot</h2>
+  <button class="see-code-button" onclick="openModal('chapter2.5')">See & Edit Code</button>
 <div>
   <label>
     Elasticity (E):
@@ -326,6 +331,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
   <script src="../js/price-elasticity.js"></script>
+  <script src="../js/python-runner.js"></script>
   <script src="../js/chapter2-quiz.js"></script>
   <script src="../js/equilibrium.js"></script>
   <script src="../js/supply-curve.js"></script> 
