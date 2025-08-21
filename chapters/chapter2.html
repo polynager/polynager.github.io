@@ -15,11 +15,56 @@
 </div>
   <h1>Introduction to Demand</h1>
 
+   <div class="text-box">
+    <p>
+    In economics, the demand for a good or service is the quantity that consumers are willing and able to purchase at various prices. 
+  </p>
+  <p>
+    We can represent this relationship between price and quantity demanded using a linear demand function:
+  </p>
+  <p>
+    $$ Q_d = a - bP $$
+  </p>
+  <p>
+    Where:
+    <ul>
+      <li>$Q_d$ is the quantity demanded.</li>
+      <li>$P$ is the price.</li>
+      <li>$a$ and $b$ are constants that determine the intercept and slope of the demand curve.</li>
+    </ul>
+  </p>
+  <p>
+    Let's start by visualizing a basic demand function.
+  </p>
+   </div>
+  
   <section id="demand-curve">
     <h2>Basic Demand Curve</h2>
     <div id="demandcurvePlot" style="width: 100%; height: 500px;"></div>
   </section>
 
+   <div class="text-box">
+  <h2>Factors That Influence Demand</h2>
+
+  <p>
+    Several factors can influence demand, causing shifts or movements along the demand curve:
+  </p>
+
+  <ul>
+    <li><strong>Movements along the demand curve</strong> occur due to changes in the price of the good itself.</li>
+    <li><strong>Shifts of the demand curve</strong> occur due to factors like:
+      <ul>
+        <li>Changes in consumer preferences.</li>
+        <li>Changes in the price of substitutes or complementary goods.</li>
+        <li>Changes in consumer income or wealth.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    The impact of changes in consumer preference or changes in the price of substitute goods is explored below.
+  </p>
+  </div>
+  
   <section id="demand-shift">
    <h2>Impact of Demand Shifts</h2>
   <div>
@@ -30,11 +75,56 @@
   <div id="demandShiftExplanation" style="margin-top:20px;"></div>
   </section>
 
+  <div class="text-box">
+  <h2>Introduction to Supply</h2>
+  <p>
+    The supply curve represents the relationship between the price of a good and the quantity that producers are willing to supply.
+  </p>
+  <p>
+    We can represent this relationship using a linear supply function:
+  </p>
+  <p>
+    $$
+    Q_s = cP - d
+    $$
+  </p>
+  <p>Where:</p>
+  <ul>
+    <li>$Q_s$ is the quantity supplied.</li>
+    <li>$P$ is the price.</li>
+    <li>$c$ and $d$ are constants determining the slope and intercept of the supply curve.</li>
+  </ul>
+  <p>
+    Let's start by visualizing a basic supply curve.
+  </p>
+  </div>
+  
   <section id="supply-curve">
     <h2>Basic Supply Curve</h2>
     <div id="supplyCurvePlot" style="width:100%; height:500px;"></div>
   </section>
 
+  <div class="text-box">
+  <h2>Factors That Influence Supply</h2>
+  <p>
+    Several factors can cause the supply curve to shift:
+  </p>
+
+  <ul>
+    <li><b>Movements along the supply curve</b> occur due to changes in the price of the good itself.</li>
+    <li><b>Shifts of the supply curve</b> occur due to factors such as:
+      <ul>
+        <li>Changes in production technology.</li>
+        <li>Changes in the costs of production.</li>
+        <li>Changes in the number of sellers in the market.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    The impact of changes in improved technology or changes in production costs is explored below.
+  </p>
+    </div>
+    
   <section id="supply-shift">
   <h2>Impact of Supply Shifts</h2>
     <div>
@@ -45,6 +135,21 @@
     <p id="supplyExplanation"></p>
   </section>
 
+  <div class="text-box">
+  <h2>Combining Supply and Demand</h2>
+  <p>
+    Now that we have explored the individual demand and supply sides, let's combine them into one graph. 
+    We'll also include the ability to shift both the demand and supply curves and observe how the market equilibrium 
+    (price and quantity) changes.
+  </p>
+
+  <ul>
+    <li>
+      <b>Equilibrium</b> occurs where the quantity supplied equals the quantity demanded. 
+      This intersection determines the market price and quantity.
+    </li>
+  </ul>
+  </div>
   <section id="equilibrium">
     <h2>Market Equilibrium: Original vs. Shifted</h2>
     <div>
@@ -66,7 +171,113 @@
     <div id="equilibriumPlot" style="width:100%; height:500px;"></div>
     <pre id="equilibriumExplanation"></pre>
   </section>
+    <div class="explanation-text">
+  <h2>Analyzing the Changes in Market Equilibrium</h2>
 
+  <p>
+    When the demand or supply curves shift, the equilibrium price and quantity change as well. 
+    The following interactive plot allows you to simulate changes in consumer preferences or production costs. 
+    Based on these changes, the equilibrium point will be recalculated and compared to the original equilibrium.
+  </p>
+
+  <ul>
+    <li><b>Blue Equilibrium:</b> Original market equilibrium before any changes.</li>
+    <li><b>Red Equilibrium:</b> New market equilibrium after shifts in demand or supply.</li>
+  </ul>
+
+  <p>
+   An explanation is provided below the graph to describe why the equilibrium point has changed based on the user’s input.
+  </p>
+    </div>
+
+  <div class="explanation-text">
+    <h2>Conclusion</h2>
+
+  <p>
+    By analyzing both the demand and supply sides of the market, we can observe how various factors 
+    influence equilibrium price and quantity. This understanding is essential for predicting how markets 
+    adjust to changes and how different forces impact consumer and producer behavior.
+  </p>
+
+  <h3>Key Concepts Covered:</h3>
+
+  <h4>Shifts in Demand:</h4>
+  <ul>
+    <li>Factors such as changes in consumer preferences, the price of substitutes, and overall market conditions can shift the demand curve.</li>
+    <li>An increase in consumer preferences or a rise in the price of substitutes shifts the demand curve <b>upward</b>, indicating higher quantities demanded at each price level.</li>
+    <li>Conversely, a decrease in consumer preferences or a fall in the price of substitutes shifts the demand curve <b>downward</b>, reducing the quantities demanded at each price level.</li>
+  </ul>
+
+  <h4>Shifts in Supply:</h4>
+  <ul>
+    <li>Advancements in technology, changes in production costs, and market conditions affect the supply curve.</li>
+    <li>Improved technology or lower production costs shift the supply curve <b>downward</b>, reflecting an increase in the quantity supplied at every price level.</li>
+    <li>Higher production costs or reduced technological efficiency shift the supply curve <b>upward</b>, reducing the quantity supplied at each price level.</li>
+  </ul>
+
+  <h3>Market Equilibrium:</h3>
+  <ul>
+    <li><b>Equilibrium Price and Quantity:</b>  
+      The interaction between demand and supply curves determines the market equilibrium—the price at which the 
+      quantity demanded equals the quantity supplied.  
+      <br><br>
+      When demand increases or supply decreases, the equilibrium price typically rises, and the equilibrium quantity may 
+      change depending on the extent of the shifts.  
+      Conversely, if demand decreases or supply increases, the equilibrium price tends to fall.
+    </li>
+    <br>
+    <li><b>Market Dynamics:</b>  
+      Understanding how both curves interact helps us predict how changes in the market—such as improvements in 
+      production technology or shifts in consumer preferences—impact prices and quantities.  
+      The size and slope of the demand and supply curves also play a crucial role in determining the magnitude of 
+      price and quantity changes.
+    </li>
+  </ul>
+
+  <p>
+    By integrating these principles, we gain insight into how markets adjust and move toward new equilibria, 
+    providing a foundation for further analysis of market behavior.
+  </p>
+  </div>
+
+  <div class="explanation-text">
+  <h2>Understanding Price Elasticity of Demand</h2>
+
+  <p>
+    The <b>price elasticity of demand</b> measures how responsive the quantity demanded of a good is to changes in its price. 
+    It is defined as:
+  </p>
+
+  <p style="text-align:center;">
+    $$
+    E_d = \frac{\% \Delta Q_d}{\% \Delta P}
+    $$
+  </p>
+
+  <p>
+    Elasticity provides crucial insights into how consumers react to price changes:
+  </p>
+
+  <ul>
+    <li><b>Elastic Demand:</b> If the elasticity $|E_d| > 1$, demand is considered <b>elastic</b>. 
+      Consumers are very responsive to price changes (e.g., luxury goods).</li>
+
+    <li><b>Inelastic Demand:</b> If the elasticity $|E_d| < 1$, demand is considered <b>inelastic</b>. 
+      Consumers are less responsive to price changes (e.g., necessities like food or gas).</li>
+
+    <li><b>Unit Elasticity:</b> If $|E_d| = 1$, the percentage change in quantity demanded equals the percentage change in price.</li>
+
+    <li><b>Perfectly Inelastic Demand:</b> If $E_d = 0$, the demand curve is vertical. 
+      The quantity demanded does not change with price (e.g., life-saving medications).</li>
+
+    <li><b>Perfectly Elastic Demand:</b> If $E_d = \infty$, the demand curve is horizontal. 
+      Consumers will only buy at a specific price and no higher.</li>
+  </ul>
+
+  <p>
+    Let’s explore how different elasticities change the shape of the demand curve.
+  </p>
+  </div>
 <section id="price-elasticity">
   <h2>Demand Elasticity Interactive Plot</h2>
 <div>
@@ -85,7 +296,21 @@
 <div id="plot" style="width: 100%; max-width: 800px; height: 600px;"></div>
 <div id="explanation" style="margin-top: 20px; font-style: italic;"></div>
 </section>
+<div class="explanation-text">
+  <h2>Exploring Elasticity and Demand Curve Changes</h2>
 
+  <p>
+    We start with an <b>original demand curve</b> that is unit elastic ($E_d = 1$). 
+    By adjusting the elasticity slider, you can see how the demand curve changes as elasticity increases or decreases:
+  </p>
+   <ul>
+    <li><b>Elastic Demand ($E_d > 1$):</b> Demand curve flattens. Small price changes → large changes in quantity demanded.</li>
+    <li><b>Inelastic Demand ($E_d < 1$):</b> Demand curve steepens. Large price changes → small changes in quantity demanded.</li>
+    <li><b>Perfectly Inelastic ($E_d = 0$):</b> Vertical demand curve. Quantity demanded stays constant.</li>
+    <li><b>Perfectly Elastic ($E_d = \infty$):</b> Horizontal demand curve. Consumers buy only at one price.</li> </ul>
+    </div>
+
+      
   <script src="../js/price-elasticity.js"></script>
   <script src="../js/equilibrium.js"></script>
   <script src="../js/supply-curve.js"></script> 
