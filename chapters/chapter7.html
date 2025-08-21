@@ -17,15 +17,81 @@
 
 <h1>Cost Functions Visualization</h1>
 
+  <div class="text-box">
+  <h2>Sunk Costs and Decision Making</h2>
+  <p>Sunk costs are costs that, once incurred, cannot be recovered, regardless of future decisions. These are distinct from opportunity costs, which should always be considered in decision-making. For example, if you’ve already paid for advertising or signed a non-refundable lease for your restaurant, these expenses are considered sunk costs. Even if the business shuts down, these costs remain, and they do not influence future choices.</p>
+
+  <p>When it comes to optimization, sunk costs play no role because they are constant and do not change with respect to the decision variables. Mathematically, the derivative of a constant is zero, which means that sunk costs do not affect the marginal costs or benefits of continuing operations. For example, when a firm is deciding how much to produce, sunk costs should not influence the optimal production level because they are irrelevant to the incremental costs of production.</p>
+
+  <p>The key takeaway is that firms (or individuals) should avoid the <strong>sunk cost fallacy</strong>—the error of letting unrecoverable past expenditures affect future decisions. Instead, decision-making should focus on future costs and revenues, excluding sunk costs from the analysis.</p>
+  </div>
+
+
   <section id="chapter7-plot1">
     <h2>Total Cost, Fixed Cost, and Variable Cost</h2>
     <div id="plot1" style="width: 100%; height: 500px;"></div>
   </section>
+ 
+  <div class="text-box">
+  <h2>Costs and Cost Curves</h2>
+  <p>In this chapter, we discuss the economic costs a firm considers when making production decisions. These include both accounting and opportunity costs, accounting for all inputs. A firm’s costs can be divided into two types: fixed costs (FC) and variable costs (VC). Every cost is either fixed or variable, and a firm’s total cost (TC) is the sum of its fixed and variable costs:</p>
 
-  <section id="chapter7-plot2">
+  <p><strong>Total Cost Equation:</strong></p>
+  <p>TC(Q) = FC(Q) + VC(Q)</p>
+
+  <ul>
+    <li><strong>Fixed Costs (FC):</strong> Costs that remain constant regardless of output, e.g., rent, salaries, long-term leases.</li>
+    <li><strong>Variable Costs (VC):</strong> Costs that change with output, e.g., materials and labor that vary with production levels.</li>
+  </ul>
+
+  <p>Example cost functions:</p>
+  <ul>
+    <li><strong>Total Cost (TC):</strong> TC(Q) = 5 + 3Q + Q<sup>2</sup></li>
+    <li><strong>Fixed Cost (FC):</strong> FC(Q) = 5</li>
+    <li><strong>Variable Cost (VC):</strong> VC(Q) = 3Q + Q<sup>2</sup></li>
+  </ul>
+
+  <p>The plot below shows how total costs, fixed costs, and variable costs change as a function of output Q. Fixed costs remain constant as output increases, while both total and variable costs rise with increased output.</p>
+
+  <!-- Placeholder for plot -->
+  <div id="cost-curve-plot" style="width:100%; height:400px; border:1px solid #ccc; text-align:center; line-height:400px; color:#888;">
+    Cost Curve Plot Here
+  </div>
+ </div>
+
+ <div class="text-box">
     <h2>Average Total Cost, Average Fixed Cost, and Average Variable Cost</h2>
     <div id="plot2" style="width: 100%; height: 500px;"></div>
   </section>
+
+ <div class="text-box">
+  <h2>Average and Marginal Costs</h2>
+
+  <p><strong>Average Fixed Cost (AFC):</strong> AFC is the fixed cost per unit of output. As output rises, AFC falls because the fixed cost is spread over more units, resulting in a declining curve.</p>
+
+  <p><strong>Average Variable Cost (AVC):</strong> AVC measures the per-unit variable cost of production. It can rise or fall with output. Initially, AVC often declines due to efficiency gains, but beyond a certain output level, it rises, creating a U-shaped curve.</p>
+
+  <p><strong>Average Total Cost (ATC):</strong> ATC is total cost per unit of output and equals AFC + AVC. ATC usually exhibits a U-shape because of declining AFC and AVC initially, followed by rising AVC at higher output levels.</p>
+
+  <p>Formulas:</p>
+  <ul>
+    <li>ATC(Q) = TC(Q) / Q</li>
+    <li>AVC(Q) = VC(Q) / Q</li>
+    <li>AFC(Q) = FC(Q) / Q</li>
+  </ul>
+
+  <p>In the plot, the <strong>Marginal Cost (MC)</strong> curve intersects the <strong>ATC</strong> and <strong>AVC</strong> curves at their minimum points. If MC is below ATC or AVC, those curves are declining; if MC is above, they are rising.</p>
+
+  <p><strong>Marginal Cost (MC):</strong> MC is the cost of producing one additional unit:</p>
+  <p>MC(Q) = dTC(Q)/dQ</p>
+
+  <p>The MC curve typically falls at first due to increasing returns, then rises as capacity limits or higher input costs take effect. Its intersection with ATC and AVC explains the U-shape of the average cost curves.</p>
+
+  <!-- Placeholder for plot -->
+  <div id="avg-marginal-cost-plot" style="width:100%; height:400px; border:1px solid #ccc; text-align:center; line-height:400px; color:#888;">
+    Average and Marginal Cost Plot Here
+  </div>
+</div>
 
   <section id="chapter7-plot3">
     <h2>Average Costs and Marginal Cost with New Function</h2>
