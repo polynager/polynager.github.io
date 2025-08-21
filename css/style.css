@@ -75,15 +75,6 @@ body {
   text-decoration: none;
   margin-top: 10px;
 }
-/* General Page Styles */
-body {
-  font-family: Georgia, serif;
-  background-color: #f8f9fa;
-  color: #212529;
-  margin: 2rem auto;
-  max-width: 960px;
-  line-height: 1.6;
-}
 
 /* Headings */
 h1, h2 {
