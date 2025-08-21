@@ -5,10 +5,10 @@ body.homepage-body {
   padding: 0;
   color: #ffffff;
   scroll-behavior: smooth;
-  background-color: #064e3b; /* darker green base for overall page */
+  background-color: #064e3b; /* dark green */
 }
 
-/* Hero Section with soft animated gradient */
+/* Hero Section with gradient */
 .hero {
   position: relative;
   display: flex;
@@ -16,14 +16,14 @@ body.homepage-body {
   justify-content: center;
   height: 100vh;
   text-align: center;
-  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
+  background: linear-gradient(135deg, #064e3b, #0b6b50, #2d1f3c); /* dark green + dark purple */
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }
 
 .hero h1 {
   font-size: 4rem;
-  color: #ffffff; /* white text */
+  color: #ffffff;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   padding: 0 20px;
 }
@@ -45,6 +45,7 @@ body.homepage-body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  cursor: pointer;
 }
 
 .scroll-down span {
@@ -52,7 +53,7 @@ body.homepage-body {
   width: 4px;
   height: 20px;
   border-radius: 2px;
-  background: #fbbf24;
+  background: #e0e0ff; /* light accent for arrow */
   animation: bounce 2s infinite;
 }
 
@@ -63,7 +64,7 @@ body.homepage-body {
   width: 4px;
   height: 20px;
   border-radius: 2px;
-  background: #fbbf24;
+  background: #e0e0ff;
   position: absolute;
   left: 0;
 }
@@ -80,12 +81,12 @@ body.homepage-body {
 .chapters {
   min-height: 100vh;
   padding: 60px 20px;
-  background-color: #0b6b50; /* dark green, lighter than hero */
+  background-color: #0b6b50; /* dark green */
   text-align: center;
 }
 .chapters h2 {
   font-size: 2.5rem;
-  color: #fbbf24; /* gold */
+  color: #ffffff; /* white title */
   margin-bottom: 40px;
 }
 
@@ -99,7 +100,7 @@ body.homepage-body {
 /* Chapter Cards */
 .chapter-card {
   background-color: #064e3b; /* dark green */
-  border: 2px solid #fbbf24; /* gold border */
+  border: 2px solid #2d1f3c; /* dark purple border */
   border-radius: 15px;
   padding: 25px 20px;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -111,7 +112,7 @@ body.homepage-body {
 }
 
 .chapter-card h3 {
-  color: #fbbf24; /* gold */
+  color: #ffffff;
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
@@ -119,14 +120,14 @@ body.homepage-body {
 .btn-small {
   display: inline-block;
   padding: 10px 18px;
-  background-color: #fbbf24; /* gold button */
-  color: #064e3b; /* dark green text on button */
+  background-color: #2d1f3c; /* dark purple button */
+  color: #ffffff;
   border-radius: 12px;
   text-decoration: none;
   font-weight: bold;
 }
 .btn-small:hover {
-  background-color: #ddb02c;
+  background-color: #1b1325;
 }
 
 /* Responsive */
