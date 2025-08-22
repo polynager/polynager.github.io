@@ -21,66 +21,51 @@ body {
   --hero-color3: #0f766e;
 }
 
-/* Hero with animated gradient */
+/* Hero gradient with slow wave */
 .hero {
-  position: relative;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  overflow: hidden;
+  align-items: center;
+  background: linear-gradient(120deg, #064e3b, #0b6b50, #0f766e);
+  background-size: 200% 200%;
+  animation: waveGradient 20s ease infinite;
+  text-align: center;
 }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+@keyframes waveGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Title breathing effect */
-.hero-title {
+/* Title with soft glow */
+.hero h1 {
   font-size: 4rem;
-  color: #fff;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-  animation: breathe 6s ease-in-out infinite;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255,255,255,0.2);
+  animation: glow 6s ease-in-out infinite;
 }
 
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+@keyframes glow {
+  0%,100% { text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+  50% { text-shadow: 0 0 25px rgba(255,255,255,0.5); }
 }
 
-/* Animated underline */
-.underline {
-  width: 0;
-  height: 4px;
-  background: #ffffff;
-  margin-top: 15px;
-  animation: underline 3s ease-in-out infinite;
-}
-
-@keyframes underline {
-  0%, 100% { width: 0; }
-  50% { width: 60%; }
-}
-
-/* Scroll-down arrow */
+/* Arrow */
 .scroll-down {
   position: absolute;
   bottom: 30px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #fff;
   cursor: pointer;
-  animation: pulseArrow 2s infinite;
+  animation: arrowBounce 2s infinite;
 }
 
-@keyframes pulseArrow {
-  0%, 100% { transform: translateY(0); opacity: 0.6; }
-  50% { transform: translateY(10px); opacity: 1; }
+@keyframes arrowBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
 }
 
 /* Floating particles */
