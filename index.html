@@ -21,32 +21,29 @@ body {
   --hero-color3: #0f766e;
 }
 
-/* Hero gradient with slow wave */
 .hero {
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(120deg, #064e3b, #0b6b50, #0f766e);
-  background-size: 200% 200%;
-  animation: waveGradient 20s ease infinite;
   text-align: center;
+  background: linear-gradient(-45deg, #064e3b, #0b6b50, #0f766e, #064e3b);
+  background-size: 300% 300%;
+  animation: gradientShift 25s ease infinite;
 }
 
-@keyframes waveGradient {
+@keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Title with soft glow */
 .hero h1 {
   font-size: 4rem;
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(255,255,255,0.2);
-  animation: glow 6s ease-in-out infinite;
+  color: #fff;
+  margin: 0;
 }
+
 
 @keyframes glow {
   0%,100% { text-shadow: 0 0 5px rgba(255,255,255,0.2); }
