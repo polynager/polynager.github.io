@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MicPy: Introduction to Microeconomics with Python</title>
 <style>
-/* General */
 body {
   margin: 0;
   padding: 0;
@@ -14,13 +13,13 @@ body {
   scroll-behavior: smooth;
 }
 
-/* CSS variable for dynamic green gradient */
 :root {
   --hero-color1: #064e3b;
   --hero-color2: #0b6b50;
   --hero-color3: #0f766e;
 }
 
+/* Hero Section */
 .hero {
   position: relative;
   height: 100vh;
@@ -41,18 +40,15 @@ body {
 
 .hero h1 {
   font-size: 4rem;
-  color: #fff;
   margin: 0;
 }
 
-/* Arrow */
 .scroll-down {
   position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 3rem;
-  color: #fff;
   cursor: pointer;
   animation: arrowBounce 2s infinite;
 }
@@ -62,7 +58,6 @@ body {
   50% { transform: translate(-50%, 10px); }
 }
 
-/* Floating particles on hero only */
 .particles {
   position: absolute;
   top: 0; left: 0;
@@ -83,13 +78,13 @@ body {
 .chapters {
   min-height: 100vh;
   padding: 60px 20px;
-  background-color: #ffffff; /* white background */
+  background-color: #ffffff;
   text-align: center;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
-/* Moving hollow rings in chapters */
+/* Background rings - pushed behind */
 .chapters::before,
 .chapters::after {
   content: '';
@@ -98,7 +93,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  z-index: 0;
+  z-index: -1; /* << key fix */
 }
 
 .chapters::before {
@@ -127,7 +122,7 @@ body {
 /* Chapter Grid */
 .chapter-grid {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* ensures visible */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
@@ -135,7 +130,6 @@ body {
   margin: 0 auto;
 }
 
-/* Chapter Cards: same green palette as hero */
 .chapter-card {
   background: linear-gradient(135deg, var(--hero-color1), var(--hero-color2), var(--hero-color3));
   border-radius: 15px;
@@ -146,7 +140,6 @@ body {
 
 .chapter-card h3 {
   margin-bottom: 15px;
-  font-size: 1.2rem;
 }
 
 .btn-small {
@@ -158,29 +151,21 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
-
 .btn-small:hover {
   background-color: rgba(11,107,80,0.9);
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .hero h1 { font-size: 2.5rem; }
-  .chapter-card h3 { font-size: 1rem; }
 }
 </style>
 </head>
 <body>
-  
+
 <section class="hero">
-  <h1 class="hero-title">MicPy: Introduction to Microeconomics with Python</h1>
+  <h1>MicPy: Introduction to Microeconomics with Python</h1>
   <div class="scroll-down" onclick="document.getElementById('chapters').scrollIntoView({behavior: 'smooth'})">
     ↓
   </div>
   <div class="particles"></div>
 </section>
 
-<!-- Chapters Section -->
 <section class="chapters" id="chapters">
   <h2>Chapters</h2>
   <div class="chapter-grid">
