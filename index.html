@@ -13,6 +13,7 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Color Palette */
 :root {
   --hero-color1: #064e3b;
   --hero-color2: #0b6b50;
@@ -28,15 +29,15 @@ body {
   align-items: center;
   text-align: center;
   background: linear-gradient(-45deg, var(--hero-color1), var(--hero-color2), var(--hero-color3), var(--hero-color1));
-  background-size: 300% 300%;
-  animation: gradientShift 25s ease infinite;
-  
-  
+  background-size: 400% 400%;
+  animation: gradientWave 20s ease infinite;
 }
 
-@keyframes gradientShift {
+@keyframes gradientWave {
   0% { background-position: 0% 50%; }
+  25% { background-position: 50% 60%; }
   50% { background-position: 100% 50%; }
+  75% { background-position: 50% 40%; }
   100% { background-position: 0% 50%; }
 }
 
@@ -45,6 +46,7 @@ body {
   margin: 0;
 }
 
+/* Scroll-down arrow */
 .scroll-down {
   position: absolute;
   bottom: 30px;
@@ -60,22 +62,6 @@ body {
   50% { transform: translate(-50%, 10px); }
 }
 
-.particles {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.4) 2px, transparent 2px);
-  background-size: 40px 40px;
-  animation: moveParticles 20s linear infinite;
-  opacity: 0.15;
-}
-
-@keyframes moveParticles {
-  from { background-position: 0 0; }
-  to { background-position: 200px 200px; }
-}
-
 /* Chapters Section */
 .chapters {
   min-height: 100vh;
@@ -83,29 +69,29 @@ body {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: transparent; /* base transparent so pseudo-elements show */
+  background-color: #ffffff;
 }
 
-/* Solid white base */
+/* Background rings */
 .chapters::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-color: #ffffff; /* white background */
+  background-color: #ffffff; /* solid base */
   z-index: -3;
 }
 
-/* Many small rings */
 .chapters::after {
   content: '';
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: -2;
-  background-image: radial-gradient(circle, rgba(128,0,128,0.3) 1px, transparent 1px),
-                    radial-gradient(circle, rgba(15,118,110,0.25) 1px, transparent 1px);
-  background-size: 20px 20px, 40px 40px; /* small + medium circles */
+  background-image: 
+    radial-gradient(circle, rgba(15,118,110,0.5) 1px, transparent 1px),  /* green, brighter */
+    radial-gradient(circle, rgba(128,0,128,0.3) 1px, transparent 1px); /* purple */
+  background-size: 20px 20px, 40px 40px;
   background-position: 0 0, 10px 10px;
   animation: moveRings 60s linear infinite;
 }
@@ -116,10 +102,9 @@ body {
   100% { background-position: 0 0, 10px 10px; }
 }
 
-/* Chapter Grid */
 .chapter-grid {
   position: relative;
-  z-index: 1; /* ensures visible */
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
@@ -138,15 +123,12 @@ body {
 .chapter-card h3 {
   margin-bottom: 15px;
 }
-  
+
 .chapter-title {
-  position: relative;
-  z-index: 1;
   font-size: 2rem;
   color: var(--hero-color1);
   margin-bottom: 40px;
 }
-
 
 .btn-small {
   display: inline-block;
@@ -160,29 +142,12 @@ body {
 .btn-small:hover {
   background-color: rgba(11,107,80,0.9);
 }
-  .top-nav {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  z-index: 10;
-  display: flex;
-  gap: 20px;
-}
 
-.top-nav a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: background 0.3s, color 0.3s;
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.5rem; }
+  .chapter-card h3 { font-size: 1rem; }
 }
-
-.top-nav a:hover {
-  background-color: rgba(15,118,110,0.8); /* slightly darker green */
-  color: #ffffff;
-}
-
 </style>
 </head>
 <body>
@@ -192,12 +157,6 @@ body {
   <div class="scroll-down" onclick="document.getElementById('chapters').scrollIntoView({behavior: 'smooth'})">
     ↓
   </div>
-  <nav class="top-nav">
-    <a href="#chapters">Chapters</a>
-    <a href="#tutorials">Tutorials</a>
-    <a href="#support">Support</a>
-    <a href="#news">News</a>
-  </nav>
 </section>
 
 <section class="chapters" id="chapters">
