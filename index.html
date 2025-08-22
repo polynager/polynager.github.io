@@ -84,7 +84,6 @@ body {
   overflow: hidden;
 }
 
-/* Background rings - pushed behind */
 .chapters::before,
 .chapters::after {
   content: '';
@@ -93,18 +92,33 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  z-index: -1; /* << key fix */
+  z-index: -1;
+  background-repeat: repeat;
 }
 
+/* Purple rings */
 .chapters::before {
-  background: radial-gradient(circle, rgba(128,0,128,0.3) 1px, transparent 1px);
-  background-size: 25px 25px;
+  background-image: radial-gradient(circle, 
+    rgba(128,0,128,0.4) 1px, 
+    transparent 1px, 
+    transparent 6px, 
+    rgba(128,0,128,0.4) 6px, 
+    transparent 7px
+  );
+  background-size: 60px 60px;
   animation: moveBackgroundSmall 40s linear infinite;
 }
 
+/* Green rings */
 .chapters::after {
-  background: radial-gradient(circle, rgba(15,118,110,0.25) 2px, transparent 2px);
-  background-size: 60px 60px;
+  background-image: radial-gradient(circle, 
+    rgba(15,118,110,0.35) 1px, 
+    transparent 1px, 
+    transparent 10px, 
+    rgba(15,118,110,0.35) 10px, 
+    transparent 11px
+  );
+  background-size: 100px 100px;
   animation: moveBackgroundLarge 60s linear infinite;
 }
 
