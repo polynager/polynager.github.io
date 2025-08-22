@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Microeconomics Book</title>
+<title>MicPy: Introduction to Microeconomics with Python</title>
 <style>
 /* General */
 body {
@@ -21,45 +21,83 @@ body {
   --hero-color3: #0f766e;
 }
 
-/* Hero Section */
+/* Hero with animated gradient */
 .hero {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  text-align: center;
-  background: linear-gradient(135deg, var(--hero-color1), var(--hero-color2), var(--hero-color3));
+  background: linear-gradient(135deg, #064e3b, #0b6b50, #0f766e);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-  padding: 0 20px;
+  overflow: hidden;
 }
 
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
-/* Arrow like ↓, clickable */
+/* Title breathing effect */
+.hero-title {
+  font-size: 4rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* Animated underline */
+.underline {
+  width: 0;
+  height: 4px;
+  background: #ffffff;
+  margin-top: 15px;
+  animation: underline 3s ease-in-out infinite;
+}
+
+@keyframes underline {
+  0%, 100% { width: 0; }
+  50% { width: 60%; }
+}
+
+/* Scroll-down arrow */
 .scroll-down {
   position: absolute;
-  bottom: 20px;
-  font-size: 3rem;
+  bottom: 30px;
+  font-size: 2rem;
+  color: #fff;
   cursor: pointer;
-  color: #ffffff;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: transform 0.2s;
+  animation: pulseArrow 2s infinite;
 }
-.scroll-down:hover {
-  transform: translateX(-50%) translateY(5px);
+
+@keyframes pulseArrow {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
+/* Floating particles */
+.particles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.4) 2px, transparent 2px);
+  background-size: 40px 40px;
+  animation: moveParticles 20s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes moveParticles {
+  from { background-position: 0 0; }
+  to { background-position: 200px 200px; }
 }
 
 /* Chapters Section */
@@ -155,16 +193,20 @@ body {
 </style>
 </head>
 <body>
-
-<!-- Hero Section -->
+  
 <section class="hero">
-  <h1>Microeconomics</h1>
-  <div class="scroll-down" onclick="document.getElementById('chapters').scrollIntoView({behavior:'smooth'})">↓</div>
+  <h1 class="hero-title">Microeconomics</h1>
+  <div class="underline"></div>
+  <div class="scroll-down" onclick="document.getElementById('chapters').scrollIntoView({behavior: 'smooth'})">
+    ↓
+  </div>
+  <div class="particles"></div>
 </section>
+
 
 <!-- Chapters Section -->
 <section class="chapters" id="chapters">
-  <h2>Chapters</h2>
+  <h2>Chapters: </h2>
   <div class="chapter-grid">
     <div class="chapter-card">
       <h3>Chapter 1: Introduction</h3>
